@@ -13,8 +13,8 @@ if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft'); then
         exit 1
     fi
     gh release upload "$RELEASE_TAG" dist/LibreFren-*.AppImage dist/LibreFren-*.AppImage.sha256 --clobber
-    gh release edit "$RELEASE_TAG" --notes-file "$notes"
+    gh release edit "$RELEASE_TAG" --tag "$RELEASE_TAG" --verify-tag --notes-file "$notes"
 else
     gh release create "$RELEASE_TAG" dist/LibreFren-*.AppImage dist/LibreFren-*.AppImage.sha256 \
-        --draft --prerelease --title "LibreFren $RELEASE_TAG" --notes-file "$notes"
+        --draft --prerelease --verify-tag --title "LibreFren $RELEASE_TAG" --notes-file "$notes"
 fi
