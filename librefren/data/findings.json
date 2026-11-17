@@ -1,0 +1,312 @@
+[
+  {
+    "topic": "identity",
+    "project": "all",
+    "title": "Exact identity is necessary but insufficient",
+    "finding": "Board suffix, PCB revision, GPU/CPU variant, physical capacity and current firmware all affect applicability. Do not turn a name match into flash approval.",
+    "url": "https://libreboot.org/docs/install/t480.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "authentication",
+    "project": "all",
+    "title": "Authenticate before processing",
+    "finding": "Verify detached signatures against a pinned primary fingerprint. An adjacent unsigned checksum alone does not authenticate a release. Keep the authenticated original separate from prepared output.",
+    "url": "https://libreboot.org/download.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "preparation",
+    "project": "libreboot",
+    "title": "Vendor file insertion is a real build operation",
+    "finding": "lbmk downloads and processes required inputs, checks prepared image hashes and can modify the GbE MAC. Check completion and inspect the resulting variants. Renaming or trimming scrubbed ROMs is not preparation.",
+    "url": "https://libreboot.org/docs/install/ivy_has_common.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "preparation",
+    "project": "rboot",
+    "title": "Region preservation differs from Libreboot injection",
+    "finding": "Supported Sandy/Ivy Bridge and Haswell systems preserve existing vendor regions. Migration needs the actual source and destination region layouts, not a generic whole-chip command.",
+    "url": "https://rboot.org/docs/install/ivy_has_common.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "migration",
+    "project": "rboot",
+    "title": "Dell GbE boundary hazard",
+    "finding": "RBoot documents a 16 KiB GbE layout versus 8 KiB in some other distributions. Replacing GbE or IFD without migration-specific validation can overwrite ME bytes.",
+    "url": "https://rboot.org/docs/install/dell_gbe.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "power",
+    "project": "libreboot",
+    "title": "Dell 9020 completion sequence",
+    "finding": "The guide warns that vendor shutdown can write EFI variables after installation. The exact post-write power procedure and a live environment belong in the board workflow.",
+    "url": "https://libreboot.org/docs/install/dell9020.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "layout",
+    "project": "libreboot",
+    "title": "HP 8200 staged migration",
+    "finding": "The internal migration guide uses an intermediate image, altered layout and power cycles. A generic capacity-matched full-ROM command cannot reproduce this workflow safely.",
+    "url": "https://libreboot.org/docs/install/hp8200sff.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "backups",
+    "project": "all",
+    "title": "Independent reads and recovery copies",
+    "finding": "Compare repeated reads before erasure. Store original dumps off-device. Matching bytes alone do not prove completeness, independence, correct chip selection or electrical safety.",
+    "url": "https://libreboot.org/docs/install/simplified-hw-flashing.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "electrical",
+    "project": "all",
+    "title": "Voltage is a property of the actual chip",
+    "finding": "Use chip markings and its datasheet; check programmer supply and logic levels. Do not infer voltage from the laptop name, a jumper label, or a successful anecdotal flash.",
+    "url": "https://libreboot.org/docs/install/spi.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "payload",
+    "project": "libreboot",
+    "title": "Release-specific payload choices",
+    "finding": "26.11 shifts most boards toward EDK2. Derive choices from the selected archive instead of promising GRUB keymaps, SeaBIOS or text-mode variants universally. Check the OS boot path.",
+    "url": "https://libreboot.org/download.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "configuration",
+    "project": "coreboot",
+    "title": "Kconfig validity is not hardware safety",
+    "finding": "A selectable option or successful build cannot certify that a board will initialize. Pin the baseline, toolchain, dependencies and every hardware-critical setting; require board testing before exposing editable options.",
+    "url": "https://doc.coreboot.org/tutorial/part1.html",
+    "evidence": "design-inference",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "all",
+    "title": "Codename rather than retail branding",
+    "finding": "Identify the target HWID/codename and distinguish x86 from ARM. A vendor support table and upstream source selector are evidence, not proof of support in a different distribution.",
+    "url": "https://docs.mrchromebox.tech/docs/supported-devices.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "all",
+    "title": "Hardware WP and software WP are separate",
+    "finding": "The GSC or physical WP mechanism controls whether protected ranges can change. Record both states and use the device-specific procedure.",
+    "url": "https://docs.mrchromebox.tech/docs/firmware/wp/",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "all",
+    "title": "Ti50 RO verification prerequisite",
+    "finding": "The current guide requires resolving AllowUnverifiedRo before Full ROM or software-WP changes. Battery disconnection does not replace the Ti50 procedure.",
+    "url": "https://docs.mrchromebox.tech/docs/firmware/wp/",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "all",
+    "title": "Custom image data preservation",
+    "finding": "Keep original device data and validate region compatibility before transferring it. Prefer the documented custom-firmware path on a bootable supported device; do not blindly use generic manual writes.",
+    "url": "https://docs.mrchromebox.tech/docs/firmware/manual-flashing.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "libreboot",
+    "title": "Documentation contradictions need resolution",
+    "finding": "The reviewed Chromebook page includes source-only target notes, changing ME policy, and unresolved data-preservation text. Treat these as blockers for a generic release recipe; resolve per pinned release.",
+    "url": "https://libreboot.org/docs/install/chromebooks-x86.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "chromebook",
+    "project": "all",
+    "title": "Host backup may omit protected content",
+    "finding": "The Haswell guide distinguishes a live device dump from firmware-update inputs containing ME. It is historical and board-specific; do not apply its build recipe to other generations.",
+    "url": "https://www.chromium.org/chromium-os/developer-library/reference/development/developer-information-for-chrome-os-devices/upstream-coreboot-on-intel-haswell-chromebook/",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "recovery",
+    "project": "all",
+    "title": "Failed write is not a normal reboot point",
+    "finding": "Retain logs and follow the relevant recovery procedure before rebooting after an internal flash failure.",
+    "url": "https://flashprog.org/wiki/Flashprog",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "T480s update walkthrough",
+    "finding": "A personal report of an existing Libreboot installation update. Its force flags are not imported into this companion. Useful for understanding backup and preparation friction.",
+    "url": "https://blog.jeronimodiaz.com/updating-libreboot-in-thinkpad-t480s/",
+    "evidence": "community-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "Practical installation walkthrough",
+    "finding": "W500-oriented experience describes clips, repeated reads and image selection. Historical model recommendations and disputed programmer-voltage claims are not safety evidence.",
+    "url": "https://valdemarbila.com/blog/libreboot-eng.html",
+    "evidence": "community-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "T480s inconsistent-read report",
+    "finding": "Search-index excerpt reports unstable reads and an unusable stock backup. Full thread retrieval was denied. Corroborates the need to investigate read consistency; not a verified root cause.",
+    "url": "https://www.reddit.com/r/libreboot/comments/1jfeqtk",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "X200 erase failure",
+    "finding": "Report concerns erase failure despite apparent successful reads. Read success must not be treated as proof of write capability.",
+    "url": "https://www.reddit.com/r/libreboot/comments/icvr6t",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "X220 missing vendor-file report",
+    "finding": "Search excerpt describes a blank screen after omitting required files. The official insertion guide supplies the normative preparation requirement.",
+    "url": "https://www.reddit.com/r/libreboot/comments/1kjkmah",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "T400 failed boot and lost backup",
+    "finding": "Report highlights the importance of retaining a separate recovery copy throughout the operation. Exact root cause remains unverified.",
+    "url": "https://www.reddit.com/r/libreboot/comments/1m60n75",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "T480 memory instability report",
+    "finding": "Report describes boot and resume instability. A completed write is not acceptance testing; RAM topology and sleep/resume need test coverage.",
+    "url": "https://www.reddit.com/r/libreboot/comments/1m5knh3",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "coreboot",
+    "title": "Chromebook failure after settings change",
+    "finding": "Forum report describes failure after changing advanced settings. This is a test lead, not proof of which setting caused the failure.",
+    "url": "https://forum.chrultrabook.com/t/chromebook-mostly-bricked-due-to-a-setting-i-changed-in-coreboot/7800",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "coreboot",
+    "title": "Full-ROM flashing trouble",
+    "finding": "Forum excerpt includes VPD extraction during a Chromebook installation. Investigate exact release and board before drawing conclusions.",
+    "url": "https://forum.chrultrabook.com/t/im-having-trouble-flashing-the-full-rom-firmware/9010",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "libreboot",
+    "title": "Dell 9020 no-POST report",
+    "finding": "Anecdotal report of intermittent POST and advice to gather firmware logs. Add POST consistency to board qualification tests.",
+    "url": "https://www.reddit.com/r/libreboot/comments/1b43uwc",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "coreboot",
+    "title": "HP 820 G2 success report",
+    "finding": "A success report is a useful candidate for a test fixture but does not establish all variants, releases or components work.",
+    "url": "https://www.reddit.com/r/coreboot/comments/14o306s",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "coreboot",
+    "title": "KGPE-D16 historical issues",
+    "finding": "A user reports booting coreboot 4.10 with issues. Bind historical hardware reports to their exact source revision and configuration.",
+    "url": "https://www.reddit.com/r/coreboot/comments/yb3g2j",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "community",
+    "project": "coreboot",
+    "title": "Morphius Full ROM and VPD discussion",
+    "finding": "Discussion covers a failed Full ROM installation and VPD handling. External flashing alone cannot repair an incompatible image.",
+    "url": "https://www.reddit.com/r/coreboot/comments/1dpagh0",
+    "evidence": "search-excerpt-only",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  }
+]

@@ -1,0 +1,75 @@
+# LibreFren
+
+A small purple Linux TUI for researching and preparing **Libreboot, RBoot and coreboot** firmware. Run from this directory:
+
+```sh
+python3 -m librefren
+```
+
+**This is a research and preparation preview, not a qualified universal firmware installer.** It indexes all selectable board targets found by the current repository importer. It does not claim that every historical board, downstream fork, hardware revision or variant has been audited. No real-hardware flashing profile has been approved. Firmware write commands and unrestricted coreboot configuration changes remain disabled. No software can promise that flashing will never brick a device.
+
+## Implemented
+
+- Dependency-free Python/curses interface; Libreboot website colours `#280b22` and `#4e324e`, keyboard navigation, search and scrollable instructions.
+- Advisory Linux DMI, architecture, PCI and device-tree detection without reading serial numbers or requesting root. Exact name candidates preserve suffixes; external targets are distinguished from the running host.
+- Inventory of 327 Libreboot targets, 78 RBoot targets and 930 coreboot board selectors at recorded revisions. These are build targets/selectors, not unique tested retail models.
+- Local full-text database of 770 upstream documents, 31 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
+- Exact-target downloads for pinned Libreboot 26.11 and RBoot 26.11rev1 releases, HTTPS origin restrictions, isolated GPG verification against the publisher fingerprint, bounded archive inspection, and receipts.
+- Explicitly confirmed dependency installation from an unmodified, pinned lbmk/rbmk checkout. The upstream distribution profile is shown before sudo is invoked.
+- Pinned upstream source fetching without running build scripts; optional session logs for user-reported manual observations, which never unlock flashing.
+- Explicitly confirmed Libreboot vendor preparation through pinned upstream lbmk, with a MAC choice, untouched original archive, captured logs, prepared hashes and inspection of actual ROM variants. Successful preparation **does not** grant flash approval.
+- Selection/extraction of a prepared variant without overwriting existing files; repeated-backup consistency checks through the CLI.
+- Detailed manual instructions for Chromebook preparation, CR50/Ti50, target identity, protected regions, recovery and custom-firmware handoffs. Other boards receive general steps and exact-identifier documentation references when available.
+- AppImage packaging and a GitHub Actions workflow which creates **draft prereleases** on version tags.
+
+## Deliberately unresolved
+
+End-to-end installation for all boards is **not implemented or validated**. RBoot region-aware image preparation, automated Chromebook FMAP/VPD/HWID preservation, validated internal flashing command generation, per-chip external plans, board-specific coreboot settings/build execution, historical release selection, dependency isolation and signed catalog updates remain work to do. Unknown requirements stop progression. The UI's preparation controls are an implementation preview; no real vendor injection or system dependency installation was exercised during development.
+
+Coreboot source availability is not a promise of end-user installation support. Many boards need unique blobs, straps, manufacturing configuration, downstream patches or hardware recovery. A board appearing in the source inventory never authorizes a write. A manual acknowledgement is not machine-verifiable evidence.
+
+## CLI
+
+```sh
+python3 -m librefren detect
+python3 -m librefren boards --project libreboot --search t480s
+python3 -m librefren research 'RO_VPD'
+python3 -m librefren guide chromebook
+python3 -m librefren guide lenovo_thinkpad_t480s_16mb
+python3 -m librefren inspect /path/to/archive.tar.xz --target EXACT_TARGET
+python3 -m librefren check-backups --bytes 16777216 read1.bin read2.bin
+```
+
+Download only after selecting the exact target for research/preparation:
+
+```sh
+python3 -m librefren download --project libreboot --target EXACT_TARGET \
+  --confirm-target EXACT_TARGET --directory ./downloads
+```
+
+GPG must be installed on the host for signature verification. The app will refuse verification if it is unavailable. Source builds require the upstream dependency set; the AppImage contains the companion, not compilers or firmware. In the TUI, choose **Dependencies, preparation and variant selection** for opt-in preparation actions. RBoot preparation remains a manual, region-aware handoff.
+
+## Research
+
+See [findings](docs/research-findings.md), [source analysis](docs/source-analysis.md), [safety design](docs/safety-design.md) and [coverage](docs/coverage.md).
+
+Complete shallow working trees are under `research/upstream/`: `lbmk`, `rbmk`, `coreboot`, `lbwww`, `rbwww`, and historical `cbmk`/`cbwww`. Git histories are shallow; recursively fetched firmware dependencies/submodules are not included. These read-only research trees are excluded from this project's distributable. The user's existing `../lbmk` directory is untouched.
+
+Regenerate the metadata and local FTS database after checking out the recorded revisions:
+
+```sh
+python3 tools/index_sources.py
+python3 tools/curate_research.py
+```
+
+The AppImage bundles source metadata, links, findings and manual guides. The full text of upstream documentation is searchable locally when the research checkouts/database are present; it is not silently republished inside the release.
+
+## Tests and packaging
+
+```sh
+python3 -m unittest discover -s tests -v
+```
+
+`packaging/build_appimage.py` consumes PyInstaller and explicitly supplied AppImage tools with SHA-256 pins. See `.github/workflows/release.yml` for the complete build invocation. CI builds on Ubuntu 22.04 for a more portable glibc baseline. The locally built preview uses this development host's libc and is not yet cross-distribution qualified. x86_64 is the only packaged architecture currently; ARM target research is supported, but an ARM-native AppImage remains unbuilt.
+
+The project repository is [Saneezore/LibreFren](https://github.com/Saneezore/LibreFren), currently private. Version tags build draft preview releases; they do not make the repository or release public. Before public release, qualify the artifact on the supported Linux distributions and complete independent firmware-domain review. Upstream project names and colour references do not imply endorsement. The existing repository GPL-2.0 license is retained.

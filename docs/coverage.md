@@ -1,0 +1,22 @@
+# Coverage ledger
+
+Scope: **all models represented by Libreboot, RBoot and coreboot**, with archived documentation retained for migration research. The implementation currently imports all board targets/selectors found by its parser in the pinned working trees. Historical revisions and downstream forks are not exhaustively enumerated.
+
+| Capability | Coverage today | Remaining requirement |
+| --- | --- | --- |
+| Board inventory | 327 Libreboot targets, 78 RBoot targets, 930 coreboot selectors | Resolve inherited configs, historical boards, aliases and physical revisions |
+| Hardware detection | Advisory DMI fields and exact-name candidates | Reviewed multi-signal identities, chipset/revision/flash geometry and Chromebook HWID acquisition |
+| Official documentation | 770 local full-text documents, including predecessor history | Per-board reconciliation, temporal validity, contradictions and independent review |
+| Community knowledge | Reviewed blogs and clearly labelled search-excerpt leads | Obtain inaccessible threads, reproduce findings, tie reports to exact board/release |
+| Downloads | Exact target only, two pinned current distribution releases, signed archive verification | Historical schemas, key rotation/revocation and source-only build routes |
+| Dependencies | Explicitly confirmed upstream host-profile installer | Test on each supported distribution; isolate and qualify build environments |
+| Libreboot preparation | Pinned upstream injection runner, logs, MAC choice, archive/variant checks | Real vendor preparation tests and component/region validation per target |
+| RBoot preparation | Region-preservation instructions and explicit refusal of generic blob injection | Implement and test per-board migration/layout handling |
+| coreboot settings/builds | Source inventory and manual guidance | Reviewed baseline and allowed settings per board; build and hardware qualification |
+| Chromebooks | Detailed manual guide and source links | Exact-board WP/GSC recipes, FMAP compatibility and VPD/HWID/GBB/MRC validation |
+| Variant selection | Actual prepared archive entries; no fabricated universal choices | Board-specific payload/graphics/keymap compatibility |
+| Flash command generation | Disabled for all physical targets | Independently reviewed profile and complete evidence chain |
+| External flashing | General prerequisites and board-source handoff | Qualified chip topology, voltage, offsets, wiring and power sequence per board |
+| AppImage | x86_64 local preview plus CI packaging | Cross-distribution tests, ARM host build, publication and release provenance |
+
+The same fail-closed policy applies across the inventory. No particular laptop family is the product's primary support target. An entry's inclusion is research coverage; operational support must be earned separately through model-specific validation.

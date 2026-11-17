@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=LibreFren
+Comment=Research and prepare open firmware with explicit safety gates
+Exec=librefren
+Icon=librefren
+Terminal=true
+Categories=System;Utility;
