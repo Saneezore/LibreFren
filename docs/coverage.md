@@ -12,7 +12,7 @@ Scope: **all models represented by Libreboot, RBoot and coreboot**, with archive
 | Dependencies | Explicitly confirmed upstream host-profile installer | Test on each supported distribution; isolate and qualify build environments |
 | Libreboot preparation | Pinned upstream injection runner, logs, MAC choice, archive/variant checks | Real vendor preparation tests and component/region validation per target |
 | RBoot preparation | Authenticated inspection-only variant staging, common IFD region comparisons and preservation instructions; generic blob injection refused | Implement and test per-board region-preserving preparation and migration plans |
-| coreboot settings/builds | Source inventory and manual guidance | Reviewed baseline and allowed settings per board; build and hardware qualification |
+| coreboot settings/builds | Fresh pinned exact-selector configurations, dependency/toolchain/image controls, input integrity checks, live logs and cancellation; real upstream configuration tests | Complete toolchain/image build validation, reviewed baseline and allowed hardware settings per board, vendor-input integration and hardware qualification |
 | Chromebooks | Detailed manual guide, bounded FMAP parsing and read-only region/hash comparisons | Exact-board WP/GSC recipes, semantic VPD/HWID/GBB/MRC validation and reviewed data migration |
 | Variant selection | Actual archive entries; source hash rechecked against a private snapshot; RBoot signature reverified | Board-specific payload/graphics/keymap compatibility and hardware qualification |
 | Flash command generation | Disabled for all physical targets | Independently reviewed profile and complete evidence chain |

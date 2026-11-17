@@ -1,0 +1,387 @@
+{
+  "observed_at": "2026-11-17T23:23:31.863205+00:00",
+  "revision": "f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9",
+  "scope": "Real upstream configuration generation only; no toolchain/ROM build, hardware testing or flash approval.",
+  "host_tools": "workspace-extracted bison/flex packages",
+  "results": [
+    {
+      "target": "BOARD_EMULATION_QEMU_X86_I440FX",
+      "status": "configuration-verified",
+      "config_sha256": "4ea2002884afbea63afad691fd502d09442ac87c971292d2c8c7f42e6a1da0d0",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU x86 i440fx/piix4\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-i440fx\"",
+        "CBFS_SIZE": "0x00400000",
+        "ROM_SIZE": "0x00400000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_EMULATION_QEMU_X86_Q35",
+      "status": "configuration-verified",
+      "config_sha256": "5fd6408dc28637d6cd61b2530f37860885004777f7cba754825bb772b77deddd",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU x86 q35/ich9\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-q35\"",
+        "CBFS_SIZE": "0x00800000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_EMULATION_QEMU_AARCH64",
+      "status": "configuration-verified",
+      "config_sha256": "bb26a0d039e7cb78b2ed56cff5b235eff4b3875347f307c1831d14c97b2f69be",
+      "toolchains": [
+        "aarch64"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU AArch64\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-aarch64\"",
+        "CBFS_SIZE": "0x01000000",
+        "ROM_SIZE": "0x01000000",
+        "ARCH_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARM64": "y",
+        "ARCH_VERSTAGE_ARM64": "y",
+        "ARCH_ROMSTAGE_ARM64": "y",
+        "ARCH_RAMSTAGE_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARMV8_64": "y",
+        "ARCH_VERSTAGE_ARMV8_64": "y",
+        "ARCH_ROMSTAGE_ARMV8_64": "y",
+        "ARCH_RAMSTAGE_ARMV8_64": "y",
+        "PAYLOAD_NONE": "y"
+      }
+    },
+    {
+      "target": "BOARD_EMULATION_QEMU_ARMV7",
+      "status": "configuration-verified",
+      "config_sha256": "6d1c6f007523d27388af5aa238edc4b0c77f31634574a61cf2ba6d567bb0b8c4",
+      "toolchains": [
+        "arm"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU ARMv7\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-armv7\"",
+        "CBFS_SIZE": "0x00400000",
+        "ROM_SIZE": "0x00400000",
+        "ARCH_ARM": "y",
+        "ARCH_BOOTBLOCK_ARM": "y",
+        "ARCH_VERSTAGE_ARM": "y",
+        "ARCH_ROMSTAGE_ARM": "y",
+        "ARCH_RAMSTAGE_ARM": "y",
+        "ARCH_BOOTBLOCK_ARMV7": "y",
+        "ARCH_VERSTAGE_ARMV7": "y",
+        "ARCH_ROMSTAGE_ARMV7": "y",
+        "ARCH_RAMSTAGE_ARMV7": "y",
+        "PAYLOAD_NONE": "y"
+      }
+    },
+    {
+      "target": "BOARD_EMULATION_QEMU_RISCV_RV64",
+      "status": "configuration-verified",
+      "config_sha256": "0440421761221ce6a5a54f85e64b4882f352f40395f62f13f922f6c1705e531a",
+      "toolchains": [
+        "riscv"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU RISCV\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-riscv\"",
+        "CBFS_SIZE": "0x02000000",
+        "ROM_SIZE": "0x02000000",
+        "ARCH_RISCV_RV64": "y",
+        "ARCH_RISCV": "y",
+        "ARCH_RISCV_M": "y",
+        "ARCH_RISCV_S": "y",
+        "ARCH_RISCV_U": "y",
+        "ARCH_RISCV_PMP": "y",
+        "ARCH_BOOTBLOCK_RISCV": "y",
+        "ARCH_VERSTAGE_RISCV": "y",
+        "ARCH_ROMSTAGE_RISCV": "y",
+        "ARCH_RAMSTAGE_RISCV": "y",
+        "PAYLOAD_NONE": "y"
+      }
+    },
+    {
+      "target": "BOARD_EMULATION_QEMU_POWER9",
+      "status": "configuration-verified",
+      "config_sha256": "88f693bb4d109014db22c81fe1078b5891bdae40cec3fce291097821ed0060c8",
+      "toolchains": [
+        "ppc64"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"QEMU POWER9\"",
+        "MAINBOARD_DIR": "\"emulation/qemu-power9\"",
+        "CBFS_SIZE": "0x00100000",
+        "ROM_SIZE": "0x00100000",
+        "ARCH_PPC64": "y",
+        "ARCH_BOOTBLOCK_PPC64": "y",
+        "ARCH_VERSTAGE_PPC64": "y",
+        "ARCH_ROMSTAGE_PPC64": "y",
+        "ARCH_RAMSTAGE_PPC64": "y",
+        "PAYLOAD_SKIBOOT": "y"
+      }
+    },
+    {
+      "target": "BOARD_LENOVO_X230",
+      "status": "configuration-verified",
+      "config_sha256": "ef016058d80dda3560267b50e3a9a53502a3c54ec08d2b5a7ed259b327781e04",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"ThinkPad X230\"",
+        "MAINBOARD_DIR": "\"lenovo/x230\"",
+        "CBFS_SIZE": "0x700000",
+        "ROM_SIZE": "0x00c00000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_GOOGLE_ASURADA",
+      "status": "configuration-verified",
+      "config_sha256": "0da7a12dd722931d1e5bbb73c9b8c3b88e7ca1b4b07433d65cd873a19a978913",
+      "toolchains": [
+        "aarch64"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"Asurada\"",
+        "MAINBOARD_DIR": "\"google/asurada\"",
+        "CBFS_SIZE": "0x00800000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARM64": "y",
+        "ARCH_VERSTAGE_ARM64": "y",
+        "ARCH_ROMSTAGE_ARM64": "y",
+        "ARCH_RAMSTAGE_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARMV8_64": "y",
+        "ARCH_VERSTAGE_ARMV8_64": "y",
+        "ARCH_ROMSTAGE_ARMV8_64": "y",
+        "ARCH_RAMSTAGE_ARMV8_64": "y",
+        "PAYLOAD_NONE": "y"
+      }
+    },
+    {
+      "target": "BOARD_GOOGLE_HAYATO",
+      "status": "configuration-verified",
+      "config_sha256": "4152df9a619c5fd375c7c2e42a0b363ac4aa2a534de6ab84af6e3d4d5567a1ce",
+      "toolchains": [
+        "aarch64"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"Hayato\"",
+        "MAINBOARD_DIR": "\"google/asurada\"",
+        "CBFS_SIZE": "0x00800000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARM64": "y",
+        "ARCH_VERSTAGE_ARM64": "y",
+        "ARCH_ROMSTAGE_ARM64": "y",
+        "ARCH_RAMSTAGE_ARM64": "y",
+        "ARCH_BOOTBLOCK_ARMV8_64": "y",
+        "ARCH_VERSTAGE_ARMV8_64": "y",
+        "ARCH_ROMSTAGE_ARMV8_64": "y",
+        "ARCH_RAMSTAGE_ARMV8_64": "y",
+        "PAYLOAD_NONE": "y"
+      }
+    },
+    {
+      "target": "BOARD_ASUS_B85M_E",
+      "status": "configuration-verified",
+      "config_sha256": "30457b0989adf1879078b25d9096c5505750a8b4cea2785bea66855760362462",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"B85M-E\"",
+        "MAINBOARD_DIR": "\"asus/b85m-e\"",
+        "CBFS_SIZE": "0xB00000",
+        "ROM_SIZE": "0x01000000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_DELL_E6400",
+      "status": "configuration-verified",
+      "config_sha256": "162440dfd53a23690f5627a96ee124aa0e19f73e17f95751f658e1828f5ccbe7",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"Latitude E6400\"",
+        "MAINBOARD_DIR": "\"dell/gm45_latitude\"",
+        "CBFS_SIZE": "0x1A0000",
+        "ROM_SIZE": "0x00400000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_HP_260_G1_DM",
+      "status": "configuration-verified",
+      "config_sha256": "972409510f434f80f043efabdff35b375ca1c69cc9b581a628f7d39e7da7c7f1",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"260 G1 DM\"",
+        "MAINBOARD_DIR": "\"hp/260_g1_dm\"",
+        "CBFS_SIZE": "0x100000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_PURISM_LIBREM13_V1",
+      "status": "configuration-verified",
+      "config_sha256": "0bde0ad83afccca132734ce31bc351c2741f7c564bec8c64b93259ab606596a6",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"Librem 13 v1\"",
+        "MAINBOARD_DIR": "\"purism/librem_bdw\"",
+        "CBFS_SIZE": "0x100000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_PCENGINES_APU2",
+      "status": "configuration-verified",
+      "config_sha256": "7d536a7f440d2170128f53610d898cd1d357d42004233f37ffd3db68e43a4dd7",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"apu2\"",
+        "MAINBOARD_DIR": "\"pcengines/apu2\"",
+        "CBFS_SIZE": "0x00800000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_PROTECTLI_FW2B",
+      "status": "configuration-verified",
+      "config_sha256": "7e84882471000d89755f5d9055472a037722b6ae2d2bca14659b84b0160af801",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"FW2B\"",
+        "MAINBOARD_DIR": "\"protectli/vault_bsw\"",
+        "CBFS_SIZE": "0x500000",
+        "ROM_SIZE": "0x00800000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    },
+    {
+      "target": "BOARD_SYSTEM76_GALP6",
+      "status": "configuration-verified",
+      "config_sha256": "ab6a95df9fcf470a97aa78029afeeb7fd28cdd42eb9bf36804ce41075488e744",
+      "toolchains": [
+        "i386"
+      ],
+      "summary": {
+        "MAINBOARD_PART_NUMBER": "\"galp6\"",
+        "MAINBOARD_DIR": "\"system76/adl\"",
+        "CBFS_SIZE": "0x400000",
+        "ROM_SIZE": "0x02000000",
+        "ARCH_X86": "y",
+        "ARCH_BOOTBLOCK_X86_32": "y",
+        "ARCH_VERSTAGE_X86_32": "y",
+        "ARCH_ROMSTAGE_X86_32": "y",
+        "ARCH_POSTCAR_X86_32": "y",
+        "ARCH_RAMSTAGE_X86_32": "y",
+        "ARCH_SMM_X86_32": "y",
+        "ARCH_ALL_STAGES_X86_32": "y",
+        "PAYLOAD_SEABIOS": "y",
+        "PAYLOAD_BUILD_SEABIOS": "y"
+      }
+    }
+  ]
+}

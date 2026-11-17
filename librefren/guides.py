@@ -38,6 +38,14 @@ RBOOT = [
 ]
 
 
+COREBOOT = [
+    ('Create a fresh build configuration', 'Use the guided coreboot build screen after fetching the pinned source. Each configuration gets a separate checkout. Select whether upstream binary-only dependencies are permitted, then review the generated defaults. LibreFren checks the exact selector, vendor and source directory. These checks do not verify physical hardware or turn defaults into a tested installation profile.', 'https://doc.coreboot.org/tutorial/part1.html'),
+    ('Resolve required vendor inputs', 'Read the exact board documentation for FSP, microcode, ME, graphics, EC and other inputs. A missing-file build failure is a stop condition: do not substitute files from a nearby model. Binary-repository permission is separate from obtaining device-specific data and does not establish redistribution rights.', 'https://doc.coreboot.org/mainboard/index.html'),
+    ('Build the cross-toolchain and image', 'Install host dependencies through the confirmed distribution-specific installer or upstream instructions. In the build screen, choose parallel job count, build the cross-toolchain, then compile the image. These operations run upstream code and downloads as your user, can consume substantial disk space, and show live logs. Esc stops the process group. A failed or cancelled workspace needs a fresh configuration.', 'https://doc.coreboot.org/tutorial/part1.html'),
+    ('Check the payload and preserve device data', 'Some upstream defaults intentionally contain no payload and cannot boot an OS. LibreFren does not choose one on your behalf or expose hardware-sensitive settings. Review the recorded payload, exact board requirements, original backup and candidate layout. Building successfully does not establish device-data preservation or flash suitability. No physical write command is enabled.', 'https://doc.coreboot.org/payloads.html'),
+]
+
+
 def guide_for(board):
     result = list(GENERAL)
     documents = board.get('documentation', [])
@@ -46,6 +54,8 @@ def guide_for(board):
                      board['source']))
     if board['project'] == 'rboot':
         result = RBOOT + result
+    elif board['project'] == 'coreboot':
+        result = COREBOOT + result
     identifiers = ' '.join([board['id'], board.get('directory', ''), *board.get('selectors', [])]).lower()
     if any(x in identifiers for x in ('cros_', 'google', 'chromebook')):
         result = CHROMEBOOK + result

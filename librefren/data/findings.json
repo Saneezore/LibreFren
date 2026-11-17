@@ -1,5 +1,35 @@
 [
   {
+    "topic": "build",
+    "project": "coreboot",
+    "title": "Switching boards requires a fresh configuration",
+    "finding": "The upstream tutorial explains that Kconfig retains earlier board settings and can produce a hybrid configuration. LibreFren creates an independent checkout for each target, seeds its exact vendor and board selectors, then verifies the resolved selector and source directory.",
+    "url": "https://doc.coreboot.org/tutorial/part1.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "build",
+    "project": "coreboot",
+    "title": "Build host options do not qualify firmware defaults",
+    "finding": "Upstream configuration defaults may select no payload, particularly outside x86 and POWER. Such an image cannot boot an operating system without additional integration. Configuration success and ROM compilation do not validate target-specific vendor inputs, flash geometry or recovery.",
+    "url": "https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/payloads/Kconfig",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "build",
+    "project": "coreboot",
+    "title": "Cross-toolchain architecture is distinct from host architecture",
+    "finding": "The pinned toolchain Makefile provides separate architecture targets. The tutorial specifies the i386 toolchain for both 32-bit and 64-bit x86 firmware. LibreFren derives the cross-toolchain from the generated target configuration; it does not infer it from the Linux build host.",
+    "url": "https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/crossgcc/Makefile.mk",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
     "topic": "identity",
     "project": "all",
     "title": "Exact identity is necessary but insufficient",

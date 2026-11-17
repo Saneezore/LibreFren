@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tarfile
 import textwrap
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 from .guides import CHROMEBOOK, guide_for
@@ -18,6 +19,7 @@ from .releases import RELEASES, archive_name, fetch
 from .prepare import dependencies, fetch_source, inject, stage_variant
 from .layouts import compare_images, format_report
 from .session import Session
+from . import coreboot
 from .safety import Refusal, check_backups, detect, exact_candidates, flash_gate, inspect_variants
 
 DATA = Path(__file__).parent / "data"
@@ -66,6 +68,7 @@ class TUI:
         self.selected_variant = None
         self.backup_result = None
         self.layout_report = None
+        self.coreboot_workspace = None
         self.colour = 0
         try:
             curses.curs_set(0)
@@ -248,6 +251,7 @@ class TUI:
         self.selected = selected
         self.receipt = self.selected_variant = self.backup_result = None
         self.layout_report = None
+        self.coreboot_workspace = None
 
     def availability(self, board):
         if board['project'] == 'coreboot':
@@ -364,6 +368,130 @@ class TUI:
         self.view('Layout evidence — flashing remains blocked', format_report(report)
                   + '\n\nReport recorded in: ' + str(self.session.path))
 
+    def coreboot_job(self, title, action):
+        control = coreboot.Control()
+        started = time.monotonic()
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            future = pool.submit(action, control)
+            self.screen.timeout(150)
+            try:
+                while not future.done():
+                    self.frame(title)
+                    self.line(6, f'Elapsed: {int(time.monotonic() - started)} seconds · no firmware writes')
+                    self.line(8, 'Stopping the build…' if control.cancel.is_set() else 'Esc to cancel this operation')
+                    if control.log and control.log.exists():
+                        self.line(10, 'Log: ' + str(control.log))
+                        with control.log.open('rb') as stream:
+                            stream.seek(max(0, control.log.stat().st_size - 2048))
+                            lines = stream.read(2048).decode('utf-8', errors='replace').splitlines()
+                        for row, line in enumerate(lines[-max(1, self.screen.getmaxyx()[0] - 15):]):
+                            self.line(12 + row, line)
+                    self.screen.refresh()
+                    if self.screen.getch() == 27:
+                        control.cancel.set()
+                return future.result()
+            except BaseException:
+                control.cancel.set()
+                raise
+            finally:
+                self.screen.timeout(-1)
+
+    def coreboot_dependencies(self):
+        profiles = list(coreboot.DEPENDENCIES)
+        index = self.menu('coreboot host dependencies · choose your distribution', profiles + ['Other distribution / manual instructions'])
+        if index is None:
+            return
+        if index == len(profiles):
+            self.view('coreboot dependency instructions', 'Install the compiler, matching Ada compiler, make, git, bison, flex, curl, OpenSSL and zlib development headers, and pkgconf using your distribution’s packages. Upstream requirements: ' + coreboot.DOCUMENTATION)
+            return
+        profile = profiles[index]
+        self.view('Review system package installation', 'Host profile: ' + profile + '\n\n'
+                  + ' '.join(coreboot.DEPENDENCIES[profile]) + '\n\nThis uses sudo and changes system packages. Verify the selected distribution. The package manager will show its own confirmation.\n\n' + coreboot.DOCUMENTATION)
+        confirmation = self.prompt('Type INSTALL coreboot ' + profile)
+        if confirmation != 'INSTALL coreboot ' + profile:
+            return
+        import tempfile
+        directory = state_directory() / 'dependencies'
+        directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+        log = Path(tempfile.mkdtemp(prefix='coreboot-', dir=directory)) / 'installation.json'
+        result = self.terminal_job(lambda: coreboot.install_dependencies(profile, confirmation, log))
+        self.view('Dependency installer completed', 'Command receipt: ' + result['log'])
+
+    def coreboot_build(self):
+        if self.selected['project'] != 'coreboot':
+            raise Refusal('Select an exact coreboot target to use the source build workflow.')
+        target = self.selected['id']
+        jobs = 1
+        while True:
+            workspace = self.coreboot_workspace
+            action = self.menu('coreboot · ' + target + ' · unqualified build workspace', [
+                'Read build requirements and limitations',
+                'Review / install host dependencies',
+                'Create fresh configuration for this exact target',
+                'Review locked configuration' + (' [available]' if workspace else ''),
+                f'Choose build parallelism [{jobs} job(s)]',
+                'Build pinned upstream cross-toolchain',
+                'Compile an unqualified image', 'Back'])
+            if action is None or action == 7:
+                return
+            try:
+                if action == 0:
+                    self.view('coreboot build requirements', '\n\n'.join(coreboot.LIMITATIONS)
+                              + '\n\nFetch the pinned source, install host dependencies, create a fresh configuration, review it, build its cross-toolchain, then compile. Expect substantial disk use and long builds. Esc cancels a running operation. Hardware settings are locked. Changing the binary-dependency choice requires a new workspace.\n\nFor missing vendor files or unsupported defaults, follow the exact board documentation; LibreFren will retain logs and stop.\n\n' + coreboot.DOCUMENTATION)
+                elif action == 1:
+                    self.coreboot_dependencies()
+                elif action == 2:
+                    source = self.sources.get('coreboot')
+                    if not source:
+                        self.view('Fetch pinned source first', 'Return to the guided workflow and choose Fetch pinned upstream source.')
+                        continue
+                    blobs = self.menu('Allow binary-only upstream dependencies in this configuration?',
+                                      ['Do not permit binary-only repositories', 'Permit upstream binary repositories; review their licenses and board requirements'])
+                    if blobs is None:
+                        continue
+                    confirmation = self.prompt('Run pinned upstream Kconfig in a new workspace. Type CONFIGURE ' + target)
+                    if confirmation != 'CONFIGURE ' + target:
+                        continue
+                    self.coreboot_workspace = None
+                    self.selected_variant = self.layout_report = None
+                    self.coreboot_workspace = self.coreboot_job('Generate exact-target coreboot configuration',
+                        lambda control: coreboot.configure(source, target, blobs == 1, confirmation, state_directory() / 'coreboot', control))
+                    self.selected_variant = self.layout_report = None
+                    self.view('Configuration generated — review before building', json.dumps(self.coreboot_workspace.summary, indent=2)
+                              + '\n\nWorkspace: ' + str(self.coreboot_workspace.path) + '\n\nUpstream defaults are not a hardware-qualified installation profile.')
+                elif action == 3:
+                    if not workspace:
+                        raise Refusal('Create a fresh configuration first.')
+                    coreboot.verify_workspace(workspace, target)
+                    self.view('Locked configuration · ' + workspace.config_sha256,
+                              (workspace.source / '.config').read_text() + '\n\n' + '\n\n'.join(coreboot.LIMITATIONS))
+                elif action == 4:
+                    value = self.prompt('Parallel build jobs, 1–64. More jobs use more RAM; default is 1.')
+                    if value is not None:
+                        if not value.isdecimal():
+                            raise Refusal('Enter an integer from 1 to 64.')
+                        coreboot.jobs_value(int(value))
+                        jobs = int(value)
+                else:
+                    if not workspace:
+                        raise Refusal('Create and review a fresh configuration first.')
+                    operation = 'toolchain' if action == 5 else 'image'
+                    confirmation = self.prompt(f'Run upstream {operation} build scripts and their downloads as your user. Output remains unqualified. Type BUILD {operation} {target}')
+                    if confirmation != f'BUILD {operation} {target}':
+                        continue
+                    self.selected_variant = self.layout_report = None
+                    result = self.coreboot_job('Build coreboot ' + operation,
+                        lambda control: coreboot.build(workspace, target, jobs, operation, confirmation, control))
+                    if operation == 'image':
+                        self.selected_variant = result
+                        self.layout_report = None
+                    if self.session is None:
+                        self.session = Session(state_directory() / 'sessions')
+                    self.session.record('coreboot-' + operation, result)
+                    self.view('Build completed — flashing remains blocked', json.dumps(result, indent=2))
+            except (Refusal, OSError, ValueError, subprocess.SubprocessError) as error:
+                self.view('Build stopped · no flash approval', str(error))
+
     def download(self):
         if not self.selected or self.selected['project'] == 'coreboot':
             raise Refusal('Select an exact Libreboot or RBoot target first. coreboot requires a board-specific source build.')
@@ -411,8 +539,7 @@ class TUI:
                           + result['revision'] + '\n\nLibreFren will use this checkout for the next preparation steps. No build scripts have run.')
             return
         if action == 3:
-            self.view('coreboot configuration — hardware settings locked',
-                      'Use the exact board selector below as research evidence. A compiling configuration is not proof of safe hardware initialization. This preview does not expose editable Kconfig or a build executor without a reviewed baseline.\n\n' + json.dumps(self.selected, indent=2) + '\n\nManual next steps: review the board documentation, obtain required vendor files from documented sources, pin source/toolchain/submodules, and qualify the unchanged baseline on recoverable hardware.\n\nhttps://doc.coreboot.org/tutorial/part1.html')
+            self.coreboot_build()
             return
         if action == 2:
             if not self.receipt or not (self.receipt['status'] == 'upstream-preparation-completed-unqualified'
@@ -430,7 +557,10 @@ class TUI:
                           + '\n\nNext: compare this image with the complete original backup using the layout comparison step.')
             return
         if project == 'coreboot':
-            self.preparation(3)
+            if action == 0:
+                self.coreboot_dependencies()
+            else:
+                self.coreboot_build()
             return
         source = self.sources.get(project)
         if not source:
@@ -478,17 +608,25 @@ class TUI:
                           else 'Authenticated download available')
             if self.selected_variant:
                 status = 'Variant extracted · hardware validation unresolved'
+            if project == 'coreboot':
+                status = 'Configuration available' if self.coreboot_workspace else 'No configuration created'
+                if self.selected_variant:
+                    status = 'Unqualified build candidate available'
             labels = ['1. Review target identity / change target',
                       '2. Read board-specific requirements and manual steps',
                       '3. Check existing backup files',
                       '4. Fetch pinned upstream source' + (' [available]' if project in self.sources else ''),
                       '5. Review and install system dependencies',
                       '6. Download and authenticate exact release',
-                      '7. Prepare vendor components' if project == 'libreboot' else '7. Read custom preparation / build requirements',
-                      '8. Select and stage an actual ROM variant for inspection',
+                      ('7. Prepare vendor components' if project == 'libreboot' else
+                       '7. Configure and build coreboot' if project == 'coreboot' else '7. Read custom preparation requirements'),
+                      '8. Review / build coreboot candidate' if project == 'coreboot' else '8. Select and stage an actual ROM variant for inspection',
                       '9. Compare backup and candidate image layouts',
                       '10. Review flashing blockers and next steps',
                       'Chromebook-specific preparation instructions', 'Back to main menu']
+            if project == 'coreboot':
+                labels[5:8] = ['6. Configure and build coreboot', '7. Review built candidate and provenance',
+                               '8. Read board-specific build requirements']
             action = self.menu(f'{project} · {target} · {status}', labels)
             if action is None or action == 11:
                 return
@@ -505,16 +643,24 @@ class TUI:
                 elif action == 4:
                     self.preparation(0)
                 elif action == 5:
-                    self.download()
+                    if project == 'coreboot':
+                        self.coreboot_build()
+                    else:
+                        self.download()
                 elif action == 6:
                     if project == 'libreboot':
                         self.preparation(1)
                     elif project == 'coreboot':
-                        self.preparation(3)
+                        self.view('coreboot candidate · flashing remains blocked',
+                                  json.dumps(self.selected_variant, indent=2) if self.selected_variant else
+                                  'No candidate has been built. Use Configure and build coreboot first.')
                     else:
                         self.guides(guide_for(self.selected))
                 elif action == 7:
-                    self.preparation(2)
+                    if project == 'coreboot':
+                        self.guides(guide_for(self.selected))
+                    else:
+                        self.preparation(2)
                 elif action == 8:
                     self.compare_layouts()
                 elif action == 9:

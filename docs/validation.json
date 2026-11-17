@@ -1,6 +1,6 @@
 {
   "date": "2026-11-17",
-  "tests_passed": 59,
+  "tests_passed": 76,
   "appimage_smoke": "CLI and interactive TUI passed locally without FUSE",
   "previous_github_appimage_build": "https://github.com/Saneezore/LibreFren/actions/runs/44065864821",
   "previous_github_tested_commit": "2201ee6dadf1a94219f320743cca630a95604e2a",
@@ -17,6 +17,10 @@
     "No hardware qualification",
     "No cross-distribution runtime test",
     "No production flashing profiles",
-    "No actual vendor injection or system dependency installation exercised"
-  ]
+    "No actual vendor injection or system dependency installation exercised",
+    "coreboot toolchain and ROM execution controls are implemented but complete builds have not yet been validated"
+  ],
+  "coreboot_configuration_check": "coreboot-configuration-validation.json",
+  "coreboot_configurations_checked": 16,
+  "coreboot_full_rom_builds_validated": 0
 }

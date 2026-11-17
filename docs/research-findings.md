@@ -2,6 +2,24 @@
 
 Reviewed 17 November 2026. Indexed sources are not individually reviewed. Community reports are leads, not firmware authorization.
 
+## Switching boards requires a fresh configuration
+
+The upstream tutorial explains that Kconfig retains earlier board settings and can produce a hybrid configuration. LibreFren creates an independent checkout for each target, seeds its exact vendor and board selectors, then verifies the resolved selector and source directory.
+
+Evidence: official-reviewed. [Source](https://doc.coreboot.org/tutorial/part1.html).
+
+## Build host options do not qualify firmware defaults
+
+Upstream configuration defaults may select no payload, particularly outside x86 and POWER. Such an image cannot boot an operating system without additional integration. Configuration success and ROM compilation do not validate target-specific vendor inputs, flash geometry or recovery.
+
+Evidence: official-reviewed. [Source](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/payloads/Kconfig).
+
+## Cross-toolchain architecture is distinct from host architecture
+
+The pinned toolchain Makefile provides separate architecture targets. The tutorial specifies the i386 toolchain for both 32-bit and 64-bit x86 firmware. LibreFren derives the cross-toolchain from the generated target configuration; it does not infer it from the Linux build host.
+
+Evidence: official-reviewed. [Source](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/crossgcc/Makefile.mk).
+
 ## Exact identity is necessary but insufficient
 
 Board suffix, PCB revision, GPU/CPU variant, physical capacity and current firmware all affect applicability. Do not turn a name match into flash approval.

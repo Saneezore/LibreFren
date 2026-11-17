@@ -18,6 +18,7 @@ def interface():
     app.selected_variant = {'path': '/old/image.rom'}
     app.backup_result = {'status': 'consistent'}
     app.sources = {}
+    app.coreboot_workspace = None
     app.release_inventory = {}
     app.hardware = {}
     app.boards = [app.selected, {'project': 'libreboot', 'id': 'other_16mb', 'names': []}]
@@ -36,12 +37,14 @@ class TuiTests(unittest.TestCase):
 
     def test_target_change_discards_previous_artifacts_and_backup_status(self):
         app = interface()
+        app.coreboot_workspace = object()
         app.menu = Mock(side_effect=[1, 0, 1, 1])
         app.choose_target()
         self.assertEqual(app.selected['id'], 'other_16mb')
         self.assertIsNone(app.receipt)
         self.assertIsNone(app.selected_variant)
         self.assertIsNone(app.backup_result)
+        self.assertIsNone(app.coreboot_workspace)
 
     def test_cancelled_target_change_preserves_current_session(self):
         app = interface()
@@ -70,13 +73,37 @@ class TuiTests(unittest.TestCase):
         app.preparation(0)
         app.terminal_job.assert_not_called()
 
-    def test_coreboot_dependency_step_shows_manual_guidance(self):
+    def test_coreboot_dependency_installation_cancel_has_no_system_changes(self):
         app = interface()
         app.selected = {'project': 'coreboot', 'id': 'vendor/board'}
         app.terminal_job = Mock()
+        app.menu = Mock(return_value=0)
+        app.prompt = Mock(return_value=None)
         app.preparation(0)
         app.terminal_job.assert_not_called()
-        self.assertIn('configuration', app.view.call_args.args[0])
+        self.assertIn('package installation', app.view.call_args.args[0])
+
+    def test_coreboot_build_cancel_has_no_execution(self):
+        app = interface()
+        app.selected = {'project': 'coreboot', 'id': 'BOARD_EMULATION_QEMU_X86_I440FX'}
+        app.menu = Mock(return_value=None)
+        app.coreboot_job = Mock()
+        app.preparation(3)
+        app.coreboot_job.assert_not_called()
+
+    def test_failed_coreboot_reconfiguration_cannot_leave_stale_candidate(self):
+        app = interface()
+        target = 'BOARD_EMULATION_QEMU_X86_I440FX'
+        app.selected = {'project': 'coreboot', 'id': target}
+        app.coreboot_workspace = object()
+        app.sources = {'coreboot': '/source'}
+        app.menu = Mock(side_effect=[2, 0, None])
+        app.prompt = Mock(return_value='CONFIGURE ' + target)
+        app.coreboot_job = Mock(side_effect=Refusal('cancelled'))
+        app.preparation(3)
+        self.assertIsNone(app.coreboot_workspace)
+        self.assertIsNone(app.selected_variant)
+        self.assertIsNone(app.layout_report)
 
     def test_changed_staged_variant_cannot_be_recorded_as_session_candidate(self):
         app = interface()

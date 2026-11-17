@@ -8,6 +8,30 @@ on:
 permissions:
   contents: read
 jobs:
+  coreboot-configurations:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install configuration parser generators
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison flex
+      - name: Check real pinned upstream configurations
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          import sys
+          from librefren.prepare import fetch_source
+          source = fetch_source('coreboot', 'build/coreboot-sources')['source']
+          subprocess.run([sys.executable, 'tools/check_coreboot_configurations.py',
+                          '--source', source, '--output', 'build/coreboot-configurations.json'], check=True)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: coreboot-configuration-evidence
+          path: build/coreboot-configurations.json
   appimage:
     runs-on: ubuntu-22.04
     steps:
@@ -38,7 +62,7 @@ jobs:
           path: dist/LibreFren-*
   draft-release:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: appimage
+    needs: [appimage, coreboot-configurations]
     runs-on: ubuntu-22.04
     permissions:
       contents: write
