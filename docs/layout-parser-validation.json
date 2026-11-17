@@ -1,0 +1,1191 @@
+{
+  "status": "common-region-geometry-matches-upstream",
+  "descriptors_checked": 55,
+  "coreboot_revision": "f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9",
+  "lbmk_revision": "10ea70913e26b1dd5554d9afa2beb350ad833012",
+  "rbmk_revision": "42b591e34ffd3190bcf3da40fb8ef4d632b8f101",
+  "limitation": "Parser comparison using source descriptors and synthetic padding only; no hardware, firmware payload, straps or write-safety qualification.",
+  "results": [
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/3040micro/ifd",
+      "descriptor_sha256": "4ea7310a02f37ededb92ccb721dfa1051864a27c2b0ade8e756ce94e12092b00",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1122304,
+          "size": 15654912
+        },
+        "me": {
+          "offset": 4096,
+          "size": 1118208
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/3050micro/ifd",
+      "descriptor_sha256": "efa3ee01f5adad757f982c007a23a8f3a3a164a0f2b13f7016e067637336283d",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1122304,
+          "size": 15654912
+        },
+        "me": {
+          "offset": 4096,
+          "size": 1118208
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/5050sff/ifd",
+      "descriptor_sha256": "3e276f82a77f275f0eb9c88012dfbbb01cd79220ee25d03e9a17715fe7bd7d3a",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/dell9020mt/12_ifd",
+      "descriptor_sha256": "4bbe2955e5b417fda53b29da8a864ae726de79af2629991ead1ee24536d6de1a",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 135168,
+          "size": 12447744
+        },
+        "me": {
+          "offset": 12288,
+          "size": 122880
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/dell_ivybridge/ifd",
+      "descriptor_sha256": "2b000f14e95cd4dd8638826d9fbaf8598f4e88d641b48f43ede90b066828e20d",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 12472320
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/dell_ivybridge/ifd_nogbe",
+      "descriptor_sha256": "6306a7addf28412cfdc29137954faa178f6fdb4429fdd9abf4fff9808008295e",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 102400,
+          "size": 12480512
+        },
+        "me": {
+          "offset": 4096,
+          "size": 98304
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/dell_sandybridge/6_ifd_nogbe",
+      "descriptor_sha256": "4c33dca9d8470581c77e5f504349ef01f4f76f84366fad4938452a86104771b2",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 90112,
+          "size": 6201344
+        },
+        "me": {
+          "offset": 4096,
+          "size": 86016
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/dell_sandybridge/ifd",
+      "descriptor_sha256": "b557c847feb7ce9bdde710cfa4dccc35af2dd98681cea43975caa5f1e7cd3d80",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 98304,
+          "size": 10387456
+        },
+        "me": {
+          "offset": 12288,
+          "size": 86016
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/e7240/ifd",
+      "descriptor_sha256": "f936755653145e2c4cbebe578d90e6ba3f42935ac290517e5c29b3d8e3aa608b",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 151552,
+          "size": 12431360
+        },
+        "me": {
+          "offset": 20480,
+          "size": 131072
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp8200sff/ifd",
+      "descriptor_sha256": "7a2c91abc51b0dac2dc7a9b4f62a4a3cf2889ba64fffb208cd38167c0f0e65f5",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 94208,
+          "size": 8294400
+        },
+        "me": {
+          "offset": 12288,
+          "size": 81920
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp8200sff/ifd_4mb",
+      "descriptor_sha256": "8fec4be9f2b631649ea4f113ae47aa3f4e1a5ad0bac73b5f9cb8aca13b15f397",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 94208,
+          "size": 4100096
+        },
+        "me": {
+          "offset": 12288,
+          "size": 81920
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        },
+        "platform_data": {
+          "offset": 4194304,
+          "size": 4194304
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp820g2/12_ifd",
+      "descriptor_sha256": "aa72cb2a4281404153026716c4a90977f8790efc6db62cbd7c80bc1929c0f538",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 147456,
+          "size": 12435456
+        },
+        "me": {
+          "offset": 12288,
+          "size": 135168
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp8300usdt/ifd",
+      "descriptor_sha256": "53eed6103b07b614dc78f499ca8b293456252a2120fabc3b68d27d1a8efb7fb7",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 16666624
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp_ivybridge/ifd",
+      "descriptor_sha256": "efe76979e1ac5efe3f9839f087b04e214d3501241200cee824a51ba948074be1",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 16666624
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hp_sandybridge/ifd",
+      "descriptor_sha256": "73e0dd94082b3282328d443a00d91dfe7c7ccde8881268facf36da107cfb8a68",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 98304,
+          "size": 8290304
+        },
+        "me": {
+          "offset": 12288,
+          "size": 86016
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/hppro3500series/ifd",
+      "descriptor_sha256": "6335a1234a82f17d068db19819d1b55bad0ddf38e01cff1d5b35e6fd69136adf",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 102400,
+          "size": 8286208
+        },
+        "me": {
+          "offset": 4096,
+          "size": 98304
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich10/ifd_8",
+      "descriptor_sha256": "10d6168d6afb101f795c3f18de9f180c18cbba13f7bd1276b1ccba4b0a7c9bc5",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 8376320
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich10/ifd_8_truncate",
+      "descriptor_sha256": "d2d1d9aec352920705da8a29543198e5539a96ab929e587a597f0bfae0a5df96",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 6279168
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        },
+        "platform_data": {
+          "offset": 6291456,
+          "size": 2097152
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich9m/16_ifd",
+      "descriptor_sha256": "461e47b42139534565fe9fb681b38d9759914e85e249e86122a8c81e888a6454",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 16764928
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich9m/4_ifd",
+      "descriptor_sha256": "37a2c4215dab808d5ee4bcc934767021b5474079b0268e270e2d6c2c4e49c489",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 4182016
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich9m/4_ifd_nogbe",
+      "descriptor_sha256": "2261d6c44740fa0197117844033ad190236aa38e0f25d667062a1639f1dac4a3",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 4096,
+          "size": 4190208
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/ich9m/8_ifd",
+      "descriptor_sha256": "12544ee8a9d31388442eddc859118d64542c553df9ad7557b5e7118fb5ec4915",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 8376320
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/supermicro_x11_lga1151_series/ifd",
+      "descriptor_sha256": "6c71a0f499073521619e94c7de8c639a80a39c85702d3960d505716b0aef2879",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1122304,
+          "size": 15654912
+        },
+        "me": {
+          "offset": 4096,
+          "size": 1118208
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/t1650/12_ifd",
+      "descriptor_sha256": "f0dda9da3bab5ba16c1cfd27fe4f1fda8e426653f6c3c7952f936025fe5d6763",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 12472320
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/t440p/ifd",
+      "descriptor_sha256": "7da454990b39aa3ebf2e91a7257c700017c88c31842e91a6aab351991dbbd271",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 135168,
+          "size": 12447744
+        },
+        "me": {
+          "offset": 12288,
+          "size": 122880
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/t480/ifd_16",
+      "descriptor_sha256": "f2f6d5fb0a5e02964b494862032fd93f1f88e2febd9904b936083600645c7fdf",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/t480s/ifd_16",
+      "descriptor_sha256": "caf6393cd5c4ff305b677f50c258658710c42439080868c1fb8ea7584cffb204",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/t580/ifd_16",
+      "descriptor_sha256": "39a4c43f53351f81cef3a0ff095cfa1a74ecb76ba8b35ba68cf5a8915da47679",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/x270/ifd_16",
+      "descriptor_sha256": "d5633353b230312401e89c23d1be343762fd855a884dedbe364df5a971ace7b0",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/x280/ifd_16",
+      "descriptor_sha256": "4f0d11e9d62fe4d22fe2108ff35764f1bf2ad9131965e85f3cd43d6a1e83bb63",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 1130496,
+          "size": 15646720
+        },
+        "me": {
+          "offset": 12288,
+          "size": 1118208
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/x2e_n150/ifd",
+      "descriptor_sha256": "f0455bc486c81b41a36990365d895f228ffc4d9d9dac1793ab817f76bf28258a",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 4276224,
+          "size": 12500992
+        },
+        "me": {
+          "offset": 4096,
+          "size": 4272128
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/xx20/ifd",
+      "descriptor_sha256": "f2d8eae5e634104a0511c6b139f439244361a9fc2150d8d56d77849338c0a65b",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 98304,
+          "size": 8290304
+        },
+        "me": {
+          "offset": 12288,
+          "size": 86016
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/xx30/16_ifd",
+      "descriptor_sha256": "5aaa277a8f9b5d7300fedb39c568c74abdb3ce0a433318b70a5c7bd418b3ac65",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 16666624
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "lbmk",
+      "path": "config/data/coreboot/ifd/xx30/ifd",
+      "descriptor_sha256": "e699f5af22f1ac722913545090d8aa107191069abaeb149069c8106c2c158389",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 110592,
+          "size": 12472320
+        },
+        "me": {
+          "offset": 12288,
+          "size": 98304
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/7010sff/12_ifd",
+      "descriptor_sha256": "1b4eda7d158007aea73c0f7f5e15f0c0fc75397427323086a11e17cd59389a80",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/dell9020mt/12_ifd",
+      "descriptor_sha256": "900d1fe3eaa2af643ac28a4b41a69ce7b1f635000ce8bd794b99dd3600259e80",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/dell_ivybridge/ifd",
+      "descriptor_sha256": "3dffc66fa9c20d2c19e179e75029929ab509067b481fde571c827306cba2ce5f",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/dell_ivybridge/ifd_nogbe",
+      "descriptor_sha256": "17335675e37bb87a2d1e199e806aa35aabb67a15dae9c99648c4d107c2d21bcf",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 4096,
+          "size": 6287360
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/dell_sandybridge/6_ifd_nogbe",
+      "descriptor_sha256": "01e317e8917a0dea609c540b1d8fa8a74acf4a1fbdda20f2b33d72ae04c95188",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 2097152,
+          "size": 4194304
+        },
+        "me": {
+          "offset": 4096,
+          "size": 2093056
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/dell_sandybridge/ifd",
+      "descriptor_sha256": "6a70b15cd7408c757e01b642bfd91c4663b4140d490c562fb5eec10180fcf367",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 4194304
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/e7240/ifd",
+      "descriptor_sha256": "143a14e7266a7ec98456d0ec2cb9f1a7777006d0b7da28237047a247979a9fef",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/hp8200sff/ifd",
+      "descriptor_sha256": "e03ceac6c884e01a535381dc97cf37008523a5bcf5aaf179eb1b4f346d5083e8",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 5308416,
+          "size": 3080192
+        },
+        "me": {
+          "offset": 12288,
+          "size": 5296128
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/hp8300usdt/ifd",
+      "descriptor_sha256": "5702a084eb0624a7c925868f5fa6c8897796932ebe3d09180d046ee09a50c785",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 11075584,
+          "size": 5701632
+        },
+        "me": {
+          "offset": 12288,
+          "size": 11063296
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/hppro3500series/ifd",
+      "descriptor_sha256": "33e52e59e6ec9c894ae7cbe98f3615d8be0e398e3bd71eab210a25c89656d73c",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 4194304,
+          "size": 4194304
+        },
+        "me": {
+          "offset": 4096,
+          "size": 4190208
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich10/ifd_8",
+      "descriptor_sha256": "10d6168d6afb101f795c3f18de9f180c18cbba13f7bd1276b1ccba4b0a7c9bc5",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 8376320
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich10/ifd_8_truncate",
+      "descriptor_sha256": "d2d1d9aec352920705da8a29543198e5539a96ab929e587a597f0bfae0a5df96",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 6279168
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        },
+        "platform_data": {
+          "offset": 6291456,
+          "size": 2097152
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich9m/16_ifd",
+      "descriptor_sha256": "461e47b42139534565fe9fb681b38d9759914e85e249e86122a8c81e888a6454",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 16764928
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich9m/4_ifd",
+      "descriptor_sha256": "37a2c4215dab808d5ee4bcc934767021b5474079b0268e270e2d6c2c4e49c489",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 4182016
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich9m/4_ifd_nogbe",
+      "descriptor_sha256": "2261d6c44740fa0197117844033ad190236aa38e0f25d667062a1639f1dac4a3",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 4096,
+          "size": 4190208
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/ich9m/8_ifd",
+      "descriptor_sha256": "12544ee8a9d31388442eddc859118d64542c553df9ad7557b5e7118fb5ec4915",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 12288,
+          "size": 8376320
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/t1650/12_ifd",
+      "descriptor_sha256": "67340a8b959c6dcd6b10de347ed6ea848b26877c3bb254237729489675689de9",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 6291456,
+          "size": 6291456
+        },
+        "me": {
+          "offset": 20480,
+          "size": 6270976
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 16384
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/t440p/ifd",
+      "descriptor_sha256": "3a964495a2cab44d4328b002f7792db8aaddd304567132c66ab4ab17d117e52b",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 5242880,
+          "size": 7340032
+        },
+        "me": {
+          "offset": 12288,
+          "size": 5230592
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/x280/ifd_16",
+      "descriptor_sha256": "6200c95f4e17f1182632f60b320d008bfa98c2eee7d494390410105e1b0b8d96",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 7340032,
+          "size": 9437184
+        },
+        "me": {
+          "offset": 12288,
+          "size": 7327744
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/xx20/ifd",
+      "descriptor_sha256": "f2a21189367a6d73e76aff7572607c800cb4a2ef06123d215060e70c477d2dfa",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 5242880,
+          "size": 3145728
+        },
+        "me": {
+          "offset": 12288,
+          "size": 5230592
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    },
+    {
+      "project": "rbmk",
+      "path": "config/data/coreboot/ifd/xx30/ifd",
+      "descriptor_sha256": "bc8b0be57cde35c2b07cad27a53606bb6f132c6af318531b929fd13a4a8c36ee",
+      "common_regions": {
+        "descriptor": {
+          "offset": 0,
+          "size": 4096
+        },
+        "bios": {
+          "offset": 5242880,
+          "size": 7340032
+        },
+        "me": {
+          "offset": 12288,
+          "size": 5230592
+        },
+        "gbe": {
+          "offset": 4096,
+          "size": 8192
+        }
+      }
+    }
+  ]
+}

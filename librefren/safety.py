@@ -80,7 +80,10 @@ def inspect_variants(path, target):
         if p.parent != PurePosixPath("bin") / target:
             raise Refusal("ROM is outside the exact selected target directory")
         name = p.name
-        prefix = re.match(r"^(edk2|seabios|seagrub|grub|uboot|u-boot|seauboot|bios|uefi)_", name)
+        # Current lbmk/rbmk cprom names use explicit firmware-type + payload.
+        # Match these before the legacy single-word prefixes; never strip an
+        # arbitrary prefix or loosen the exact target directory/name check.
+        prefix = re.match(r"^(uefi_edk2|bios_seabios|uefi_uboot|edk2|seabios|seagrub|grub|uboot|u-boot|seauboot|bios|uefi)_", name)
         blocked = []
         if "DO_NOT_FLASH" in name.upper() or "DONOTFLASH" in name.upper():
             blocked.append("Vendor-file injection is incomplete")

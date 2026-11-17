@@ -43,15 +43,14 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: librefren-x86_64
           path: dist
-      - name: Create a draft preview release
+      - name: Create or refresh the unpublished draft preview
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
-        run: |
-          printf '%s\n' 'Research and preparation preview. No qualified hardware flashing profiles; write commands and unrestricted coreboot settings remain disabled. See README for limitations.' > /tmp/release-notes.txt
-          gh release create "$RELEASE_TAG" dist/* --draft --prerelease --title "LibreFren $RELEASE_TAG" --notes-file /tmp/release-notes.txt
+        run: sh packaging/publish_draft.sh

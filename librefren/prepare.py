@@ -4,14 +4,62 @@ import os
 from pathlib import Path
 import re
 import shutil
+import stat
 import subprocess
 import tempfile
 
 from .releases import archive_name, verify
-from .safety import Refusal, archive_members, digest, inspect_variants
+from .safety import Refusal, archive_members, digest, extract_variant, inspect_variants
 
 DATA = Path(__file__).parent / 'data'
 REPOS = {'libreboot': 'lbmk', 'rboot': 'rbmk'}
+
+
+def stage_variant(receipt, project, target, name, directory):
+    """Make an inspection copy from a rechecked snapshot; never create flash approval."""
+    if receipt.get('project') != project or receipt.get('target') != target:
+        raise Refusal('Archive receipt belongs to a different project or target.')
+    status = receipt.get('status')
+    if status == 'upstream-preparation-completed-unqualified' and project == 'libreboot':
+        expected_hash = receipt.get('prepared_sha256')
+    elif status == 'authenticated-download-only' and project == 'rboot':
+        expected_hash = receipt.get('sha256')
+    else:
+        raise Refusal('This archive is not eligible for variant staging. Libreboot requires upstream preparation first.')
+    archive = Path(receipt['archive']).resolve(strict=True)
+    if archive.name != archive_name(project, target):
+        raise Refusal('Archive name does not identify the exact release and target.')
+    if not re.fullmatch(r'[a-f0-9]{64}', expected_hash or ''):
+        raise Refusal('Archive receipt has no valid content hash.')
+    directory = Path(directory)
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    work = Path(tempfile.mkdtemp(prefix='inspection-', dir=directory))
+    # A private snapshot binds authentication/inspection/extraction to one archive.
+    with tempfile.TemporaryDirectory(prefix='.snapshot-', dir=work) as temporary:
+        snapshot = Path(temporary) / archive.name
+        fd = os.open(archive, os.O_RDONLY | os.O_NONBLOCK | os.O_NOFOLLOW)
+        with os.fdopen(fd, 'rb') as source, snapshot.open('xb') as dest:
+            info = os.fstat(source.fileno())
+            if not stat.S_ISREG(info.st_mode) or not 0 < info.st_size <= 256 * 1024**2:
+                raise Refusal('Archive must be a nonempty regular file within the staging size limit.')
+            total = 0
+            while chunk := source.read(1024**2):
+                total += len(chunk)
+                if total > 256 * 1024**2:
+                    raise Refusal('Archive exceeds the staging size limit.')
+                dest.write(chunk)
+        if digest(snapshot) != expected_hash:
+            raise Refusal('Archive changed since authentication or preparation. Download or prepare it again.')
+        if project == 'rboot':
+            verify(snapshot, archive.parent / 'archive.sig', archive.parent / 'key.asc')
+        result = extract_variant(snapshot, target, name, work)
+    result.update(project=project, target=target, archive_sha256=expected_hash,
+                  status='inspection-copy-only', source_status=status,
+                  limitation='RBoot images can omit vendor regions. This copy is not approved as a whole-chip replacement or for flashing.')
+    if project == 'libreboot':
+        result['limitation'] = 'Upstream preparation is recorded, but board identity, image layout and device-data preservation still need validation.'
+    (work / 'receipt.json').write_text(json.dumps(result, indent=2) + '\n')
+    return result
 
 
 def fetch_source(project, directory):

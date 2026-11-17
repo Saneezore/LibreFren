@@ -1,0 +1,1654 @@
+{
+  "observed_at": "2026-11-17T15:50:54.363278+00:00",
+  "evidence": "Unsigned official-directory snapshot. Every download still requires a live exact-name lookup and pinned-key signature verification.",
+  "projects": {
+    "libreboot": {
+      "release": "26.11rev1",
+      "listing_url": "https://mirror.math.princeton.edu/pub/libreboot/stable/26.11rev1/roms/",
+      "listing_sha256": "ca91f86290c6082b7f89e27a8a50c51b0fe5ee46e7a0fcad406e26744367d111",
+      "targets": {
+        "apple_macbook11_16mb": {
+          "archive": "libreboot-26.11rev1_apple_macbook11_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook11_2mb": {
+          "archive": "libreboot-26.11rev1_apple_macbook11_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook21_16mb": {
+          "archive": "libreboot-26.11rev1_apple_macbook21_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook21_2mb": {
+          "archive": "libreboot-26.11rev1_apple_macbook21_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_16mb": {
+          "archive": "libreboot-26.11rev1_asus_kcma_d8_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_2mb": {
+          "archive": "libreboot-26.11rev1_asus_kcma_d8_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_4mb": {
+          "archive": "libreboot-26.11rev1_asus_kcma_d8_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_8mb": {
+          "archive": "libreboot-26.11rev1_asus_kcma_d8_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_16mb": {
+          "archive": "libreboot-26.11rev1_asus_kgpe_d16_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_2mb": {
+          "archive": "libreboot-26.11rev1_asus_kgpe_d16_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_4mb": {
+          "archive": "libreboot-26.11rev1_asus_kgpe_d16_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_8mb": {
+          "archive": "libreboot-26.11rev1_asus_kgpe_d16_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "cros_adl_anahera": {
+          "archive": "libreboot-26.11rev1_cros_adl_anahera.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_aurash": {
+          "archive": "libreboot-26.11rev1_cros_adl_aurash.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_banshee": {
+          "archive": "libreboot-26.11rev1_cros_adl_banshee.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_bujia": {
+          "archive": "libreboot-26.11rev1_cros_adl_bujia.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_caboc": {
+          "archive": "libreboot-26.11rev1_cros_adl_caboc.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_constitution": {
+          "archive": "libreboot-26.11rev1_cros_adl_constitution.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_crota": {
+          "archive": "libreboot-26.11rev1_cros_adl_crota.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_dochi": {
+          "archive": "libreboot-26.11rev1_cros_adl_dochi.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_felwinter": {
+          "archive": "libreboot-26.11rev1_cros_adl_felwinter.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_gaelin": {
+          "archive": "libreboot-26.11rev1_cros_adl_gaelin.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_gimble": {
+          "archive": "libreboot-26.11rev1_cros_adl_gimble.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_gladios": {
+          "archive": "libreboot-26.11rev1_cros_adl_gladios.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_jubilant": {
+          "archive": "libreboot-26.11rev1_cros_adl_jubilant.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_kano": {
+          "archive": "libreboot-26.11rev1_cros_adl_kano.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_kinox": {
+          "archive": "libreboot-26.11rev1_cros_adl_kinox.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_kuldax": {
+          "archive": "libreboot-26.11rev1_cros_adl_kuldax.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_lisbon": {
+          "archive": "libreboot-26.11rev1_cros_adl_lisbon.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_lotso": {
+          "archive": "libreboot-26.11rev1_cros_adl_lotso.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_marasov": {
+          "archive": "libreboot-26.11rev1_cros_adl_marasov.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_mithrax": {
+          "archive": "libreboot-26.11rev1_cros_adl_mithrax.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_moli": {
+          "archive": "libreboot-26.11rev1_cros_adl_moli.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_moxie": {
+          "archive": "libreboot-26.11rev1_cros_adl_moxie.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_anraggar": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_anraggar.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_craask": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_craask.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_craaskov": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_craaskov.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_dirks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_dirks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_domika": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_domika.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_epic": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_epic.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_glassway": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_glassway.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_gothrax": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_gothrax.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_guren": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_guren.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_joxer": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_joxer.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_kaladin": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_kaladin.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_meliks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_meliks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_nereid": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_nereid.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_nivviks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_nivviks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjo": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjocento": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjocento.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjoga": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjoga.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjogatwin": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjogatwin.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjolo": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjolo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_pujjoniru": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_pujjoniru.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_quandiso": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_quandiso.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_quandiso2": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_quandiso2.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_riven": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_riven.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_rull": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_rull.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_sundance": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_sundance.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_teliks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_teliks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_telith": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_telith.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_tereid": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_tereid.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_tivviks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_tivviks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_uldren": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_uldren.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_uldrenite": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_uldrenite.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_xivu": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_xivu.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_yaviks": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_yaviks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_n_yavilla": {
+          "archive": "libreboot-26.11rev1_cros_adl_n_yavilla.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_nova": {
+          "archive": "libreboot-26.11rev1_cros_adl_nova.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_omnigul": {
+          "archive": "libreboot-26.11rev1_cros_adl_omnigul.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_osiris": {
+          "archive": "libreboot-26.11rev1_cros_adl_osiris.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_primus": {
+          "archive": "libreboot-26.11rev1_cros_adl_primus.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_redrix": {
+          "archive": "libreboot-26.11rev1_cros_adl_redrix.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_redrix4es": {
+          "archive": "libreboot-26.11rev1_cros_adl_redrix4es.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_taeko": {
+          "archive": "libreboot-26.11rev1_cros_adl_taeko.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_taniks": {
+          "archive": "libreboot-26.11rev1_cros_adl_taniks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_vell": {
+          "archive": "libreboot-26.11rev1_cros_adl_vell.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_volmar": {
+          "archive": "libreboot-26.11rev1_cros_adl_volmar.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_adl_xol": {
+          "archive": "libreboot-26.11rev1_cros_adl_xol.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_apl_coral": {
+          "archive": "libreboot-26.11rev1_cros_apl_coral.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_apl_pyro": {
+          "archive": "libreboot-26.11rev1_cros_apl_pyro.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_apl_reef": {
+          "archive": "libreboot-26.11rev1_cros_apl_reef.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_apl_sand": {
+          "archive": "libreboot-26.11rev1_cros_apl_sand.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_apl_snappy": {
+          "archive": "libreboot-26.11rev1_cros_apl_snappy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_auron_paine": {
+          "archive": "libreboot-26.11rev1_cros_bdw_auron_paine.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_auron_yuna": {
+          "archive": "libreboot-26.11rev1_cros_bdw_auron_yuna.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_buddy": {
+          "archive": "libreboot-26.11rev1_cros_bdw_buddy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_gandof": {
+          "archive": "libreboot-26.11rev1_cros_bdw_gandof.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_guado": {
+          "archive": "libreboot-26.11rev1_cros_bdw_guado.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_lulu": {
+          "archive": "libreboot-26.11rev1_cros_bdw_lulu.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_rikku": {
+          "archive": "libreboot-26.11rev1_cros_bdw_rikku.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_samus": {
+          "archive": "libreboot-26.11rev1_cros_bdw_samus.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bdw_tidus": {
+          "archive": "libreboot-26.11rev1_cros_bdw_tidus.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_banon": {
+          "archive": "libreboot-26.11rev1_cros_bsw_banon.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_celes": {
+          "archive": "libreboot-26.11rev1_cros_bsw_celes.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_cyan": {
+          "archive": "libreboot-26.11rev1_cros_bsw_cyan.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_edgar": {
+          "archive": "libreboot-26.11rev1_cros_bsw_edgar.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_kefka": {
+          "archive": "libreboot-26.11rev1_cros_bsw_kefka.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_reks": {
+          "archive": "libreboot-26.11rev1_cros_bsw_reks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_relm": {
+          "archive": "libreboot-26.11rev1_cros_bsw_relm.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_setzer": {
+          "archive": "libreboot-26.11rev1_cros_bsw_setzer.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_terra": {
+          "archive": "libreboot-26.11rev1_cros_bsw_terra.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_ultima": {
+          "archive": "libreboot-26.11rev1_cros_bsw_ultima.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_bsw_wizpig": {
+          "archive": "libreboot-26.11rev1_cros_bsw_wizpig.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_banjo": {
+          "archive": "libreboot-26.11rev1_cros_byt_banjo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_candy": {
+          "archive": "libreboot-26.11rev1_cros_byt_candy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_clapper": {
+          "archive": "libreboot-26.11rev1_cros_byt_clapper.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_enguarde": {
+          "archive": "libreboot-26.11rev1_cros_byt_enguarde.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_expresso": {
+          "archive": "libreboot-26.11rev1_cros_byt_expresso.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_glimmer": {
+          "archive": "libreboot-26.11rev1_cros_byt_glimmer.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_gnawty": {
+          "archive": "libreboot-26.11rev1_cros_byt_gnawty.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_heli": {
+          "archive": "libreboot-26.11rev1_cros_byt_heli.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_kip": {
+          "archive": "libreboot-26.11rev1_cros_byt_kip.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_ninja": {
+          "archive": "libreboot-26.11rev1_cros_byt_ninja.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_orco": {
+          "archive": "libreboot-26.11rev1_cros_byt_orco.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_quawks": {
+          "archive": "libreboot-26.11rev1_cros_byt_quawks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_squawks": {
+          "archive": "libreboot-26.11rev1_cros_byt_squawks.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_sumo": {
+          "archive": "libreboot-26.11rev1_cros_byt_sumo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_swanky": {
+          "archive": "libreboot-26.11rev1_cros_byt_swanky.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_byt_winky": {
+          "archive": "libreboot-26.11rev1_cros_byt_winky.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_akemi": {
+          "archive": "libreboot-26.11rev1_cros_cml_akemi.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_ambassador": {
+          "archive": "libreboot-26.11rev1_cros_cml_ambassador.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_dooly": {
+          "archive": "libreboot-26.11rev1_cros_cml_dooly.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_drallion": {
+          "archive": "libreboot-26.11rev1_cros_cml_drallion.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_dratini": {
+          "archive": "libreboot-26.11rev1_cros_cml_dratini.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_duffy": {
+          "archive": "libreboot-26.11rev1_cros_cml_duffy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_faffy": {
+          "archive": "libreboot-26.11rev1_cros_cml_faffy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_genesis": {
+          "archive": "libreboot-26.11rev1_cros_cml_genesis.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_helios": {
+          "archive": "libreboot-26.11rev1_cros_cml_helios.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_jinlon": {
+          "archive": "libreboot-26.11rev1_cros_cml_jinlon.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_kaisa": {
+          "archive": "libreboot-26.11rev1_cros_cml_kaisa.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_kindred": {
+          "archive": "libreboot-26.11rev1_cros_cml_kindred.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_kohaku": {
+          "archive": "libreboot-26.11rev1_cros_cml_kohaku.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_moonbuggy": {
+          "archive": "libreboot-26.11rev1_cros_cml_moonbuggy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_nightfury": {
+          "archive": "libreboot-26.11rev1_cros_cml_nightfury.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_noibat": {
+          "archive": "libreboot-26.11rev1_cros_cml_noibat.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_scout": {
+          "archive": "libreboot-26.11rev1_cros_cml_scout.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_cml_wyvern": {
+          "archive": "libreboot-26.11rev1_cros_cml_wyvern.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_czn_dewatt": {
+          "archive": "libreboot-26.11rev1_cros_czn_dewatt.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_czn_nipperkin": {
+          "archive": "libreboot-26.11rev1_cros_czn_nipperkin.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_ampton": {
+          "archive": "libreboot-26.11rev1_cros_glk_ampton.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_bloog": {
+          "archive": "libreboot-26.11rev1_cros_glk_bloog.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_bobba": {
+          "archive": "libreboot-26.11rev1_cros_glk_bobba.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_casta": {
+          "archive": "libreboot-26.11rev1_cros_glk_casta.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_dood": {
+          "archive": "libreboot-26.11rev1_cros_glk_dood.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_fleex": {
+          "archive": "libreboot-26.11rev1_cros_glk_fleex.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_foob": {
+          "archive": "libreboot-26.11rev1_cros_glk_foob.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_garg": {
+          "archive": "libreboot-26.11rev1_cros_glk_garg.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_lick": {
+          "archive": "libreboot-26.11rev1_cros_glk_lick.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_meep": {
+          "archive": "libreboot-26.11rev1_cros_glk_meep.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_glk_phaser": {
+          "archive": "libreboot-26.11rev1_cros_glk_phaser.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_falco": {
+          "archive": "libreboot-26.11rev1_cros_hsw_falco.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_leon": {
+          "archive": "libreboot-26.11rev1_cros_hsw_leon.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_mccloud": {
+          "archive": "libreboot-26.11rev1_cros_hsw_mccloud.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_monroe": {
+          "archive": "libreboot-26.11rev1_cros_hsw_monroe.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_panther": {
+          "archive": "libreboot-26.11rev1_cros_hsw_panther.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_peppy": {
+          "archive": "libreboot-26.11rev1_cros_hsw_peppy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_tricky": {
+          "archive": "libreboot-26.11rev1_cros_hsw_tricky.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_wolf": {
+          "archive": "libreboot-26.11rev1_cros_hsw_wolf.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_hsw_zako": {
+          "archive": "libreboot-26.11rev1_cros_hsw_zako.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_awasuki": {
+          "archive": "libreboot-26.11rev1_cros_jsl_awasuki.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_beadrix": {
+          "archive": "libreboot-26.11rev1_cros_jsl_beadrix.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_blipper": {
+          "archive": "libreboot-26.11rev1_cros_jsl_blipper.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_boten": {
+          "archive": "libreboot-26.11rev1_cros_jsl_boten.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_boxy": {
+          "archive": "libreboot-26.11rev1_cros_jsl_boxy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_bugzzy": {
+          "archive": "libreboot-26.11rev1_cros_jsl_bugzzy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_cret": {
+          "archive": "libreboot-26.11rev1_cros_jsl_cret.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_dexi": {
+          "archive": "libreboot-26.11rev1_cros_jsl_dexi.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_dibbi": {
+          "archive": "libreboot-26.11rev1_cros_jsl_dibbi.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_dita": {
+          "archive": "libreboot-26.11rev1_cros_jsl_dita.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_drawcia": {
+          "archive": "libreboot-26.11rev1_cros_jsl_drawcia.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_galtic": {
+          "archive": "libreboot-26.11rev1_cros_jsl_galtic.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_kracko": {
+          "archive": "libreboot-26.11rev1_cros_jsl_kracko.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_lantis": {
+          "archive": "libreboot-26.11rev1_cros_jsl_lantis.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_madoo": {
+          "archive": "libreboot-26.11rev1_cros_jsl_madoo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_magolor": {
+          "archive": "libreboot-26.11rev1_cros_jsl_magolor.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_metaknight": {
+          "archive": "libreboot-26.11rev1_cros_jsl_metaknight.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_pirika": {
+          "archive": "libreboot-26.11rev1_cros_jsl_pirika.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_sasuke": {
+          "archive": "libreboot-26.11rev1_cros_jsl_sasuke.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_sasukette": {
+          "archive": "libreboot-26.11rev1_cros_jsl_sasukette.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_storo": {
+          "archive": "libreboot-26.11rev1_cros_jsl_storo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_jsl_taranza": {
+          "archive": "libreboot-26.11rev1_cros_jsl_taranza.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_atlas": {
+          "archive": "libreboot-26.11rev1_cros_kbl_atlas.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_endeavour": {
+          "archive": "libreboot-26.11rev1_cros_kbl_endeavour.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_eve": {
+          "archive": "libreboot-26.11rev1_cros_kbl_eve.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_fizz": {
+          "archive": "libreboot-26.11rev1_cros_kbl_fizz.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_karma": {
+          "archive": "libreboot-26.11rev1_cros_kbl_karma.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_nami": {
+          "archive": "libreboot-26.11rev1_cros_kbl_nami.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_nautilus": {
+          "archive": "libreboot-26.11rev1_cros_kbl_nautilus.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_nocturne": {
+          "archive": "libreboot-26.11rev1_cros_kbl_nocturne.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_rammus": {
+          "archive": "libreboot-26.11rev1_cros_kbl_rammus.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_kbl_soraka": {
+          "archive": "libreboot-26.11rev1_cros_kbl_soraka.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mdn_crystaldrift": {
+          "archive": "libreboot-26.11rev1_cros_mdn_crystaldrift.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mdn_frostflow": {
+          "archive": "libreboot-26.11rev1_cros_mdn_frostflow.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mdn_markarth": {
+          "archive": "libreboot-26.11rev1_cros_mdn_markarth.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mdn_skyrim": {
+          "archive": "libreboot-26.11rev1_cros_mdn_skyrim.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mdn_winterhold": {
+          "archive": "libreboot-26.11rev1_cros_mdn_winterhold.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mtl_kanix": {
+          "archive": "libreboot-26.11rev1_cros_mtl_kanix.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mtl_karis": {
+          "archive": "libreboot-26.11rev1_cros_mtl_karis.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_mtl_screebo": {
+          "archive": "libreboot-26.11rev1_cros_mtl_screebo.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_berknip": {
+          "archive": "libreboot-26.11rev1_cros_pco_berknip.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_dirinboz": {
+          "archive": "libreboot-26.11rev1_cros_pco_dirinboz.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_ezkinil": {
+          "archive": "libreboot-26.11rev1_cros_pco_ezkinil.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_gumboz": {
+          "archive": "libreboot-26.11rev1_cros_pco_gumboz.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_morphius": {
+          "archive": "libreboot-26.11rev1_cros_pco_morphius.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_shuboz": {
+          "archive": "libreboot-26.11rev1_cros_pco_shuboz.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_vilboz": {
+          "archive": "libreboot-26.11rev1_cros_pco_vilboz.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_pco_woomax": {
+          "archive": "libreboot-26.11rev1_cros_pco_woomax.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_rk3399_gru_bob": {
+          "archive": "libreboot-26.11rev1_cros_rk3399_gru_bob.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "cros_rk3399_gru_kevin": {
+          "archive": "libreboot-26.11rev1_cros_rk3399_gru_kevin.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "cros_skl_asuka": {
+          "archive": "libreboot-26.11rev1_cros_skl_asuka.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_skl_caroline": {
+          "archive": "libreboot-26.11rev1_cros_skl_caroline.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_skl_cave": {
+          "archive": "libreboot-26.11rev1_cros_skl_cave.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_skl_chell": {
+          "archive": "libreboot-26.11rev1_cros_skl_chell.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_skl_lars": {
+          "archive": "libreboot-26.11rev1_cros_skl_lars.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_skl_sentry": {
+          "archive": "libreboot-26.11rev1_cros_skl_sentry.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_butterfly": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_butterfly.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_link": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_link.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_lumpy": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_lumpy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_parrot": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_parrot.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_stout": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_stout.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_snb_ivb_stumpy": {
+          "archive": "libreboot-26.11rev1_cros_snb_ivb_stumpy.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_str_aleena": {
+          "archive": "libreboot-26.11rev1_cros_str_aleena.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_str_careena": {
+          "archive": "libreboot-26.11rev1_cros_str_careena.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_str_liara": {
+          "archive": "libreboot-26.11rev1_cros_str_liara.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_str_treeya": {
+          "archive": "libreboot-26.11rev1_cros_str_treeya.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_chronicler": {
+          "archive": "libreboot-26.11rev1_cros_tgl_chronicler.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_collis": {
+          "archive": "libreboot-26.11rev1_cros_tgl_collis.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_copano": {
+          "archive": "libreboot-26.11rev1_cros_tgl_copano.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_delbin": {
+          "archive": "libreboot-26.11rev1_cros_tgl_delbin.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_drobit": {
+          "archive": "libreboot-26.11rev1_cros_tgl_drobit.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_eldrid": {
+          "archive": "libreboot-26.11rev1_cros_tgl_eldrid.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_elemi": {
+          "archive": "libreboot-26.11rev1_cros_tgl_elemi.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_lindar": {
+          "archive": "libreboot-26.11rev1_cros_tgl_lindar.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_voema": {
+          "archive": "libreboot-26.11rev1_cros_tgl_voema.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_volet": {
+          "archive": "libreboot-26.11rev1_cros_tgl_volet.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_tgl_voxel": {
+          "archive": "libreboot-26.11rev1_cros_tgl_voxel.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "cros_whl_sarien": {
+          "archive": "libreboot-26.11rev1_cros_whl_sarien.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "dell_latitude_e4300_4mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e4300_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5420_6mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e5420_6mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5520_6mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e5520_6mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5530_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e5530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6220_10mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6220_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6230_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6230_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6320_10mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6320_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6330_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6330_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6400_gpu_intel_4mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6400_gpu_intel_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6420_10mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6420_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6430_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6430_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6520_10mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6520_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6530_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e6530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e7240_12mb": {
+          "archive": "libreboot-26.11rev1_dell_latitude_e7240_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_3040_micro_16mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_3040_micro_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_3050_micro_16mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_3050_micro_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_5050_sff_16mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_5050_sff_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_7010_sff_12mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_7010_sff_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_mt_8mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_780_mt_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_mt_truncate_8mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_780_mt_truncate_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_usff_8mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_780_usff_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_usff_truncate_8mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_780_usff_truncate_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_9020_mt_12mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_9020_mt_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_9020_sff_12mb": {
+          "archive": "libreboot-26.11rev1_dell_optiplex_9020_sff_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_precision_t1650_12mb": {
+          "archive": "libreboot-26.11rev1_dell_precision_t1650_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_precision_t1700_mt_12mb": {
+          "archive": "libreboot-26.11rev1_dell_precision_t1700_mt_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_precision_t1700_sff_12mb": {
+          "archive": "libreboot-26.11rev1_dell_precision_t1700_sff_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "edk2_chromebook": {
+          "archive": "libreboot-26.11rev1_edk2_chromebook.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "edk2_chromebook_nohpet": {
+          "archive": "libreboot-26.11rev1_edk2_chromebook_nohpet.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "emulation_qemu_arm64_12mb": {
+          "archive": "libreboot-26.11rev1_emulation_qemu_arm64_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "emulation_qemu_x86_64_12mb": {
+          "archive": "libreboot-26.11rev1_emulation_qemu_x86_64_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8200_sff_4mb": {
+          "archive": "libreboot-26.11rev1_hp_elite_8200_sff_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8200_sff_8mb": {
+          "archive": "libreboot-26.11rev1_hp_elite_8200_sff_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8300_cmt_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elite_8300_cmt_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8300_usdt_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elite_8300_usdt_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_2170p_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_2170p_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_2560p_8mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_2560p_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_2570p_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_2570p_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_820g2_12mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_820g2_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_8460p_gpu_intel_8mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_8460p_gpu_intel_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_8470p_gpu_intel_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_8470p_gpu_intel_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_8560w_8mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_8560w_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elitebook_9470m_16mb": {
+          "archive": "libreboot-26.11rev1_hp_elitebook_9470m_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_pro_3500series_8mb": {
+          "archive": "libreboot-26.11rev1_hp_pro_3500series_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "legacy_lenovo_thinkpad_t440pmrc_12mb": {
+          "archive": "libreboot-26.11rev1_legacy_lenovo_thinkpad_t440pmrc_12mb.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "legacy_lenovo_thinkpad_w541mrc_12mb": {
+          "archive": "libreboot-26.11rev1_legacy_lenovo_thinkpad_w541mrc_12mb.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_r400_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_r400_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_r400_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r500_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_r500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t400_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t400_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t400_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t420_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t420_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t420s_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t420s_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t430_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t430_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t440p_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t440p_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t480_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t480_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t480s_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t480s_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t500_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t500_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t520_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t520_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t530_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t580_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t580_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t60_gpu_intel_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t60_gpu_intel_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t60_gpu_intel_2mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_t60_gpu_intel_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_w500_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_w500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_w500_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w530_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_w530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w541_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_w541_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x200_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x200_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x200_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x220_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x220_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x230_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x230_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230t_12mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x230t_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230t_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x230t_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x270_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x270_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x280_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x280_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x301_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_4mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x301_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_8mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x301_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x60_16mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x60_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x60_2mb": {
+          "archive": "libreboot-26.11rev1_lenovo_thinkpad_x60_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "supermicro_x11ssh_f_16mb": {
+          "archive": "libreboot-26.11rev1_supermicro_x11ssh_f_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "topton_x2e_n150": {
+          "archive": "libreboot-26.11rev1_topton_x2e_n150.tar.xz",
+          "status": "listed-with-signature"
+        }
+      },
+      "listed_targets": 99,
+      "unlisted_targets": 228,
+      "other_archives": [
+        "libreboot-26.11rev1-pcsx-redux-default.tar.xz",
+        "libreboot-26.11rev1-pico-serprog-default.tar.xz",
+        "libreboot-26.11rev1-stm32-vserprog-default.tar.xz"
+      ]
+    },
+    "rboot": {
+      "release": "26.11rev2",
+      "listing_url": "https://rsync.rboot.org/26.11rev2/roms/",
+      "listing_sha256": "6b94b88f21cd3ce46a5516798f0b2ead70b43569ebb851aba2fc21799a001a64",
+      "targets": {
+        "apple_macbook11_16mb": {
+          "archive": "rboot-26.11rev2_apple_macbook11_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook11_2mb": {
+          "archive": "rboot-26.11rev2_apple_macbook11_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook21_16mb": {
+          "archive": "rboot-26.11rev2_apple_macbook21_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "apple_macbook21_2mb": {
+          "archive": "rboot-26.11rev2_apple_macbook21_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_16mb": {
+          "archive": "rboot-26.11rev2_asus_kcma_d8_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_2mb": {
+          "archive": "rboot-26.11rev2_asus_kcma_d8_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_4mb": {
+          "archive": "rboot-26.11rev2_asus_kcma_d8_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kcma_d8_8mb": {
+          "archive": "rboot-26.11rev2_asus_kcma_d8_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_16mb": {
+          "archive": "rboot-26.11rev2_asus_kgpe_d16_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_2mb": {
+          "archive": "rboot-26.11rev2_asus_kgpe_d16_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_4mb": {
+          "archive": "rboot-26.11rev2_asus_kgpe_d16_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "asus_kgpe_d16_8mb": {
+          "archive": "rboot-26.11rev2_asus_kgpe_d16_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "cros_rk3399_gru_bob": {
+          "archive": "rboot-26.11rev2_cros_rk3399_gru_bob.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "cros_rk3399_gru_kevin": {
+          "archive": "rboot-26.11rev2_cros_rk3399_gru_kevin.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e4300_4mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e4300_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5420_6mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e5420_6mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5520_6mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e5520_6mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e5530_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e5530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6220_10mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6220_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6230_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6230_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6320_10mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6320_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6330_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6330_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6400_gpu_intel_4mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6400_gpu_intel_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6420_10mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6420_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6430_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6430_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6520_10mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6520_10mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e6530_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e6530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_latitude_e7240_12mb": {
+          "archive": "rboot-26.11rev2_dell_latitude_e7240_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_7010_sff_12mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_7010_sff_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_mt_8mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_780_mt_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_mt_truncate_8mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_780_mt_truncate_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_usff_8mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_780_usff_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_780_usff_truncate_8mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_780_usff_truncate_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_9020_mt_12mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_9020_mt_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_optiplex_9020_sff_12mb": {
+          "archive": "rboot-26.11rev2_dell_optiplex_9020_sff_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "dell_precision_t1650_12mb": {
+          "archive": "rboot-26.11rev2_dell_precision_t1650_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "edk2_chromebook": {
+          "archive": "rboot-26.11rev2_edk2_chromebook.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "edk2_chromebook_nohpet": {
+          "archive": "rboot-26.11rev2_edk2_chromebook_nohpet.tar.xz",
+          "status": "not-listed-with-signature"
+        },
+        "emulation_qemu_arm64_12mb": {
+          "archive": "rboot-26.11rev2_emulation_qemu_arm64_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "emulation_qemu_x86_64_12mb": {
+          "archive": "rboot-26.11rev2_emulation_qemu_x86_64_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8200_sff_8mb": {
+          "archive": "rboot-26.11rev2_hp_elite_8200_sff_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8300_cmt_16mb": {
+          "archive": "rboot-26.11rev2_hp_elite_8300_cmt_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_elite_8300_usdt_16mb": {
+          "archive": "rboot-26.11rev2_hp_elite_8300_usdt_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "hp_pro_3500series_8mb": {
+          "archive": "rboot-26.11rev2_hp_pro_3500series_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_r400_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_r400_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r400_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_r400_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_r500_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_r500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t400_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t400_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t400_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t400_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t420_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t420_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t420s_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t420s_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t430_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t430_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t440p_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t440p_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t500_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t500_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t500_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t520_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t520_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t530_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t60_gpu_intel_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t60_gpu_intel_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_t60_gpu_intel_2mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_t60_gpu_intel_2mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_w500_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_w500_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w500_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_w500_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w530_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_w530_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_w541_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_w541_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x200_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x200_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x200_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x200_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x220_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x220_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x230_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x230t_12mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x230t_12mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x301_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_4mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x301_4mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x301_8mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x301_8mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x60_16mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x60_16mb.tar.xz",
+          "status": "listed-with-signature"
+        },
+        "lenovo_thinkpad_x60_2mb": {
+          "archive": "rboot-26.11rev2_lenovo_thinkpad_x60_2mb.tar.xz",
+          "status": "listed-with-signature"
+        }
+      },
+      "listed_targets": 76,
+      "unlisted_targets": 2,
+      "other_archives": [
+        "rboot-26.11rev2-pcsx-redux-default.tar.xz",
+        "rboot-26.11rev2-pico-serprog-default.tar.xz",
+        "rboot-26.11rev2-stm32-vserprog-default.tar.xz"
+      ]
+    }
+  }
+}

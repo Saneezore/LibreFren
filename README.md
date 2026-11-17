@@ -24,19 +24,21 @@ python3 -m librefren
 - Dependency-free Python/curses interface; Libreboot website colours `#280b22` and `#4e324e`, keyboard navigation, search and scrollable instructions.
 - Advisory Linux DMI, architecture, PCI and device-tree detection without reading serial numbers or requesting root. Exact name candidates preserve suffixes; external targets are distinguished from the running host.
 - Inventory of 327 Libreboot targets, 78 RBoot targets and 930 coreboot board selectors at recorded revisions. These are build targets/selectors, not unique tested retail models.
-- Local full-text database of 770 upstream documents, 31 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
-- Exact-target downloads for pinned Libreboot 26.11 and RBoot 26.11rev1 releases, HTTPS origin restrictions, isolated GPG verification against the publisher fingerprint, bounded archive inspection, and receipts.
+- Local full-text database of 770 upstream documents, 34 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
+- Exact-target downloads for pinned Libreboot 26.11rev1 and RBoot 26.11rev2 releases, HTTPS origin restrictions, isolated GPG verification against the publisher fingerprint, bounded archive inspection, and receipts. Missing releases, targets or detached signatures stop the download; there is no automatic substitution.
 - Explicitly confirmed dependency installation from an unmodified, pinned lbmk/rbmk checkout. The upstream distribution profile is shown before sudo is invoked.
 - Pinned upstream source fetching without running build scripts; optional session logs for user-reported manual observations, which never unlock flashing.
 - Explicitly confirmed Libreboot vendor preparation through pinned upstream lbmk, with a MAC choice, untouched original archive, captured logs, prepared hashes and inspection of actual ROM variants. Successful preparation **does not** grant flash approval.
 - Guided preparation keeps the selected target, source checkout, authenticated archive and prepared variant together. Download and preparation progress stays in the TUI; system package installation uses sudo's terminal prompt.
 - Selection/extraction of a prepared variant without overwriting existing files; repeated-backup consistency checks with a TUI file browser.
+- RBoot variant staging for inspection, with the original archive hash and publisher signature rechecked on a private snapshot. Prepared Libreboot variants also have their recorded archive hash rechecked before extraction.
+- Read-only backup/candidate layout comparisons inside the guided TUI: bounded FMAP parsing, region boundaries and hashes, missing or changed device-data regions, and common IFD region overlap checks. Reports remain local and never authorize a write. See [layout inspection](docs/layout-inspection.md) for scope and validation.
 - Detailed manual instructions for Chromebook preparation, CR50/Ti50, target identity, protected regions, recovery and custom-firmware handoffs. Other boards receive general steps and exact-identifier documentation references when available.
 - AppImage packaging and a GitHub Actions workflow which creates **draft prereleases** on version tags.
 
 ## Deliberately unresolved
 
-End-to-end installation for all boards is **not implemented or validated**. RBoot region-aware image preparation, automated Chromebook FMAP/VPD/HWID preservation, validated internal flashing command generation, per-chip external plans, board-specific coreboot settings/build execution, historical release selection, dependency isolation and signed catalog updates remain work to do. Unknown requirements stop progression. The UI's preparation controls are an implementation preview; no real vendor injection or system dependency installation was exercised during development.
+End-to-end installation for all boards is **not implemented or validated**. RBoot region-preserving image preparation, automated Chromebook VPD/HWID preservation, validated internal flashing command generation, per-chip external plans, board-specific coreboot settings/build execution, historical release selection, dependency isolation and signed catalog updates remain work to do. Layout comparison is evidence, not an image repair or flash approval. Unknown requirements stop progression. The UI's preparation controls are an implementation preview; no real vendor injection or system dependency installation was exercised during development.
 
 Coreboot source availability is not a promise of end-user installation support. Many boards need unique blobs, straps, manufacturing configuration, downstream patches or hardware recovery. A board appearing in the source inventory never authorizes a write. A manual acknowledgement is not machine-verifiable evidence.
 

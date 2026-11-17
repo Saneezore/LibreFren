@@ -7,14 +7,15 @@ import subprocess
 import tempfile
 from urllib.parse import urlparse
 from urllib.request import build_opener, HTTPRedirectHandler, Request
+from urllib.error import HTTPError
 
 from .safety import Refusal, digest, inspect_variants
 
 FINGERPRINT = "8BB1F7D28CF7696DBF4F71925C654067D383B1FF"
 HOSTS = {"mirror.math.princeton.edu", "rsync.rboot.org", "rboot.org", "libreboot.org"}
 RELEASES = {
-    "libreboot": ("26.11", "https://mirror.math.princeton.edu/pub/libreboot/stable/26.11/"),
-    "rboot": ("26.11rev1", "https://rsync.rboot.org/26.11rev1/"),
+    "libreboot": ("26.11rev1", "https://mirror.math.princeton.edu/pub/libreboot/stable/26.11rev1/"),
+    "rboot": ("26.11rev2", "https://rsync.rboot.org/26.11rev2/"),
 }
 
 
@@ -33,7 +34,11 @@ class Redirects(HTTPRedirectHandler):
 def download(url, path, limit=256 * 1024**2):
     check_url(url)
     total = 0
-    with build_opener(Redirects()).open(Request(url, headers={"User-Agent": "LibreFren/0.1"}), timeout=30) as response, Path(path).open("xb") as out:
+    try:
+        response = build_opener(Redirects()).open(Request(url, headers={"User-Agent": "LibreFren/0.1"}), timeout=30)
+    except HTTPError as error:
+        raise Refusal(f'Official release resource is unavailable (HTTP {error.code}): {url}. No different release or target was substituted; review the pinned release catalog.') from error
+    with response, Path(path).open("xb") as out:
         check_url(response.url)
         while chunk := response.read(1024**2):
             total += len(chunk)
@@ -87,6 +92,8 @@ def fetch(project, target, directory):
     parser.feed((work / "index.html").read_text())
     if name not in parser.links:
         raise Refusal("This exact target is absent from the pinned release. No substitute was downloaded.")
+    if name + '.sig' not in parser.links:
+        raise Refusal('The exact target has no detached signature in the official listing. No archive was downloaded.')
     archive = work / name
     download(base + "roms/" + name, archive)
     download(base + "roms/" + name + ".sig", work / "archive.sig", 65536)

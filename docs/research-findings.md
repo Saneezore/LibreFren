@@ -32,6 +32,24 @@ RBoot documents a 16 KiB GbE layout versus 8 KiB in some other distributions. Re
 
 Evidence: official-reviewed. [Source](https://rboot.org/docs/install/dell_gbe.html).
 
+## FMAP is nested region metadata, not target identity
+
+Validate the serialized table, bounds, unique region names and nesting. PRESERVE flags identify areas requiring attention, but neither matching names nor matching lengths proves that copying their data between firmware versions is valid.
+
+Evidence: official-reviewed. [Source](https://doc.coreboot.org/lib/flashmap.html).
+
+## IFD decoding depends on chipset generation
+
+Upstream ifdtool uses generation-specific masks, region counts and platform interpretation. LibreFren compares only the five common region geometries and explicitly leaves additional regions, permissions, density and straps unresolved.
+
+Evidence: official-reviewed. [Source](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/ifdtool/ifdtool.c).
+
+## Broad write examples need reconciliation with preservation rules
+
+The board documentation includes external chip-splitting and write examples alongside a requirement not to overwrite omitted ME content. Do not convert the broad example into an executable whole-chip plan without resolving the exact layout and preserved regions.
+
+Evidence: design-inference. [Source](https://rboot.org/docs/install/dell9020.html).
+
 ## Dell 9020 completion sequence
 
 The guide warns that vendor shutdown can write EFI variables after installation. The exact post-write power procedure and a live environment belong in the board workflow.

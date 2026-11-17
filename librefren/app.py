@@ -3,7 +3,9 @@ import argparse
 from collections import Counter
 import curses
 import json
+import os
 from pathlib import Path
+import re
 import sqlite3
 import subprocess
 import sys
@@ -12,13 +14,21 @@ import textwrap
 from concurrent.futures import ThreadPoolExecutor
 
 from .guides import CHROMEBOOK, guide_for
-from .releases import fetch
-from .prepare import dependencies, fetch_source, inject
+from .releases import RELEASES, archive_name, fetch
+from .prepare import dependencies, fetch_source, inject, stage_variant
+from .layouts import compare_images, format_report
 from .session import Session
-from .safety import Refusal, check_backups, detect, exact_candidates, extract_variant, flash_gate, inspect_variants
+from .safety import Refusal, check_backups, detect, exact_candidates, flash_gate, inspect_variants
 
 DATA = Path(__file__).parent / "data"
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def state_directory():
+    base = Path(os.environ.get('XDG_DATA_HOME', ''))
+    if not base.is_absolute():
+        base = Path.home() / '.local/share'
+    return base / 'librefren'
 
 
 def load(name):
@@ -47,6 +57,7 @@ class TUI:
     def __init__(self, screen):
         self.screen = screen
         self.boards = load('boards')
+        self.release_inventory = load('release-inventory')
         self.hardware = detect()
         self.selected = None
         self.receipt = None
@@ -54,6 +65,7 @@ class TUI:
         self.sources = {}
         self.selected_variant = None
         self.backup_result = None
+        self.layout_report = None
         self.colour = 0
         try:
             curses.curs_set(0)
@@ -188,7 +200,7 @@ class TUI:
                 note = self.prompt('Observation (do not enter passwords, keys or serial numbers)')
                 if note:
                     if self.session is None:
-                        self.session = Session(Path.home() / '.local/share/librefren/sessions')
+                        self.session = Session(state_directory() / 'sessions')
                     self.session.record('manual-observation', {'target': self.selected['id'] if self.selected else None,
                                                              'step': title, 'source': url, 'note': note,
                                                              'status': 'user-reported-unverified'})
@@ -225,7 +237,7 @@ class TUI:
                 if selection < len(candidates):
                     boards = [candidates[selection]]
         index = self.menu('Select exact target · verify board revision and flash capacity',
-                          [b['id'] + ' | ' + ', '.join(b.get('names', [])) for b in boards], True)
+                          [b['id'] + ' | ' + self.availability(b) + ' | ' + ', '.join(b.get('names', [])) for b in boards], True)
         if index is None:
             return
         selected = boards[index]
@@ -235,6 +247,19 @@ class TUI:
             return
         self.selected = selected
         self.receipt = self.selected_variant = self.backup_result = None
+        self.layout_report = None
+
+    def availability(self, board):
+        if board['project'] == 'coreboot':
+            return 'source build required'
+        catalog = self.release_inventory or {}
+        project = catalog.get('projects', {}).get(board['project'], {})
+        entry = project.get('targets', {}).get(board['id'], {})
+        if project.get('release') != RELEASES[board['project']][0]:
+            return 'release availability unchecked'
+        if entry.get('status') == 'listed-with-signature':
+            return 'binary listed in ' + project['release']
+        return 'no binary in saved release listing'
 
     def file_picker(self, title, start=None):
         directory = Path(start or Path.home()).expanduser().resolve()
@@ -300,16 +325,60 @@ class TUI:
             finally:
                 self.screen.timeout(-1)
 
+    def compare_layouts(self):
+        self.view('Compare backup and candidate layouts',
+                  'Select a complete backup image and a candidate image. This inspection reads files only: it does not copy device data or write firmware. For multi-chip devices, individual chip dumps cannot replace a correctly assembled full image.\n\nIFD inspection covers the five common region registers only; additional regions, hardware permissions and chipset straps remain unresolved. FMAP checks do not prove board identity or authenticate a locally selected image.')
+        context_index = self.menu('Choose the comparison requirements',
+                                  ['RBoot vendor-region preservation', 'Chromebook device-data preservation', 'General layout comparison'])
+        if context_index is None:
+            return
+        backup = self.file_picker('Select the complete original backup image')
+        if backup is None:
+            return
+        candidate, expected_hash = None, None
+        if self.selected_variant:
+            choice = self.menu('Choose the candidate image', ['Use this session’s inspection copy', 'Browse for another local image'])
+            if choice is None:
+                return
+            if choice == 0:
+                candidate = Path(self.selected_variant['path'])
+                expected_hash = self.selected_variant['sha256']
+        if candidate is None:
+            candidate = self.file_picker('Select the candidate image', backup.parent)
+        if candidate is None:
+            return
+        context = ('rboot', 'chromebook', 'general')[context_index]
+        size_match = re.search(r'_(\d+)mb$', self.selected['id']) if self.selected else None
+        expected_size = int(size_match[1]) * 1024**2 if size_match else None
+        report = self.background_job('Compare image layouts without modifying files',
+                                     lambda: compare_images(backup, candidate, context, expected_size))
+        if expected_hash is not None and report['candidate']['sha256'] != expected_hash:
+            self.layout_report = None
+            raise Refusal('The staged variant changed after extraction. Stage it again from its authenticated/prepared archive before comparing it as this session’s candidate.')
+        # Session metadata is evidence only, and never consumed by flash_gate.
+        if self.session is None:
+            self.session = Session(state_directory() / 'sessions')
+        self.session.record('layout-comparison', {'target': self.selected['id'] if self.selected else None,
+                                                 'backup_path': str(backup), 'candidate_path': str(candidate), 'report': report})
+        self.layout_report = report
+        self.view('Layout evidence — flashing remains blocked', format_report(report)
+                  + '\n\nReport recorded in: ' + str(self.session.path))
+
     def download(self):
         if not self.selected or self.selected['project'] == 'coreboot':
             raise Refusal('Select an exact Libreboot or RBoot target first. coreboot requires a board-specific source build.')
         expected = 'DOWNLOAD ' + self.selected['id']
-        answer = self.prompt('Download only this exact target; not flash approval. Type ' + expected)
+        self.view('Review exact release availability', self.availability(self.selected)
+                  + '\n\nAvailability is a saved directory observation, not firmware authentication or hardware approval. The download checks the live listing again. If this target is absent, use its source/manual workflow; no nearby model, capacity or release will be substituted.')
+        release = RELEASES[self.selected['project']][0]
+        answer = self.prompt('Release ' + release + ': ' + archive_name(self.selected['project'], self.selected['id'])
+                             + '. Download this exact archive for preparation only. Type ' + expected)
         if answer != expected:
             return
         self.receipt = self.background_job('Download and authenticate the exact target',
-            lambda: fetch(self.selected['project'], self.selected['id'], Path.home() / '.local/share/librefren/downloads'))
+            lambda: fetch(self.selected['project'], self.selected['id'], state_directory() / 'downloads'))
         self.selected_variant = None
+        self.layout_report = None
         self.view('Publisher signature verified', 'Target: ' + self.selected['id'] + '\nArchive: '
                   + self.receipt['archive'] + '\n\nThe downloaded archive still needs its preparation checks. Authentication proves publisher provenance, not suitability for your physical device.')
 
@@ -336,7 +405,7 @@ class TUI:
         if action == 4:
             answer = self.prompt(f'Type FETCH {project} to download its pinned source (no build scripts run)')
             if answer == f'FETCH {project}':
-                result = self.background_job('Fetch the pinned upstream source', lambda: fetch_source(project, Path.home() / '.local/share/librefren/sources'))
+                result = self.background_job('Fetch the pinned upstream source', lambda: fetch_source(project, state_directory() / 'sources'))
                 self.sources[project] = result['source']
                 self.view('Source ready for this session', 'Checkout: ' + result['source'] + '\nRevision: '
                           + result['revision'] + '\n\nLibreFren will use this checkout for the next preparation steps. No build scripts have run.')
@@ -346,15 +415,19 @@ class TUI:
                       'Use the exact board selector below as research evidence. A compiling configuration is not proof of safe hardware initialization. This preview does not expose editable Kconfig or a build executor without a reviewed baseline.\n\n' + json.dumps(self.selected, indent=2) + '\n\nManual next steps: review the board documentation, obtain required vendor files from documented sources, pin source/toolchain/submodules, and qualify the unchanged baseline on recoverable hardware.\n\nhttps://doc.coreboot.org/tutorial/part1.html')
             return
         if action == 2:
-            if not self.receipt or self.receipt['status'] != 'upstream-preparation-completed-unqualified':
-                raise Refusal('Complete preparation first. Downloaded scrubbed images cannot be extracted through this menu.')
+            if not self.receipt or not (self.receipt['status'] == 'upstream-preparation-completed-unqualified'
+                                       or (project == 'rboot' and self.receipt['status'] == 'authenticated-download-only')):
+                raise Refusal('Libreboot requires preparation first. RBoot requires an authenticated archive; its variants are inspection copies only.')
             variants = self.receipt['variants']
-            idx = self.menu('Choose an actual prepared variant — not flash approval', [v['path'] for v in variants])
+            idx = self.menu('Choose an actual variant for inspection — not flash approval', [v['path'] for v in variants])
             if idx is not None:
-                output = extract_variant(self.receipt['archive'], target, variants[idx]['path'], Path(self.receipt['archive']).parent / 'selected')
+                output = self.background_job('Recheck the archive and stage the selected variant',
+                    lambda: stage_variant(self.receipt, project, target, variants[idx]['path'], state_directory() / 'inspection'))
                 self.selected_variant = output
-                self.view('Variant extracted; hardware validation remains blocked', 'File: ' + output['path']
-                          + '\nSHA-256: ' + output['sha256'] + '\n\nDo not flash this file until the unresolved board-specific requirements are independently validated.')
+                self.layout_report = None
+                self.view('Inspection copy created — not a flashable-image approval', 'File: ' + output['path']
+                          + '\nSHA-256: ' + output['sha256'] + '\n\n' + output['limitation']
+                          + '\n\nNext: compare this image with the complete original backup using the layout comparison step.')
             return
         if project == 'coreboot':
             self.preparation(3)
@@ -387,8 +460,9 @@ class TUI:
             mac = self.prompt('MAC choice: random, or the target device’s full unicast MAC address')
             confirmation = self.prompt(f'Type PREPARE {target} to run upstream preparation and vendor downloads')
             if mac and confirmation:
-                self.receipt = self.background_job('Prepare the authenticated Libreboot archive', lambda: inject(project, target, self.receipt['archive'], source, mac, confirmation, Path.home() / '.local/share/librefren/prepared'))
+                self.receipt = self.background_job('Prepare the authenticated Libreboot archive', lambda: inject(project, target, self.receipt['archive'], source, mac, confirmation, state_directory() / 'prepared'))
                 self.selected_variant = None
+                self.layout_report = None
                 self.view('Upstream preparation finished', 'Prepared archive: ' + self.receipt['archive']
                           + '\n\nChoose an actual prepared variant next. Hardware validation remains unresolved; successful preparation does not authorize flashing.')
 
@@ -411,11 +485,12 @@ class TUI:
                       '5. Review and install system dependencies',
                       '6. Download and authenticate exact release',
                       '7. Prepare vendor components' if project == 'libreboot' else '7. Read custom preparation / build requirements',
-                      '8. Select and extract an actual prepared variant',
-                      '9. Review flashing blockers and next steps',
+                      '8. Select and stage an actual ROM variant for inspection',
+                      '9. Compare backup and candidate image layouts',
+                      '10. Review flashing blockers and next steps',
                       'Chromebook-specific preparation instructions', 'Back to main menu']
             action = self.menu(f'{project} · {target} · {status}', labels)
-            if action is None or action == 10:
+            if action is None or action == 11:
                 return
             try:
                 if action == 0:
@@ -441,10 +516,13 @@ class TUI:
                 elif action == 7:
                     self.preparation(2)
                 elif action == 8:
+                    self.compare_layouts()
+                elif action == 9:
                     self.view('Flashing is blocked — unresolved validation',
                               '\n\n'.join(flash_gate(self.selected)['reasons'])
+                              + ('\n\nLayout inspection findings:\n' + '\n\n'.join(self.layout_report['blockers']) if self.layout_report else '\n\nNo layout comparison recorded for this session.')
                               + '\n\nNo internal write command or external wiring plan is approved for this target in this version. Consult the target workflow and upstream documentation; stop if identity, chip geometry, voltage, protected regions or recovery are unclear.')
-                elif action == 9:
+                elif action == 10:
                     self.guides(CHROMEBOOK)
             except (Refusal, OSError, ValueError, subprocess.SubprocessError, tarfile.TarError) as error:
                 self.view('Stopped — action needs attention', str(error))

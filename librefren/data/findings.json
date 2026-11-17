@@ -50,6 +50,36 @@
     "flash_authority": false
   },
   {
+    "topic": "layout",
+    "project": "all",
+    "title": "FMAP is nested region metadata, not target identity",
+    "finding": "Validate the serialized table, bounds, unique region names and nesting. PRESERVE flags identify areas requiring attention, but neither matching names nor matching lengths proves that copying their data between firmware versions is valid.",
+    "url": "https://doc.coreboot.org/lib/flashmap.html",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "layout",
+    "project": "coreboot",
+    "title": "IFD decoding depends on chipset generation",
+    "finding": "Upstream ifdtool uses generation-specific masks, region counts and platform interpretation. LibreFren compares only the five common region geometries and explicitly leaves additional regions, permissions, density and straps unresolved.",
+    "url": "https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/ifdtool/ifdtool.c",
+    "evidence": "official-reviewed",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
+    "topic": "migration",
+    "project": "rboot",
+    "title": "Broad write examples need reconciliation with preservation rules",
+    "finding": "The board documentation includes external chip-splitting and write examples alongside a requirement not to overwrite omitted ME content. Do not convert the broad example into an executable whole-chip plan without resolving the exact layout and preserved regions.",
+    "url": "https://rboot.org/docs/install/dell9020.html",
+    "evidence": "design-inference",
+    "reviewed_at": "2026-11-17",
+    "flash_authority": false
+  },
+  {
     "topic": "power",
     "project": "libreboot",
     "title": "Dell 9020 completion sequence",

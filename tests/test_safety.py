@@ -44,7 +44,7 @@ class SafetyTests(unittest.TestCase):
         self.assertFalse(flash_gate({'flash_approved': True}, {'everything': True})['allowed'])
 
     def test_target_name_exact(self):
-        self.assertEqual(archive_name('libreboot', self.target), 'libreboot-26.11_lenovo_thinkpad_t480s_16mb.tar.xz')
+        self.assertEqual(archive_name('libreboot', self.target), 'libreboot-26.11rev1_lenovo_thinkpad_t480s_16mb.tar.xz')
         with self.assertRaises(Refusal):
             archive_name('libreboot', '../t480')
 
@@ -95,6 +95,16 @@ class SafetyTests(unittest.TestCase):
     def test_same_size_wrong_target_filename(self):
         path = self.tar([(f'bin/{self.target}/edk2_lenovo_thinkpad_t480_16mb_libgfxinit_corebootfb.rom', bytes(16 * 1024**2))])
         self.assertTrue(inspect_variants(path, self.target)[0]['blockers'])
+
+    def test_current_upstream_compound_payload_names_remain_target_exact(self):
+        target = 'vendor_board'
+        for payload in ('uefi_edk2', 'bios_seabios', 'uefi_uboot'):
+            for image_target, valid in ((target, True), ('vendor_other_board', False)):
+                with self.subTest(payload=payload, image_target=image_target):
+                    path = self.tar([(f'bin/{target}/{payload}_{image_target}_libgfxinit_corebootfb.rom', b'fixture')])
+                    item = inspect_variants(path, target)[0]
+                    self.assertEqual(item['payload'], payload)
+                    self.assertEqual(not item['blockers'], valid)
 
     def test_scrubbed_and_wrong_size_blocked(self):
         path = self.tar([(f'bin/{self.target}/DO_NOT_FLASH_edk2_{self.target}_x.rom', b'123')])

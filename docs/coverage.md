@@ -11,10 +11,10 @@ Scope: **all models represented by Libreboot, RBoot and coreboot**, with archive
 | Downloads | Exact target only, two pinned current distribution releases, signed archive verification | Historical schemas, key rotation/revocation and source-only build routes |
 | Dependencies | Explicitly confirmed upstream host-profile installer | Test on each supported distribution; isolate and qualify build environments |
 | Libreboot preparation | Pinned upstream injection runner, logs, MAC choice, archive/variant checks | Real vendor preparation tests and component/region validation per target |
-| RBoot preparation | Region-preservation instructions and explicit refusal of generic blob injection | Implement and test per-board migration/layout handling |
+| RBoot preparation | Authenticated inspection-only variant staging, common IFD region comparisons and preservation instructions; generic blob injection refused | Implement and test per-board region-preserving preparation and migration plans |
 | coreboot settings/builds | Source inventory and manual guidance | Reviewed baseline and allowed settings per board; build and hardware qualification |
-| Chromebooks | Detailed manual guide and source links | Exact-board WP/GSC recipes, FMAP compatibility and VPD/HWID/GBB/MRC validation |
-| Variant selection | Actual prepared archive entries; no fabricated universal choices | Board-specific payload/graphics/keymap compatibility |
+| Chromebooks | Detailed manual guide, bounded FMAP parsing and read-only region/hash comparisons | Exact-board WP/GSC recipes, semantic VPD/HWID/GBB/MRC validation and reviewed data migration |
+| Variant selection | Actual archive entries; source hash rechecked against a private snapshot; RBoot signature reverified | Board-specific payload/graphics/keymap compatibility and hardware qualification |
 | Flash command generation | Disabled for all physical targets | Independently reviewed profile and complete evidence chain |
 | External flashing | General prerequisites and board-source handoff | Qualified chip topology, voltage, offsets, wiring and power sequence per board |
 | AppImage | x86_64 local preview plus CI packaging | Cross-distribution tests, ARM host build, publication and release provenance |

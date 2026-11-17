@@ -18,6 +18,7 @@ def interface():
     app.selected_variant = {'path': '/old/image.rom'}
     app.backup_result = {'status': 'consistent'}
     app.sources = {}
+    app.release_inventory = {}
     app.hardware = {}
     app.boards = [app.selected, {'project': 'libreboot', 'id': 'other_16mb', 'names': []}]
     app.view = Mock()
@@ -58,7 +59,7 @@ class TuiTests(unittest.TestCase):
 
     def test_downloaded_archive_cannot_be_selected_as_prepared(self):
         app = interface()
-        with patch('librefren.app.extract_variant') as extract:
+        with patch('librefren.app.stage_variant') as extract:
             with self.assertRaises(Refusal):
                 app.preparation(2)
             extract.assert_not_called()
@@ -76,6 +77,17 @@ class TuiTests(unittest.TestCase):
         app.preparation(0)
         app.terminal_job.assert_not_called()
         self.assertIn('configuration', app.view.call_args.args[0])
+
+    def test_changed_staged_variant_cannot_be_recorded_as_session_candidate(self):
+        app = interface()
+        app.selected_variant = {'path': '/candidate', 'sha256': 'a' * 64}
+        app.menu = Mock(side_effect=[0, 0])
+        app.file_picker = Mock(return_value=Path('/backup'))
+        app.background_job = Mock(return_value={'candidate': {'sha256': 'b' * 64}})
+        with patch('librefren.app.Session') as session, self.assertRaisesRegex(Refusal, 'changed after extraction'):
+            app.compare_layouts()
+        session.assert_not_called()
+        self.assertIsNone(app.layout_report)
 
     def test_apprun_forwards_explicit_arguments_without_terminal(self):
         with tempfile.TemporaryDirectory() as directory:

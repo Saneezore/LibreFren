@@ -1,0 +1,23 @@
+{
+  "project": "libreboot",
+  "release": "26.11rev1",
+  "target": "dell_optiplex_9020_sff_12mb",
+  "sha256": "afb28ed81a8a958b7f2510d8ea41bcddfa8dad4830567ea07be24c79c17c39e3",
+  "signer": "8BB1F7D28CF7696DBF4F71925C654067D383B1FF",
+  "variants": [
+    {
+      "path": "bin/dell_optiplex_9020_sff_12mb/DO_NOT_FLASH_YET._FIRST,_INJECT_FILES_VIA_INSTRUCTIONS_ON_LIBREBOOT.ORG_uefi_edk2_dell_optiplex_9020_sff_12mb_libgfxinit_corebootfb.rom",
+      "size": 12582913,
+      "payload": "unknown",
+      "blockers": [
+        "Vendor-file injection is incomplete",
+        "Filename does not identify the exact target",
+        "Image size disagrees with selected target capacity"
+      ],
+      "flash_approved": false
+    }
+  ],
+  "status": "authenticated-download-only",
+  "flash_approved": false,
+  "scope": "Official download and detached-signature verification only; no injection, dependency installation or firmware writes."
+}

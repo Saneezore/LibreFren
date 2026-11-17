@@ -1,0 +1,78 @@
+{
+  "target": "dell_optiplex_9020_sff_12mb",
+  "release": "26.11rev2",
+  "archive_sha256": "abf886a87f36db3a74a01602e9274f06b7a4525dae25305f4fff630b70181912",
+  "variants": 1,
+  "staged_variant": "bin/dell_optiplex_9020_sff_12mb/uefi_edk2_dell_optiplex_9020_sff_12mb_libgfxinit_corebootfb.rom",
+  "staged_sha256": "ee11e5358481a213a161c8959ec62d8572fd261127cad8cbc2e9fd7855afde5e",
+  "flash_approved": false,
+  "ifd": {
+    "format": "IFD-common-regions",
+    "table_offset": 64,
+    "areas": {
+      "descriptor": {
+        "offset": 0,
+        "size": 4096,
+        "sha256": "900d1fe3eaa2af643ac28a4b41a69ce7b1f635000ce8bd794b99dd3600259e80"
+      },
+      "bios": {
+        "offset": 6291456,
+        "size": 6291456,
+        "sha256": "0bd4892a41067beb9436ab6a316bbbfe1d48dc8d67d2ef5da31cc2c7c0c17dbf"
+      },
+      "me": {
+        "offset": 20480,
+        "size": 6270976,
+        "sha256": "d41a7d2a1b5f4c5759ef9563d04428f7f612e582cbaabb71ff6773be2ad8a583"
+      },
+      "gbe": {
+        "offset": 4096,
+        "size": 16384,
+        "sha256": "0d3f29f499248a7a103b1dfbdeef70bb9fa1ad1714fe6a7ef027f63f4e043f07"
+      }
+    },
+    "coverage": "Only descriptor, BIOS, ME, GbE and platform-data geometry. Chipset generation, extra regions, permissions, density and straps are NOT validated."
+  },
+  "fmap": {
+    "format": "FMAP",
+    "version": "1.1",
+    "base": 0,
+    "size": 12582912,
+    "name": "FLASH",
+    "table_offset": 8716288,
+    "areas": {
+      "BIOS": {
+        "offset": 8388608,
+        "size": 4194304,
+        "flags": 0,
+        "sha256": "74197f63068cb2ead8518712684eb177874fcbb23bc9e6f53742d4e55c6bf924"
+      },
+      "RW_MRC_CACHE": {
+        "offset": 8388608,
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      },
+      "SMMSTORE": {
+        "offset": 8454144,
+        "size": 262144,
+        "flags": 0,
+        "sha256": "3b874d3ba46c638fc3094f8e92fb744ca974893873f8885f54e23760f9b6311b"
+      },
+      "FMAP": {
+        "offset": 8716288,
+        "size": 4096,
+        "flags": 0,
+        "sha256": "881b3f7c45206f59c6bc506f684a1dc81c279319967380ccafdfa30283c5564c"
+      },
+      "COREBOOT": {
+        "offset": 8720384,
+        "size": 3862528,
+        "flags": 0,
+        "sha256": "b63f38af529113f3f04005f4cf07ed42177490682e478910fdcfa3eeaf605fac"
+      }
+    },
+    "ignored_signature_candidates": 3
+  },
+  "scope": "One signed release archive; no physical firmware writes, vendor injection or system dependency installation."
+}
