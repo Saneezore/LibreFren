@@ -41,7 +41,7 @@ def main():
         if copyright_file.is_file():
             shutil.copyfile(copyright_file, notices / (name + '-copyright'))
     launch = appdir / 'AppRun'
-    launch.write_text('#!/bin/sh\nAPPDIR="$(dirname "$(readlink -f "$0")")"\nexec "$APPDIR/usr/bin/librefren" "$@"\n')
+    shutil.copyfile(ROOT / 'packaging/AppRun', launch)
     launch.chmod(0o755)
     output = ROOT / 'dist/LibreFren-0.1.0-x86_64.AppImage'
     output.parent.mkdir(exist_ok=True)

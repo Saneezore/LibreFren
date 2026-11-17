@@ -1,0 +1,18 @@
+#!/bin/sh
+# The no-argument desktop launch opens the TUI in an available terminal.
+# Explicit arguments remain usable by scripts without opening a window.
+APPDIR="$(dirname "$(readlink -f "$0")")"
+if [ "$#" -gt 0 ] || { [ -t 0 ] && [ -t 1 ]; }; then
+    exec "$APPDIR/usr/bin/librefren" "$@"
+fi
+for terminal in x-terminal-emulator kgx gnome-terminal konsole xfce4-terminal kitty alacritty foot xterm; do
+    if command -v "$terminal" >/dev/null 2>&1; then
+        case "$terminal" in
+            kgx|gnome-terminal) exec "$terminal" -- "$APPDIR/usr/bin/librefren" ;;
+            xfce4-terminal) exec "$terminal" -x "$APPDIR/usr/bin/librefren" ;;
+            *) exec "$terminal" -e "$APPDIR/usr/bin/librefren" ;;
+        esac
+    fi
+done
+printf '%s\n' 'LibreFren needs a terminal. Open this AppImage from a terminal to launch the interface.' >&2
+exit 1

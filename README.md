@@ -1,6 +1,17 @@
 # LibreFren
 
-A small purple Linux TUI for researching and preparing **Libreboot, RBoot and coreboot** firmware. Run from this directory:
+A small purple Linux TUI for researching and preparing **Libreboot, RBoot and coreboot** firmware. The primary interface is an interactive, full-screen application.
+
+Launch the AppImage without arguments:
+
+```sh
+chmod +x LibreFren-0.1.0-x86_64.AppImage
+./LibreFren-0.1.0-x86_64.AppImage
+```
+
+The AppImage bundles Python; users do not need to install Python or type Python commands. Desktop launches open an available terminal. Choose **Start / continue guided preparation** to identify the target, read requirements, check backups, fetch source, review dependencies, authenticate the exact release, prepare vendor components and select an actual ROM variant. Missing hardware validation remains a visible blocker.
+
+For developers running from the source checkout:
 
 ```sh
 python3 -m librefren
@@ -18,7 +29,8 @@ python3 -m librefren
 - Explicitly confirmed dependency installation from an unmodified, pinned lbmk/rbmk checkout. The upstream distribution profile is shown before sudo is invoked.
 - Pinned upstream source fetching without running build scripts; optional session logs for user-reported manual observations, which never unlock flashing.
 - Explicitly confirmed Libreboot vendor preparation through pinned upstream lbmk, with a MAC choice, untouched original archive, captured logs, prepared hashes and inspection of actual ROM variants. Successful preparation **does not** grant flash approval.
-- Selection/extraction of a prepared variant without overwriting existing files; repeated-backup consistency checks through the CLI.
+- Guided preparation keeps the selected target, source checkout, authenticated archive and prepared variant together. Download and preparation progress stays in the TUI; system package installation uses sudo's terminal prompt.
+- Selection/extraction of a prepared variant without overwriting existing files; repeated-backup consistency checks with a TUI file browser.
 - Detailed manual instructions for Chromebook preparation, CR50/Ti50, target identity, protected regions, recovery and custom-firmware handoffs. Other boards receive general steps and exact-identifier documentation references when available.
 - AppImage packaging and a GitHub Actions workflow which creates **draft prereleases** on version tags.
 
@@ -28,14 +40,16 @@ End-to-end installation for all boards is **not implemented or validated**. RBoo
 
 Coreboot source availability is not a promise of end-user installation support. Many boards need unique blobs, straps, manufacturing configuration, downstream patches or hardware recovery. A board appearing in the source inventory never authorizes a write. A manual acknowledgement is not machine-verifiable evidence.
 
-## CLI
+## Optional command-line utilities
+
+These commands are for scripting and diagnostics. Normal interactive use does not require them.
 
 ```sh
 python3 -m librefren detect
-python3 -m librefren boards --project libreboot --search t480s
+python3 -m librefren boards --project libreboot
 python3 -m librefren research 'RO_VPD'
 python3 -m librefren guide chromebook
-python3 -m librefren guide lenovo_thinkpad_t480s_16mb
+python3 -m librefren guide EXACT_TARGET
 python3 -m librefren inspect /path/to/archive.tar.xz --target EXACT_TARGET
 python3 -m librefren check-backups --bytes 16777216 read1.bin read2.bin
 ```

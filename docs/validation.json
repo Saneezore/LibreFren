@@ -1,6 +1,6 @@
 {
   "date": "2026-11-17",
-  "tests_passed": 22,
+  "tests_passed": 31,
   "appimage_smoke": "CLI and interactive TUI passed locally without FUSE",
   "physical_firmware_writes": 0,
   "hardware_qualified_profiles": 0,

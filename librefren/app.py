@@ -1,4 +1,4 @@
-"""Small curses frontend with the same refusal rules as the CLI."""
+"""Guided curses application; optional CLI utilities share its safety checks."""
 import argparse
 from collections import Counter
 import curses
@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tarfile
 import textwrap
+from concurrent.futures import ThreadPoolExecutor
 
 from .guides import CHROMEBOOK, guide_for
 from .releases import fetch
@@ -50,6 +51,9 @@ class TUI:
         self.selected = None
         self.receipt = None
         self.session = None
+        self.sources = {}
+        self.selected_variant = None
+        self.backup_result = None
         self.colour = 0
         try:
             curses.curs_set(0)
@@ -190,6 +194,112 @@ class TUI:
                                                              'status': 'user-reported-unverified'})
                     self.view('Observation recorded', 'Saved to ' + str(self.session.path) + '\nThis observation does not unlock flashing or satisfy an unresolved machine check.')
 
+    def show_hardware(self):
+        fields = [('sys_vendor', 'Manufacturer'), ('product_name', 'Product'),
+                  ('product_version', 'Product version'), ('board_name', 'Board'),
+                  ('board_version', 'Board version'), ('bios_vendor', 'Current firmware'),
+                  ('bios_version', 'Firmware version'), ('architecture', 'Architecture')]
+        body = '\n'.join(f'{label}: {self.hardware.get(key, "unknown")}' for key, label in fields)
+        candidates = exact_candidates(self.hardware, self.boards)
+        body += '\n\nExact name candidates (identity still needs verification):\n'
+        body += '\n'.join(b['project'] + ': ' + b['id'] for b in candidates) or 'None found.'
+        body += '\n\nDetection describes this running host. For an external motherboard, identify the target from its own markings and documentation. Names alone never authorize firmware preparation or flashing.'
+        self.view('Detected hardware', body)
+
+    def choose_target(self):
+        scope = self.menu('Which device are you preparing?', ['This Linux host', 'A separate device or motherboard'])
+        if scope is None:
+            return
+        project_index = self.menu('Choose a firmware project', ['Libreboot', 'RBoot', 'coreboot'])
+        if project_index is None:
+            return
+        project = ('libreboot', 'rboot', 'coreboot')[project_index]
+        boards = [b for b in self.boards if b['project'] == project]
+        if scope == 0:
+            candidates = exact_candidates(self.hardware, boards)
+            if candidates:
+                selection = self.menu('Exact name candidates — not verified hardware matches',
+                                      [b['id'] for b in candidates] + ['Browse the full project inventory'])
+                if selection is None:
+                    return
+                if selection < len(candidates):
+                    boards = [candidates[selection]]
+        index = self.menu('Select exact target · verify board revision and flash capacity',
+                          [b['id'] + ' | ' + ', '.join(b.get('names', [])) for b in boards], True)
+        if index is None:
+            return
+        selected = boards[index]
+        confirmation = self.menu('Use ' + selected['id'] + ' for research and preparation?',
+                                 ['Go back and check the identity', 'Use this target; physical identity is still unverified'])
+        if confirmation != 1:
+            return
+        self.selected = selected
+        self.receipt = self.selected_variant = self.backup_result = None
+
+    def file_picker(self, title, start=None):
+        directory = Path(start or Path.home()).expanduser().resolve()
+        while True:
+            entries = sorted((p for p in directory.iterdir() if not p.is_symlink()),
+                             key=lambda p: (not p.is_dir(), p.name.casefold()))
+            labels = ['../ (parent directory)', 'Enter a different directory']
+            labels += [p.name + ('/' if p.is_dir() else '') for p in entries]
+            index = self.menu(title + ' · ' + str(directory), labels, True)
+            if index is None:
+                return None
+            if index == 0:
+                directory = directory.parent
+            elif index == 1:
+                path = self.prompt('Directory to browse')
+                if path:
+                    candidate = Path(path).expanduser().resolve(strict=True)
+                    if not candidate.is_dir():
+                        raise Refusal('Choose a directory to browse.')
+                    directory = candidate
+            else:
+                chosen = entries[index - 2]
+                if chosen.is_dir():
+                    directory = chosen
+                elif chosen.is_file():
+                    return chosen
+
+    def backup_check(self):
+        self.view('Check existing firmware backups',
+                  'Obtain at least two independent reads using the exact board documentation first. LibreFren does not read a firmware chip. Select two existing backup files below. Matching bytes do not prove the correct chip was read.\n\nFor multi-chip boards, compare the two reads of each chip separately; do not mix full images and individual chip dumps.')
+        size = self.prompt('Expected capacity of this chip in bytes, from verified chip documentation')
+        if not size:
+            return
+        if not size.isdecimal() or not 0 < int(size) <= 128 * 1024**2:
+            raise Refusal('Enter a capacity between 1 and 134217728 bytes.')
+        first = self.file_picker('Select the first independent read')
+        if first is None:
+            return
+        second = self.file_picker('Select the second independent read', first.parent)
+        if second is None:
+            return
+        self.backup_result = check_backups([first, second], int(size))
+        self.view('Backup files contain matching bytes',
+                  f'First: {first}\nSecond: {second}\nSHA-256: {self.backup_result["sha256"]}\n\n'
+                  + self.backup_result['limitation'] + '\nThis check does not unlock flashing.')
+
+    def background_job(self, title, action):
+        # Only tasks without interactive input run here. sudo retains its own
+        # terminal prompt through terminal_job; passwords never enter curses.
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            future = pool.submit(action)
+            self.screen.timeout(150)
+            tick = 0
+            try:
+                while not future.done():
+                    self.frame(title)
+                    self.line(7, 'Working' + '.' * (tick % 4))
+                    self.line(9, 'Please wait for the operation to finish. No firmware writes are performed.')
+                    self.screen.refresh()
+                    self.screen.getch()
+                    tick += 1
+                return future.result()
+            finally:
+                self.screen.timeout(-1)
+
     def download(self):
         if not self.selected or self.selected['project'] == 'coreboot':
             raise Refusal('Select an exact Libreboot or RBoot target first. coreboot requires a board-specific source build.')
@@ -197,41 +307,39 @@ class TUI:
         answer = self.prompt('Download only this exact target; not flash approval. Type ' + expected)
         if answer != expected:
             return
-        curses.def_prog_mode()
-        curses.endwin()
-        try:
-            print('Downloading one exact target and verifying its publisher signature. No firmware writes.')
-            self.receipt = fetch(self.selected['project'], self.selected['id'], Path.home() / '.local/share/librefren/downloads')
-            print(json.dumps(self.receipt, indent=2))
-        finally:
-            input('Press Enter to return to the companion...')
-            curses.reset_prog_mode()
-            self.screen.refresh()
+        self.receipt = self.background_job('Download and authenticate the exact target',
+            lambda: fetch(self.selected['project'], self.selected['id'], Path.home() / '.local/share/librefren/downloads'))
+        self.selected_variant = None
+        self.view('Publisher signature verified', 'Target: ' + self.selected['id'] + '\nArchive: '
+                  + self.receipt['archive'] + '\n\nThe downloaded archive still needs its preparation checks. Authentication proves publisher provenance, not suitability for your physical device.')
 
     def terminal_job(self, action):
         curses.def_prog_mode()
         curses.endwin()
         try:
             result = action()
-            print(json.dumps(result, indent=2))
+            print('Operation finished. Returning to LibreFren.')
             return result
         finally:
             input('Press Enter to return...')
             curses.reset_prog_mode()
             self.screen.refresh()
 
-    def preparation(self):
+    def preparation(self, action=None):
         if not self.selected:
             raise Refusal('Select an exact target first.')
         project, target = self.selected['project'], self.selected['id']
-        action = self.menu('Preparation — outputs remain unqualified for flashing', ['Install build dependencies', 'Prepare authenticated Libreboot archive', 'Select and extract a prepared variant', 'coreboot settings and build guidance', 'Fetch the pinned upstream source'])
+        if action is None:
+            action = self.menu('Preparation — outputs remain unqualified for flashing', ['Install build dependencies', 'Prepare authenticated Libreboot archive', 'Select and extract a prepared variant', 'coreboot settings and build guidance', 'Fetch the pinned upstream source'])
         if action is None:
             return
         if action == 4:
             answer = self.prompt(f'Type FETCH {project} to download its pinned source (no build scripts run)')
             if answer == f'FETCH {project}':
-                result = self.terminal_job(lambda: fetch_source(project, Path.home() / '.local/share/librefren/sources'))
-                self.view('Source downloaded — use this path for preparation', json.dumps(result, indent=2))
+                result = self.background_job('Fetch the pinned upstream source', lambda: fetch_source(project, Path.home() / '.local/share/librefren/sources'))
+                self.sources[project] = result['source']
+                self.view('Source ready for this session', 'Checkout: ' + result['source'] + '\nRevision: '
+                          + result['revision'] + '\n\nLibreFren will use this checkout for the next preparation steps. No build scripts have run.')
             return
         if action == 3:
             self.view('coreboot configuration — hardware settings locked',
@@ -244,9 +352,17 @@ class TUI:
             idx = self.menu('Choose an actual prepared variant — not flash approval', [v['path'] for v in variants])
             if idx is not None:
                 output = extract_variant(self.receipt['archive'], target, variants[idx]['path'], Path(self.receipt['archive']).parent / 'selected')
-                self.view('Variant extracted; hardware validation remains blocked', json.dumps(output, indent=2))
+                self.selected_variant = output
+                self.view('Variant extracted; hardware validation remains blocked', 'File: ' + output['path']
+                          + '\nSHA-256: ' + output['sha256'] + '\n\nDo not flash this file until the unresolved board-specific requirements are independently validated.')
             return
-        source = self.prompt('Path to the pinned upstream source checkout')
+        if project == 'coreboot':
+            self.preparation(3)
+            return
+        source = self.sources.get(project)
+        if not source:
+            self.view('Fetch the project source first', 'Use “Fetch pinned upstream source” in the preparation workflow. LibreFren will remember its path for the rest of this session.')
+            return
         if not source:
             return
         if action == 0:
@@ -262,69 +378,114 @@ class TUI:
             confirmation = self.prompt(f'Type INSTALL {project} {profile} to install dependencies')
             if confirmation:
                 import tempfile
-                log = Path(tempfile.mkdtemp(prefix='fc-deps-')) / 'dependencies.log'
-                self.terminal_job(lambda: dependencies(project, source, profile, confirmation, log))
+                log = Path(tempfile.mkdtemp(prefix='librefren-deps-')) / 'dependencies.log'
+                result = self.terminal_job(lambda: dependencies(project, source, profile, confirmation, log))
+                self.view('Dependency installer finished', 'Review the installation log: ' + result['log'])
         else:
             if not self.receipt:
                 raise Refusal('Download and authenticate an archive first.')
             mac = self.prompt('MAC choice: random, or the target device’s full unicast MAC address')
             confirmation = self.prompt(f'Type PREPARE {target} to run upstream preparation and vendor downloads')
             if mac and confirmation:
-                self.receipt = self.terminal_job(lambda: inject(project, target, self.receipt['archive'], source, mac, confirmation, Path.home() / '.local/share/librefren/prepared'))
+                self.receipt = self.background_job('Prepare the authenticated Libreboot archive', lambda: inject(project, target, self.receipt['archive'], source, mac, confirmation, Path.home() / '.local/share/librefren/prepared'))
+                self.selected_variant = None
+                self.view('Upstream preparation finished', 'Prepared archive: ' + self.receipt['archive']
+                          + '\n\nChoose an actual prepared variant next. Hardware validation remains unresolved; successful preparation does not authorize flashing.')
+
+    def workflow(self):
+        if not self.selected:
+            self.show_hardware()
+            self.choose_target()
+        while self.selected:
+            project, target = self.selected['project'], self.selected['id']
+            status = 'No archive downloaded'
+            if self.receipt:
+                status = ('Prepared archive available' if self.receipt['status'] == 'upstream-preparation-completed-unqualified'
+                          else 'Authenticated download available')
+            if self.selected_variant:
+                status = 'Variant extracted · hardware validation unresolved'
+            labels = ['1. Review target identity / change target',
+                      '2. Read board-specific requirements and manual steps',
+                      '3. Check existing backup files',
+                      '4. Fetch pinned upstream source' + (' [available]' if project in self.sources else ''),
+                      '5. Review and install system dependencies',
+                      '6. Download and authenticate exact release',
+                      '7. Prepare vendor components' if project == 'libreboot' else '7. Read custom preparation / build requirements',
+                      '8. Select and extract an actual prepared variant',
+                      '9. Review flashing blockers and next steps',
+                      'Chromebook-specific preparation instructions', 'Back to main menu']
+            action = self.menu(f'{project} · {target} · {status}', labels)
+            if action is None or action == 10:
+                return
+            try:
+                if action == 0:
+                    self.show_hardware()
+                    self.choose_target()
+                elif action == 1:
+                    self.guides(guide_for(self.selected))
+                elif action == 2:
+                    self.backup_check()
+                elif action == 3:
+                    self.preparation(4)
+                elif action == 4:
+                    self.preparation(0)
+                elif action == 5:
+                    self.download()
+                elif action == 6:
+                    if project == 'libreboot':
+                        self.preparation(1)
+                    elif project == 'coreboot':
+                        self.preparation(3)
+                    else:
+                        self.guides(guide_for(self.selected))
+                elif action == 7:
+                    self.preparation(2)
+                elif action == 8:
+                    self.view('Flashing is blocked — unresolved validation',
+                              '\n\n'.join(flash_gate(self.selected)['reasons'])
+                              + '\n\nNo internal write command or external wiring plan is approved for this target in this version. Consult the target workflow and upstream documentation; stop if identity, chip geometry, voltage, protected regions or recovery are unclear.')
+                elif action == 9:
+                    self.guides(CHROMEBOOK)
+            except (Refusal, OSError, ValueError, subprocess.SubprocessError, tarfile.TarError) as error:
+                self.view('Stopped — action needs attention', str(error))
 
     def run(self):
-        labels = ['Detect this Linux host', 'Browse all project targets', 'Selected target: workflow and manual instructions',
-                  'Chromebook preparation guide', 'Search the knowledge base', 'Download and authenticate exact target',
-                  'Inspect downloaded variants', 'Safety status and coverage', 'Dependencies, preparation and variant selection', 'Quit']
+        labels = ['Start / continue guided preparation', 'View detected hardware',
+                  'Chromebook preparation guide', 'Search the knowledge base',
+                  'Safety status and coverage', 'Quit']
         while True:
             choice = self.menu('Choose a task', labels)
-            if choice is None or choice == 9:
+            if choice is None or choice == 5:
                 return
             try:
                 if choice == 0:
-                    candidates = exact_candidates(self.hardware, self.boards)
-                    self.view('Hardware evidence — advisory only', json.dumps(self.hardware, indent=2) + '\n\nExact name candidates (not verified matches):\n' + '\n'.join(b['project'] + ': ' + b['id'] for b in candidates))
+                    self.workflow()
                 elif choice == 1:
-                    idx = self.menu('All indexed targets — not tested hardware support', [b['project'] + ' | ' + b['id'] + ' | ' + ', '.join(b.get('names', [])) for b in self.boards], True)
-                    if idx is not None:
-                        self.selected, self.receipt = self.boards[idx], None
-                        self.view('Target selected for research', json.dumps(self.selected, indent=2))
+                    self.show_hardware()
                 elif choice == 2:
-                    if not self.selected:
-                        raise Refusal('Choose a target from the inventory first.')
-                    self.guides(guide_for(self.selected))
-                elif choice == 3:
                     self.guides(CHROMEBOOK)
-                elif choice == 4:
+                elif choice == 3:
                     query = self.prompt('Search documentation (full text available with local research checkout)')
                     if query is not None:
                         results = research(query)
                         idx = self.menu('Sources — indexed, not individually validated', [s['project'] + ': ' + s['title'] for s in results], True)
                         if idx is not None:
                             record = results[idx]
-                            body = json.dumps(record, indent=2)
+                            body = '\n\n'.join(f'{key.replace("_", " ").capitalize()}: {value}' for key, value in record.items())
                             if record.get('path'):
                                 path = (ROOT / record['path']).resolve()
                                 if path.is_relative_to(ROOT / 'research/upstream') and path.is_file():
                                     body += '\n\nUPSTREAM DOCUMENT — REFERENCE ONLY, NOT AN APPROVED WORKFLOW\n\n' + path.read_text(errors='replace')
                             self.view('Source and provenance', body)
-                elif choice == 5:
-                    self.download()
-                elif choice == 6:
-                    if not self.receipt:
-                        raise Refusal('Download an authenticated target first, or use the CLI inspect command for a local archive.')
-                    self.view('Actual archive variants', json.dumps(self.receipt['variants'], indent=2))
-                elif choice == 7:
+                elif choice == 4:
                     counts = Counter(b['project'] for b in self.boards)
-                    self.view('Coverage and unresolved requirements', json.dumps(counts, indent=2) + '\n\nInventory entries are not certified models. No real-hardware flashing profiles have been approved.\n\n' + '\n'.join(flash_gate(self.selected)['reasons']) + '\n\nFirmware writes are not implemented. Hardware configuration editing remains locked. No tool can guarantee against bricking.')
-                elif choice == 8:
-                    self.preparation()
+                    self.view('Coverage and unresolved requirements', '\n'.join(f'{project}: {count} indexed targets' for project, count in counts.items()) + '\n\nInventory entries are not certified models. No real-hardware flashing profiles have been approved.\n\n' + '\n'.join(flash_gate(self.selected)['reasons']) + '\n\nFirmware writes are not implemented. Hardware configuration editing remains locked. No tool can guarantee against bricking.')
             except (Refusal, OSError, ValueError, subprocess.SubprocessError, tarfile.TarError) as error:
                 self.view('Stopped — action needs attention', str(error))
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Firmware preparation and research companion; firmware writes are locked.')
+    parser = argparse.ArgumentParser(description='LibreFren: launch without arguments for the guided terminal interface. Firmware writes remain locked.')
     sub = parser.add_subparsers(dest='command')
     sub.add_parser('detect')
     boards = sub.add_parser('boards')
