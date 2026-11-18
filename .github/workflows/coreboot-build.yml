@@ -1,0 +1,25 @@
+name: Validate an emulated coreboot build
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qemu-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install build and emulation dependencies on the disposable runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison build-essential curl flex git gnat libncurses-dev libssl-dev zlib1g-dev pkgconf python-is-python3 nasm qemu-system-x86
+      - name: Build cross-toolchain and ROM, then verify payload boot in QEMU
+        run: python3 tools/check_coreboot_build.py --directory build/qemu-validation --jobs 2
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: coreboot-emulation-evidence
+          path: build/qemu-validation/evidence/
+          retention-days: 14
