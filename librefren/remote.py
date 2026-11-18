@@ -1,4 +1,6 @@
 """GitHub Actions builds: explicit requests, bound provenance, quarantined downloads."""
+import base64
+import binascii
 import hashlib
 import json
 import os
@@ -117,9 +119,19 @@ def plan(repo, target, allow_blobs):
     workflow = client.api('/actions/workflows/' + WORKFLOW)
     if workflow.get('state') != 'active' or workflow.get('path') != '.github/workflows/' + WORKFLOW:
         raise Refusal('Enable the LibreFren remote build workflow in this repository first.')
+    revision = json.loads((coreboot.DATA / 'revisions.json').read_text())['coreboot']
+    try:
+        remote_file = client.api('/contents/librefren/data/revisions.json?ref=' + head)
+        if not isinstance(remote_file, dict) or remote_file.get('encoding') != 'base64' or remote_file.get('type') != 'file':
+            raise ValueError('Unexpected content encoding')
+        pins = json.loads(base64.b64decode(''.join(remote_file['content'].split()), validate=True))
+        if pins['coreboot'] != revision:
+            raise ValueError('Different coreboot revision')
+    except (KeyError, TypeError, ValueError, binascii.Error) as error:
+        raise Refusal('The repository’s coreboot pin differs or cannot be verified. Update your application/fork together before building.') from error
     return {'schema': 1, 'repository': client.repo, 'branch': branch, 'head_sha': head,
             'workflow_id': workflow['id'], 'target': target, 'allow_blobs': allow_blobs,
-            'request_id': uuid.uuid4().hex, 'coreboot_revision': json.loads((coreboot.DATA / 'revisions.json').read_text())['coreboot'],
+            'request_id': uuid.uuid4().hex, 'coreboot_revision': revision,
             'flash_approved': False, 'status': 'review-required'}
 
 
@@ -225,7 +237,12 @@ def inspect_bundle(archive, request, run_id):
             files = {i.filename: bundle.read(i) for i in entries}
     except (zipfile.BadZipFile, RuntimeError) as error:
         raise Refusal('Invalid remote build archive.') from error
-    receipt = json.loads(files['receipt.json'])
+    try:
+        receipt = json.loads(files['receipt.json'])
+    except (ValueError, UnicodeError) as error:
+        raise Refusal('Remote receipt is not valid JSON.') from error
+    if not isinstance(receipt, dict):
+        raise Refusal('Remote receipt must be a JSON object.')
     checks = {'schema': 1, 'repository': request['repository'], 'run_id': str(run_id),
               'head_sha': request['head_sha'], 'request_id': request['request_id'],
               'target': request['target'], 'allow_blobs': request['allow_blobs'],

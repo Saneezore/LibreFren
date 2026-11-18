@@ -1,6 +1,6 @@
 {
   "date": "2026-11-18",
-  "tests_passed": 108,
+  "tests_passed": 112,
   "appimage_smoke": "CLI and interactive TUI passed locally without FUSE",
   "previous_github_appimage_build": "https://github.com/Saneezore/LibreFren/actions/runs/44065864821",
   "previous_github_tested_commit": "2201ee6dadf1a94219f320743cca630a95604e2a",

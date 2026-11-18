@@ -1,4 +1,5 @@
 """Remote provenance, dispatch ambiguity and archive quarantine boundaries."""
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -58,6 +59,36 @@ class RemoteTests(unittest.TestCase):
         self.assertEqual(files['UNQUALIFIED-coreboot.rom'], IMAGE)
         self.assertIs(result['flash_approved'], False)
         self.assertFalse((self.root / 'UNQUALIFIED-coreboot.rom').exists())
+
+    def test_preflight_checks_write_access_workflow_and_pinned_source(self):
+        info = {'permissions': {'push': True}, 'default_branch': 'main'}
+        workflow = {'id': 123, 'state': 'active', 'path': '.github/workflows/' + remote.WORKFLOW}
+        pins = {'encoding': 'base64', 'type': 'file', 'content': base64.b64encode(
+            json.dumps({'coreboot': self.request['coreboot_revision']}).encode()).decode()}
+        with patch.object(remote.GitHub, 'api', side_effect=[info, {'sha': 'a' * 40}, workflow, pins]) as api:
+            result = remote.plan('example/LibreFren', TARGET, False)
+            self.assertEqual(result['coreboot_revision'], self.request['coreboot_revision'])
+            self.assertEqual(result['head_sha'], 'a' * 40)
+            self.assertIn('ref=' + 'a' * 40, api.call_args.args[0])
+        for invalid in (dict(info, permissions={'push': False}), dict(info, archived=True)):
+            with patch.object(remote.GitHub, 'api', return_value=invalid) as api, self.assertRaises(Refusal):
+                remote.plan('example/LibreFren', TARGET, False)
+            self.assertEqual(api.call_count, 1)
+        bad_pins = dict(pins, content=base64.b64encode(b'{"coreboot":"wrong"}').decode())
+        for invalid in (bad_pins, None, dict(pins, encoding='none'), dict(pins, content='!!!!')):
+            with patch.object(remote.GitHub, 'api', side_effect=[info, {'sha': 'a' * 40}, workflow, invalid]), self.assertRaises(Refusal):
+                remote.plan('example/LibreFren', TARGET, False)
+
+    def test_malformed_receipts_are_refused_without_extracting(self):
+        for raw in (b'null', b'[]', b'not-json', b'\xff'):
+            archive = self.root / 'bad-receipt.zip'
+            with zipfile.ZipFile(archive, 'w') as z:
+                z.writestr('receipt.json', raw)
+                z.writestr('generated.config', CONFIG)
+                z.writestr('UNQUALIFIED-coreboot.rom', IMAGE)
+            with self.subTest(raw=raw), self.assertRaises(Refusal):
+                remote.inspect_bundle(archive, self.request, 456)
+            self.assertFalse((self.root / 'UNQUALIFIED-coreboot.rom').exists())
 
     def test_mismatched_provenance_is_rejected(self):
         changes = dict(target='BOARD_EMULATION_QEMU_X86_Q35', revision='d' * 40,

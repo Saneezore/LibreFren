@@ -39,34 +39,51 @@ def run_phase(name, action):
             raise
 
 
-def qemu_boot(image, expected_hash, evidence):
+def qemu_boot(image, expected_hash, evidence, machine='pc', boot_menu=True):
     data = image.read_bytes()
     if hashlib.sha256(data).hexdigest() != expected_hash:
         raise Refusal('QEMU candidate hash changed after build.')
     debug, serial, errors = (evidence / name for name in ('qemu-debug.log', 'qemu-serial.log', 'qemu-stderr.log'))
-    argv = ['qemu-system-x86_64', '-machine', 'pc', '-accel', 'tcg', '-m', '128',
-            '-bios', str(image), '-display', 'none', '-monitor', 'none', '-nic', 'none',
+    if machine not in ('pc', 'pc,acpi=off') or type(boot_menu) is not bool:
+        raise Refusal('Unsupported emulation diagnostic configuration.')
+    argv = ['qemu-system-x86_64', '-machine', machine, '-accel', 'tcg', '-m', '128',
+            '-bios', str(image), '-display', 'none', '-monitor', 'stdio', '-nic', 'none',
             '-serial', 'file:' + str(serial), '-debugcon', 'file:' + str(debug),
             '-global', 'isa-debugcon.iobase=0x402', '-no-reboot']
+    if not boot_menu:
+        setting = evidence / 'show-boot-menu.bin'
+        setting.write_bytes(b'\0\0\0\0')
+        argv += ['-fw_cfg', 'name=etc/show-boot-menu,file=' + str(setting)]
     result = {'argv': argv, 'duration_limit_seconds': 45,
               'version': subprocess.check_output(['qemu-system-x86_64', '--version'], text=True).splitlines()[0]}
-    with errors.open('xb') as stderr:
-        process = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=stderr, stderr=stderr)
+    with errors.open('xb') as stderr, (evidence / 'qemu-monitor.log').open('xb') as monitor:
+        process = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=monitor, stderr=stderr,
+                                   env=coreboot.environment())
         try:
             process.wait(timeout=45)
         except subprocess.TimeoutExpired:
-            process.terminate()
+            # Capture the guest CPU and interrupt-controller state before stopping.
+            try:
+                process.stdin.write(b'stop\ninfo registers\ninfo pic\ninfo irq\nquit\n')
+                process.stdin.flush()
+            except (BrokenPipeError, OSError):
+                pass
             try:
                 process.wait(timeout=5)
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait()
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+            process.stdin.close()
     text = '\n'.join(p.read_text(errors='replace') for p in (debug, serial) if p.exists())
     result.update(returncode=process.returncode,
                   coreboot_ramstage=bool(re.search(r'coreboot-[^\n]*ramstage starting', text)),
                   seabios_started='SeaBIOS (version ' in text,
                   no_boot_device='No bootable device.' in text)
-    result['passed'] = all(result[key] for key in ('coreboot_ramstage', 'seabios_started', 'no_boot_device'))
+    result['passed'] = process.returncode == 0 and all(result[key] for key in ('coreboot_ramstage', 'seabios_started', 'no_boot_device'))
     (evidence / 'qemu.json').write_text(json.dumps(result, indent=2) + '\n')
     if not result['passed']:
         raise Refusal('QEMU did not show all required boot markers; inspect its debug/serial logs.')
