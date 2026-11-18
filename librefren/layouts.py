@@ -11,6 +11,7 @@ import stat
 import struct
 
 from .safety import Refusal
+from . import vpd
 
 MAX_IMAGE = 128 * 1024**2
 FMAP_HEADER = struct.Struct('<8sBBQI32sH')
@@ -24,6 +25,8 @@ SOURCES = [
     'https://rboot.org/docs/install/ivy_has_common.html',
     'https://rboot.org/docs/install/dell_gbe.html',
     'https://libreboot.org/docs/install/chromebooks-x86.html',
+    vpd.SOURCE,
+    vpd.COREBOOT_SOURCE,
 ]
 
 
@@ -171,6 +174,14 @@ def _inspect(data):
             result[name] = parser(data)
         except Refusal as error:
             result[name + '_unresolved'] = str(error)
+    result['vpd'] = {}
+    for name in ('RO_VPD', 'RW_VPD'):
+        area = result.get('fmap', {}).get('areas', {}).get(name)
+        if area:
+            try:
+                result['vpd'][name] = vpd.inspect_region(memoryview(data)[area['offset']:area['offset'] + area['size']])
+            except Refusal as error:
+                result['vpd'][name] = {'status': 'unresolved', 'reason': str(error)}
     return result
 
 
@@ -182,7 +193,7 @@ def compare_images(backup_path, candidate_path, context='general', expected_size
     original, candidate = _inspect(read_image(backup_path)), _inspect(read_image(candidate_path))
     blockers = ['Physical target identity, backup completeness and candidate provenance are not certified by a layout comparison.',
                 'No qualified board/release flashing profile; matching layout never authorizes a write.']
-    rows = []
+    rows, vpd_rows = [], []
     if original['bytes'] != candidate['bytes']:
         blockers.append('Image sizes differ. Partial dumps and full-chip images cannot be interchanged.')
     if expected_size is not None:
@@ -223,9 +234,24 @@ def compare_images(backup_path, candidate_path, context='general', expected_size
         if kind == 'fmap' and context == 'chromebook':
             if 'RO_VPD' not in old or 'RO_VPD' not in new:
                 blockers.append('RO_VPD is absent from at least one Chromebook FMAP; identity-data preservation remains unresolved.')
-            blockers.append('HWID may be stored in GBB or CBFS. This check does not decode HWID or validate VPD, GBB keys, MRC compatibility, calibration or Google Security Chip state.')
+            blockers.append('HWID may be stored in GBB or CBFS. This check does not decode HWID or validate VPD field meanings, GBB keys, MRC compatibility, calibration or Google Security Chip state.')
+    for name in ('RO_VPD', 'RW_VPD'):
+        old, new = original['vpd'].get(name), candidate['vpd'].get(name)
+        if not old and not new:
+            continue
+        for role, info in (('backup', old), ('candidate', new)):
+            if not info or info['status'] == 'unresolved':
+                reason = info['reason'] if info else 'Region absent from the parsed FMAP.'
+                blockers.append(f'{name} {role}: VPD records unresolved. {reason}')
+            elif info['empty']:
+                blockers.append(f'{name} {role}: VPD contains no records; required device fields have not been established.')
+        if old and new and all(info['status'] == 'record-evidence-only' for info in (old, new)):
+            for row in vpd.compare_records(old, new):
+                vpd_rows.append(dict(row, region=name))
+                if row['status'] != 'unchanged':
+                    blockers.append(f'{name} record {row["key"]}: {row["status"]}. Device-data preservation requires a reviewed board-specific procedure.')
     return {'status': 'layout-evidence-only', 'context': context, 'expected_target_bytes': expected_size, 'backup': original, 'candidate': candidate,
-            'regions': rows, 'blockers': list(dict.fromkeys(blockers)), 'sources': SOURCES, 'flash_approved': False}
+            'regions': rows, 'vpd_records': vpd_rows, 'blockers': list(dict.fromkeys(blockers)), 'sources': SOURCES, 'flash_approved': False}
 
 
 def format_report(report):
@@ -241,5 +267,9 @@ def format_report(report):
         for kind in ('fmap', 'ifd'):
             if kind + '_unresolved' in report[role]:
                 lines.append(f'{role.capitalize()} {kind.upper()}: {report[role][kind + "_unresolved"]}')
+    if report.get('vpd_records'):
+        lines += ['', 'VPD record comparison — raw values are not displayed:']
+        for row in report['vpd_records']:
+            lines.append(f'{row["region"]} / {row["key"]}: {row["status"]}')
     lines += ['', 'Unresolved requirements:', *report['blockers'], '', 'References:', *report['sources']]
     return '\n\n'.join(lines)

@@ -1,0 +1,203 @@
+{
+  "observed_at": "2026-11-18T04:08:48.062060+00:00",
+  "source_revision": "f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9",
+  "source_file": "src/drivers/vpd/vpd_decode.c",
+  "fixtures_compared": 32,
+  "records_compared": 224,
+  "scope": "Synthetic valid record decoding only. Strict malformed-input checks are separate unit tests. No real device-data migration or hardware validation.",
+  "flash_approved": false,
+  "results": [
+    {
+      "fixture": 0,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "e4a3f3c63bf72bc2005e1d04a7ddd8640f6a5d6529dbe82d6f27c7da213e9d43"
+    },
+    {
+      "fixture": 1,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "b1aec5853f73ab97b990115f72cb6d6bdc3f3baa81a977fc4aeb1469229fb4fe"
+    },
+    {
+      "fixture": 2,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "e2736b5cad3c0e650bf3b011c1c5a4a8ac059c26bcdd505c963ff613731cff84"
+    },
+    {
+      "fixture": 3,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "cd52902cbdadf59180fe4f5c7b381ad358648e1669df38c5c176e1140d5b6592"
+    },
+    {
+      "fixture": 4,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "e77e70307fdbc56a68a77d397d23badc2fd8aad4eda7b8ff2783800bdaf41234"
+    },
+    {
+      "fixture": 5,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "d1ee6adf4c2a2cffa812ff13a5c224e2887326e2ac0ebdd11959729ef598ee68"
+    },
+    {
+      "fixture": 6,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "822aacd1978bb9f6d29dce5f2df7f87a60362679c268ae4d963abdf4703a8a5d"
+    },
+    {
+      "fixture": 7,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "f670b4855ae762dce8a51694a33626931fdc6f999f7144438652d0e49bea9603"
+    },
+    {
+      "fixture": 8,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "ebffd5a01ffd02a2ab5475a5e8915fba1378e10fca5b8379e9b55863f4d8dda0"
+    },
+    {
+      "fixture": 9,
+      "records": 7,
+      "payload_bytes": 98921,
+      "payload_sha256": "7059f9817401a2a8ba12eae775d17baaf851caab1d91335529781e796868c3fd"
+    },
+    {
+      "fixture": 10,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "49d77964abd2ceadc80f8a49cbbb9892d8c88ae0fd228c6eb6dfe1681272eda8"
+    },
+    {
+      "fixture": 11,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "ee3e98332b6a0f180b773acebed2128a6fa9c4e2187d430ecbea230cb74eefba"
+    },
+    {
+      "fixture": 12,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "4b71065a9df1323d4e58dad395d6dccf37a0c48d6876e5d56e203710354512b4"
+    },
+    {
+      "fixture": 13,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "1cf7bc063b61f4e032ebae82492235afc1bddcfe2a50e9aedfbddb8d3c6a5236"
+    },
+    {
+      "fixture": 14,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "d539d063460a95d128df087c04d3eb7edb685439fee66d1aa8871b996a22cdbc"
+    },
+    {
+      "fixture": 15,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "c762992d11b4dec8990b5a8708ba20dfe3c94c545ade81b1760a47d60b18fb25"
+    },
+    {
+      "fixture": 16,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "4141e6697f446aac27e04d48b8aaf51a36f7b6670d3d330ec69e59d77c3e3446"
+    },
+    {
+      "fixture": 17,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "cceeb255043f287631b47e67e92e493b823deed3df530ff0e952995401f30fe4"
+    },
+    {
+      "fixture": 18,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "2a6baf520fe6f3f52cd13be50075da7cd6e8032f473c7fd1e6aca02bdc809f00"
+    },
+    {
+      "fixture": 19,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "53280689db84d342d34eb70225c9bcde49fba46ffddb8987b684a1a8785d0a50"
+    },
+    {
+      "fixture": 20,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "8270de14d656256dd3467d54e9ae0d0f7d6249f411e0214161d810530afa1f2d"
+    },
+    {
+      "fixture": 21,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "8c66631e5ef25f441be71060045bd7032616eb39c4d8c5c150d2a06c478e4a7d"
+    },
+    {
+      "fixture": 22,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "0e3f82918b36a2f783156748583ad8298bc7902d033ef7bb65362fc396c5e457"
+    },
+    {
+      "fixture": 23,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "08243174273beba413ce32dbb5a91413377cd846f11774c9f94a19abc69ab1d0"
+    },
+    {
+      "fixture": 24,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "e15ea022c9146e86f3d38c2139cd3b0e7f43e57441f175f663e1b25896088b8e"
+    },
+    {
+      "fixture": 25,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "5adb1458757db27209868c4bb9da3ef973c7197379081cd1737acc8955132d04"
+    },
+    {
+      "fixture": 26,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "3b10a9e8efb665d5f86aa86237d40356d876c4083ba4418df5f798a23b58b8ba"
+    },
+    {
+      "fixture": 27,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "ab77d4545f9365c25ac8337069544f07348022524f14cb3f5119e8365f69a07c"
+    },
+    {
+      "fixture": 28,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "9de73fc011526f2df8ee0d71cfb05a6469cec772ea97807c09813d6c802525c5"
+    },
+    {
+      "fixture": 29,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "09c3c69bdcf8a8713468edfa47d9d9b8a61b7723f7d8dbe313c436397918a28f"
+    },
+    {
+      "fixture": 30,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "75303acb17c15e4c369a2b71a6114d2e13efd697cea2b56a34979aa9b8a37796"
+    },
+    {
+      "fixture": 31,
+      "records": 7,
+      "payload_bytes": 98928,
+      "payload_sha256": "9e214f2d45a57ec7f4079634388b3dc13692a53b679bc864fa0f970a63d43372"
+    }
+  ]
+}

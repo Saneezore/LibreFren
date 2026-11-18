@@ -26,12 +26,16 @@ jobs:
           source = fetch_source('coreboot', 'build/coreboot-sources')['source']
           subprocess.run([sys.executable, 'tools/check_coreboot_configurations.py',
                           '--source', source, '--output', 'build/coreboot-configurations.json'], check=True)
+          subprocess.run([sys.executable, 'tools/check_vpd_against_upstream.py',
+                          '--source', source, '--output', 'build/vpd-decoder-validation.json'], check=True)
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: coreboot-configuration-evidence
-          path: build/coreboot-configurations.json
+          path: |
+            build/coreboot-configurations.json
+            build/vpd-decoder-validation.json
   appimage:
     runs-on: ubuntu-22.04
     steps:

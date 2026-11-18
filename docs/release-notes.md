@@ -9,6 +9,7 @@ This preview includes:
 - Pinned source downloads, confirmed dependency installation and Libreboot vendor preparation controls.
 - Current upstream ROM filename formats, prepared-archive hash rechecks, and signature-reverified RBoot inspection copies.
 - Read-only backup/candidate layout comparisons for common Intel descriptor regions and FMAP, with device-data preservation findings and local reports.
+- Google VPD 2.0 record comparisons that distinguish changed/missing device records from region padding changes, without displaying raw record values or copying them into images.
 - Chromebook preparation and RBoot region-preservation instructions.
 - A coreboot build screen with fresh pinned workspaces, exact board/configuration checks, confirmed host dependencies, cross-toolchain and image build controls, live logs and cancellation. Hardware settings remain locked and image outputs are marked unqualified.
 

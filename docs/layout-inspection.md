@@ -18,6 +18,10 @@ The FMAP reader checks supported versions, table bounds, nonempty regions, uniqu
 
 The report highlights missing, moved, resized or changed regions. RO_VPD, RW_VPD, GBB, named MRC regions and PRESERVE-marked areas receive explicit preservation review. Hash agreement is evidence of matching bytes, not proof of semantic compatibility or a correct backup.
 
+For supported Google VPD 2.0 stores, the report also compares individual keys and value hashes. Each key is marked unchanged, changed, missing or added. This distinguishes a record change from changes to unrelated padding, while preserving the separate whole-region comparison. Raw values are not displayed or saved in the report; only key names, value lengths and SHA-256 hashes are recorded. Reports still belong with the user's private backup evidence, not public telemetry.
+
+VPD inspection accepts one Google info header at offset 0 or 0x600, bounded declared data and terminated records. It rejects ambiguous headers, duplicate keys, overflow/truncated lengths, unsupported key names, unknown metadata and non-padding bytes after termination. Legacy/headerless formats remain unresolved. Empty stores are explicitly flagged. Parsing records does not establish which fields a particular board requires, whether a value is valid, or whether calibration data is compatible with the candidate firmware.
+
 HWID can move between GBB and CBFS. GBB keys, VPD contents, calibration and MRC compatibility require more than region copying. The companion does not perform these migrations. The current [Libreboot Chromebook guide](https://libreboot.org/docs/install/chromebooks-x86.html) still contains unresolved preservation instructions; such gaps remain blockers. Consult the [MrChromebox custom-firmware guidance](https://docs.mrchromebox.tech/docs/firmware/manual-flashing.html) for supported devices, without treating it as approval for a different distribution's image.
 
 ## Deliberate parser limits
@@ -25,6 +29,7 @@ HWID can move between GBB and CBFS. GBB keys, VPD contents, calibration and MRC 
 - Full files from 4 KiB to 128 MiB only. Devices, pipes and final symlinks are refused. A per-chip dump must not be mistaken for a complete multi-chip address space.
 - FMAP 1.0/1.1, at most 1,024 areas and 64 signature candidates. Total region hashing is bounded. Unsupported/ambiguous input remains unresolved.
 - IFD inspection covers only descriptor, BIOS, ME, GbE and platform-data geometry at conventional descriptor locations. It uses the common address-field interpretation and does not infer a verified chipset generation. Extra regions, permissions, density, straps, Boot Guard and other platform-specific settings are unvalidated.
+- VPD regions are limited to 2 MiB, 2,048 records, 256-byte keys and five-byte length encodings. The companion does not rewrite VPD or infer field semantics.
 - Neither input's target identity, independent-read provenance, authenticity, electrical configuration nor actual write-protect state can be established by this comparison. Even identical images cannot unlock flashing.
 
 The format references are [coreboot's FMAP documentation](https://doc.coreboot.org/lib/flashmap.html) and the pinned [ifdtool implementation](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/ifdtool/ifdtool.c).
@@ -44,6 +49,13 @@ python3 tools/check_layouts_against_upstream.py \
 ```
 
 The decoder agreed with upstream on **55 descriptor geometries** from the pinned Libreboot/RBoot repositories. The tool uses synthetic padding in memory to inspect descriptors as full-size parser fixtures; these are not bootable images and are not saved as ROMs. Results and descriptor hashes are recorded in [the validation report](layout-parser-validation.json). This comparison validates common address decoding only; it is not hardware qualification.
+
+The VPD decoder separately agreed with the pinned upstream C decoder on **32 synthetic fixtures / 224 records**, including binary values and variable-length boundaries. Malformed-input refusals are covered by unit tests. No real device calibration data or ROM migration was tested. See [the VPD comparison report](vpd-decoder-validation.json), [the Google format specification](https://chromium.googlesource.com/chromiumos/platform/vpd/+/2b274e62f481d3121b964e10bd0c5c79398813ae/README.md), and [coreboot's header-location logic](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/src/drivers/vpd/vpd.c).
+
+```sh
+python3 tools/check_vpd_against_upstream.py \
+  --source research/upstream/coreboot --output docs/vpd-decoder-validation.json
+```
 
 ## Release availability
 

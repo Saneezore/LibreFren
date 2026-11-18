@@ -1,6 +1,6 @@
 {
   "date": "2026-11-17",
-  "tests_passed": 76,
+  "tests_passed": 83,
   "appimage_smoke": "CLI and interactive TUI passed locally without FUSE",
   "previous_github_appimage_build": "https://github.com/Saneezore/LibreFren/actions/runs/44065864821",
   "previous_github_tested_commit": "2201ee6dadf1a94219f320743cca630a95604e2a",
@@ -22,5 +22,8 @@
   ],
   "coreboot_configuration_check": "coreboot-configuration-validation.json",
   "coreboot_configurations_checked": 16,
-  "coreboot_full_rom_builds_validated": 0
+  "coreboot_full_rom_builds_validated": 0,
+  "vpd_decoder_check": "vpd-decoder-validation.json",
+  "vpd_synthetic_fixtures_compared": 32,
+  "vpd_records_compared": 224
 }

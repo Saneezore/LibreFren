@@ -2,6 +2,12 @@
 
 Reviewed 17 November 2026. Indexed sources are not individually reviewed. Community reports are leads, not firmware authorization.
 
+## VPD records can be compared without copying device values
+
+Google VPD 2.0 encodes length-prefixed key/value records and terminates with 0x00 or 0xff. The pinned coreboot reader locates its info header at offset 0 or 0x600 inside an FMAP VPD area. LibreFren compares bounded records using value hashes and lengths; this does not validate board-required fields, calibration semantics or migration compatibility.
+
+Evidence: official-reviewed. [Source](https://chromium.googlesource.com/chromiumos/platform/vpd/+/2b274e62f481d3121b964e10bd0c5c79398813ae/README.md).
+
 ## Switching boards requires a fresh configuration
 
 The upstream tutorial explains that Kconfig retains earlier board settings and can produce a hybrid configuration. LibreFren creates an independent checkout for each target, seeds its exact vendor and board selectors, then verifies the resolved selector and source directory.
