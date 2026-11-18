@@ -16,7 +16,7 @@ permissions:
 jobs:
   boot:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -24,7 +24,7 @@ jobs:
       - name: Install emulator only
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-x86
+          sudo apt-get install -y --no-install-recommends qemu-system-x86
       - name: Verify existing candidate and inspect boot behavior
         env:
           GH_TOKEN: ${{ github.token }}

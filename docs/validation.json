@@ -1,7 +1,7 @@
 {
   "date": "2026-11-18",
   "tests_passed": 112,
-  "appimage_smoke": "CLI and interactive TUI passed locally without FUSE",
+  "appimage_smoke": "GitHub-built v0.1.0 asset verified against API digest and checksum file; CLI and interactive TUI opened and exited locally without FUSE.",
   "previous_github_appimage_build": "https://github.com/Saneezore/LibreFren/actions/runs/44065864821",
   "previous_github_tested_commit": "2201ee6dadf1a94219f320743cca630a95604e2a",
   "upstream_descriptor_geometries_compared": 55,
@@ -30,5 +30,9 @@
   "coreboot_emulation_check": "coreboot-emulation-validation.json",
   "coreboot_full_rom_builds_compiled": 2,
   "coreboot_remote_check": "coreboot-remote-validation.json",
-  "coreboot_remote_build_and_download_verified": true
+  "coreboot_remote_build_and_download_verified": true,
+  "github_appimage_build": "https://github.com/Saneezore/LibreFren/actions/runs/44323616265",
+  "github_tested_commit": "498459deae4eb7871248d304d0e03a099b4a698f",
+  "appimage_sha256": "565ed19cfb6357ee4b0a9c52bbf54c81238f175be7c1e8ded4cbc691af1cc255",
+  "coreboot_boot_diagnostic": "coreboot-boot-diagnostic.json"
 }

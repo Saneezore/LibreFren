@@ -1,0 +1,21 @@
+{
+  "run_url": "https://github.com/Saneezore/LibreFren/actions/runs/44322996416",
+  "status": "cancelled-at-job-time-limit",
+  "artifact_sha256": "29d39573fe54098e9d3a76531e9ae0706c13cbaf186eb2dd287574b0bc83958a",
+  "source_build_run": "https://github.com/Saneezore/LibreFren/actions/runs/44238863124",
+  "image_sha256": "5acec22e329f4c3eb35651d53952e4dc2d775ccde3c65827ad15e1956348d904",
+  "baseline": {
+    "version": "QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1.18)",
+    "duration_limit_seconds": 45,
+    "returncode": 0,
+    "coreboot_ramstage": true,
+    "seabios_started": true,
+    "no_boot_device": false,
+    "passed": false
+  },
+  "alternative_cases": "ACPI-off interrupted; menu-off not reached. Neither case has a completed result.",
+  "observation": "Baseline CPU was halted with interrupts enabled; PIC IRQ0 was pending. Cause remains unresolved.",
+  "setup": "APT fetched 37.9 MB in 8 minutes 9 seconds; the 10-minute job limit interrupted the second case. Future diagnostic jobs omit recommended GUI packages and allow 15 minutes.",
+  "hardware_qualified": false,
+  "flash_approved": false
+}
