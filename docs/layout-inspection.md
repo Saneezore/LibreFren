@@ -22,7 +22,9 @@ For supported Google VPD 2.0 stores, the report also compares individual keys an
 
 VPD inspection accepts one Google info header at offset 0 or 0x600, bounded declared data and terminated records. It rejects ambiguous headers, duplicate keys, overflow/truncated lengths, unsupported key names, unknown metadata and non-padding bytes after termination. Legacy/headerless formats remain unresolved. Empty stores are explicitly flagged. Parsing records does not establish which fields a particular board requires, whether a value is valid, or whether calibration data is compatible with the candidate firmware.
 
-HWID can move between GBB and CBFS. GBB keys, VPD contents, calibration and MRC compatibility require more than region copying. The companion does not perform these migrations. The current [Libreboot Chromebook guide](https://libreboot.org/docs/install/chromebooks-x86.html) still contains unresolved preservation instructions; such gaps remain blockers. Consult the [MrChromebox custom-firmware guidance](https://docs.mrchromebox.tech/docs/firmware/manual-flashing.html) for supported devices, without treating it as approval for a different distribution's image.
+For GBB 1.2, the reader checks header size/version, reserved bytes, component bounds and non-overlap, a bounded terminated ASCII HWID, and its stored SHA-256 checksum. It compares HWID hashes, root/recovery key region hashes and flag values without displaying the HWID or key bytes. A checksum is not publisher authentication, physical-device identity or key trust. Older/newer GBB formats and missing GBB data stay unresolved.
+
+HWID can move between GBB and CBFS. CBFS HWID, GBB key trust, VPD field requirements, calibration and MRC compatibility still require more than region copying. The companion does not perform these migrations. The current [Libreboot Chromebook guide](https://libreboot.org/docs/install/chromebooks-x86.html) still contains unresolved preservation instructions; such gaps remain blockers. Consult the [MrChromebox custom-firmware guidance](https://docs.mrchromebox.tech/docs/firmware/manual-flashing.html) for supported devices, without treating it as approval for a different distribution's image.
 
 ## Deliberate parser limits
 
@@ -30,9 +32,12 @@ HWID can move between GBB and CBFS. GBB keys, VPD contents, calibration and MRC 
 - FMAP 1.0/1.1, at most 1,024 areas and 64 signature candidates. Total region hashing is bounded. Unsupported/ambiguous input remains unresolved.
 - IFD inspection covers only descriptor, BIOS, ME, GbE and platform-data geometry at conventional descriptor locations. It uses the common address-field interpretation and does not infer a verified chipset generation. Extra regions, permissions, density, straps, Boot Guard and other platform-specific settings are unvalidated.
 - VPD regions are limited to 2 MiB, 2,048 records, 256-byte keys and five-byte length encodings. The companion does not rewrite VPD or infer field semantics.
+- GBB inspection supports version 1.2 with a 128-byte header, at most 2 MiB per region and a 4 KiB HWID field. It does not authenticate or decode packed public keys, interpret boot-policy flags, or read CBFS identity records.
 - Neither input's target identity, independent-read provenance, authenticity, electrical configuration nor actual write-protect state can be established by this comparison. Even identical images cannot unlock flashing.
 
 The format references are [coreboot's FMAP documentation](https://doc.coreboot.org/lib/flashmap.html) and the pinned [ifdtool implementation](https://github.com/coreboot/coreboot/blob/f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9/util/ifdtool/ifdtool.c).
+
+GBB checks follow the [pinned vboot header](https://github.com/coreboot/vboot/blob/f691f7675d46c8f4726146803543a095b68477c5/firmware/2lib/include/2struct.h) and [HWID digest implementation](https://github.com/coreboot/vboot/blob/f691f7675d46c8f4726146803543a095b68477c5/futility/misc.c), at the gitlink revision recorded by the pinned coreboot tree. Their validation uses synthetic fixtures, not real-device identity migration.
 
 ## Reproduce the independent parser comparison
 

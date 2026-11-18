@@ -2,6 +2,12 @@
 
 Reviewed 17 November 2026. Indexed sources are not individually reviewed. Community reports are leads, not firmware authorization.
 
+## GBB HWID integrity differs from identity authentication
+
+The pinned vboot GBB 1.2 header stores a SHA-256 digest of the HWID string, excluding its terminator. LibreFren checks that digest and component boundaries, while retaining blockers for key trust, flag semantics, CBFS identity storage and physical-device binding. A matching checksum alone is not a safe migration rule.
+
+Evidence: official-reviewed. [Source](https://github.com/coreboot/vboot/blob/f691f7675d46c8f4726146803543a095b68477c5/futility/misc.c).
+
 ## VPD records can be compared without copying device values
 
 Google VPD 2.0 encodes length-prefixed key/value records and terminates with 0x00 or 0xff. The pinned coreboot reader locates its info header at offset 0 or 0x600 inside an FMAP VPD area. LibreFren compares bounded records using value hashes and lengths; this does not validate board-required fields, calibration semantics or migration compatibility.

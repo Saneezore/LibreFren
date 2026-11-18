@@ -24,7 +24,7 @@ python3 -m librefren
 - Dependency-free Python/curses interface; Libreboot website colours `#280b22` and `#4e324e`, keyboard navigation, search and scrollable instructions.
 - Advisory Linux DMI, architecture, PCI and device-tree detection without reading serial numbers or requesting root. Exact name candidates preserve suffixes; external targets are distinguished from the running host.
 - Inventory of 327 Libreboot targets, 78 RBoot targets and 930 coreboot board selectors at recorded revisions. These are build targets/selectors, not unique tested retail models.
-- Local full-text database of 770 upstream documents, 38 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
+- Local full-text database of 770 upstream documents, 39 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
 - Exact-target downloads for pinned Libreboot 26.11rev1 and RBoot 26.11rev2 releases, HTTPS origin restrictions, isolated GPG verification against the publisher fingerprint, bounded archive inspection, and receipts. Missing releases, targets or detached signatures stop the download; there is no automatic substitution.
 - Explicitly confirmed dependency installation from an unmodified, pinned lbmk/rbmk checkout. The upstream distribution profile is shown before sudo is invoked.
 - Pinned upstream source fetching without running build scripts; optional session logs for user-reported manual observations, which never unlock flashing.
@@ -34,6 +34,7 @@ python3 -m librefren
 - RBoot variant staging for inspection, with the original archive hash and publisher signature rechecked on a private snapshot. Prepared Libreboot variants also have their recorded archive hash rechecked before extraction.
 - Read-only backup/candidate layout comparisons inside the guided TUI: bounded FMAP parsing, region boundaries and hashes, missing or changed device-data regions, and common IFD region overlap checks. Reports remain local and never authorize a write. See [layout inspection](docs/layout-inspection.md) for scope and validation.
 - Google VPD 2.0 record comparisons inside the layout report, identifying missing/changed/added keys without displaying raw values. Unknown or malformed formats remain unresolved; records are never copied into a ROM.
+- GBB 1.2 component-boundary and HWID checksum checks, plus comparisons of identity hashes, key blobs and flags. Raw HWID/key values stay out of reports; checksum agreement does not authenticate hardware or a migration.
 - Detailed manual instructions for Chromebook preparation, CR50/Ti50, target identity, protected regions, recovery and custom-firmware handoffs. Other boards receive general steps and exact-identifier documentation references when available.
 - AppImage packaging and a GitHub Actions workflow which creates **draft prereleases** on version tags.
 

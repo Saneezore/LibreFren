@@ -11,7 +11,7 @@ import stat
 import struct
 
 from .safety import Refusal
-from . import vpd
+from . import gbb, vpd
 
 MAX_IMAGE = 128 * 1024**2
 FMAP_HEADER = struct.Struct('<8sBBQI32sH')
@@ -27,6 +27,8 @@ SOURCES = [
     'https://libreboot.org/docs/install/chromebooks-x86.html',
     vpd.SOURCE,
     vpd.COREBOOT_SOURCE,
+    gbb.SOURCE,
+    gbb.DIGEST_SOURCE,
 ]
 
 
@@ -182,6 +184,12 @@ def _inspect(data):
                 result['vpd'][name] = vpd.inspect_region(memoryview(data)[area['offset']:area['offset'] + area['size']])
             except Refusal as error:
                 result['vpd'][name] = {'status': 'unresolved', 'reason': str(error)}
+    area = result.get('fmap', {}).get('areas', {}).get('GBB')
+    if area:
+        try:
+            result['gbb'] = gbb.inspect_region(memoryview(data)[area['offset']:area['offset'] + area['size']])
+        except Refusal as error:
+            result['gbb'] = {'status': 'unresolved', 'reason': str(error)}
     return result
 
 
@@ -193,7 +201,7 @@ def compare_images(backup_path, candidate_path, context='general', expected_size
     original, candidate = _inspect(read_image(backup_path)), _inspect(read_image(candidate_path))
     blockers = ['Physical target identity, backup completeness and candidate provenance are not certified by a layout comparison.',
                 'No qualified board/release flashing profile; matching layout never authorizes a write.']
-    rows, vpd_rows = [], []
+    rows, vpd_rows, gbb_rows = [], [], []
     if original['bytes'] != candidate['bytes']:
         blockers.append('Image sizes differ. Partial dumps and full-chip images cannot be interchanged.')
     if expected_size is not None:
@@ -234,7 +242,7 @@ def compare_images(backup_path, candidate_path, context='general', expected_size
         if kind == 'fmap' and context == 'chromebook':
             if 'RO_VPD' not in old or 'RO_VPD' not in new:
                 blockers.append('RO_VPD is absent from at least one Chromebook FMAP; identity-data preservation remains unresolved.')
-            blockers.append('HWID may be stored in GBB or CBFS. This check does not decode HWID or validate VPD field meanings, GBB keys, MRC compatibility, calibration or Google Security Chip state.')
+            blockers.append('HWID may be stored in GBB or CBFS. GBB checksum comparison does not authenticate hardware identity. CBFS HWID, VPD field meanings, GBB keys, MRC compatibility, calibration and Google Security Chip state remain unvalidated.')
     for name in ('RO_VPD', 'RW_VPD'):
         old, new = original['vpd'].get(name), candidate['vpd'].get(name)
         if not old and not new:
@@ -250,8 +258,22 @@ def compare_images(backup_path, candidate_path, context='general', expected_size
                 vpd_rows.append(dict(row, region=name))
                 if row['status'] != 'unchanged':
                     blockers.append(f'{name} record {row["key"]}: {row["status"]}. Device-data preservation requires a reviewed board-specific procedure.')
+    old, new = original.get('gbb'), candidate.get('gbb')
+    if old or new:
+        for role, info in (('backup', old), ('candidate', new)):
+            if not info or info['status'] == 'unresolved':
+                reason = info['reason'] if info else 'GBB is absent; HWID may use another storage format such as CBFS.'
+                blockers.append(f'GBB {role}: identity evidence unresolved. {reason}')
+        if old and new and all(info['status'] == 'identity-evidence-only' for info in (old, new)):
+            for name, a, b in [('hwid', old['hwid'], new['hwid']), ('flags', old['flags'], new['flags'])] + [
+                    (field, old['components'][field], new['components'][field]) for field in ('root_key', 'recovery_key')]:
+                status = 'absent' if a is None and b is None else 'changed' if a != b else 'unchanged'
+                gbb_rows.append({'field': name, 'status': status})
+                if status != 'unchanged':
+                    blockers.append(f'GBB {name}: {status}; board-specific identity, key and boot-policy review is required.')
     return {'status': 'layout-evidence-only', 'context': context, 'expected_target_bytes': expected_size, 'backup': original, 'candidate': candidate,
-            'regions': rows, 'vpd_records': vpd_rows, 'blockers': list(dict.fromkeys(blockers)), 'sources': SOURCES, 'flash_approved': False}
+            'regions': rows, 'vpd_records': vpd_rows, 'gbb_fields': gbb_rows,
+            'blockers': list(dict.fromkeys(blockers)), 'sources': SOURCES, 'flash_approved': False}
 
 
 def format_report(report):
@@ -271,5 +293,9 @@ def format_report(report):
         lines += ['', 'VPD record comparison — raw values are not displayed:']
         for row in report['vpd_records']:
             lines.append(f'{row["region"]} / {row["key"]}: {row["status"]}')
+    if report.get('gbb_fields'):
+        lines += ['', 'GBB fields — HWID values and key bytes are not displayed:']
+        for row in report['gbb_fields']:
+            lines.append(f'GBB {row["field"]}: {row["status"]}')
     lines += ['', 'Unresolved requirements:', *report['blockers'], '', 'References:', *report['sources']]
     return '\n\n'.join(lines)
