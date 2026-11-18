@@ -30,7 +30,7 @@ class ProvenanceTests(unittest.TestCase):
         with self.assertRaises(Refusal):
             inject('rboot', 'anything', '', '', 'random', 'PREPARE anything', '')
 
-    def test_coreboot_cannot_use_unreviewed_build_executor(self):
+    def test_coreboot_cannot_use_distribution_preparation_executor(self):
         with self.assertRaises(Refusal):
             checked_source('coreboot', '/')
 

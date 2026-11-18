@@ -24,7 +24,7 @@ python3 -m librefren
 - Dependency-free Python/curses interface; Libreboot website colours `#280b22` and `#4e324e`, keyboard navigation, search and scrollable instructions.
 - Advisory Linux DMI, architecture, PCI and device-tree detection without reading serial numbers or requesting root. Exact name candidates preserve suffixes; external targets are distinguished from the running host.
 - Inventory of 327 Libreboot targets, 78 RBoot targets and 930 coreboot board selectors at recorded revisions. These are build targets/selectors, not unique tested retail models.
-- Local full-text database of 770 upstream documents, 34 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
+- Local full-text database of 770 upstream documents, 37 curated findings, 2,917 discovered reference URLs and 1,271 warning/TODO review locations. Indexed, reviewed and merely discovered evidence have different labels.
 - Exact-target downloads for pinned Libreboot 26.11rev1 and RBoot 26.11rev2 releases, HTTPS origin restrictions, isolated GPG verification against the publisher fingerprint, bounded archive inspection, and receipts. Missing releases, targets or detached signatures stop the download; there is no automatic substitution.
 - Explicitly confirmed dependency installation from an unmodified, pinned lbmk/rbmk checkout. The upstream distribution profile is shown before sudo is invoked.
 - Pinned upstream source fetching without running build scripts; optional session logs for user-reported manual observations, which never unlock flashing.

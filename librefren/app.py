@@ -527,7 +527,7 @@ class TUI:
             raise Refusal('Select an exact target first.')
         project, target = self.selected['project'], self.selected['id']
         if action is None:
-            action = self.menu('Preparation — outputs remain unqualified for flashing', ['Install build dependencies', 'Prepare authenticated Libreboot archive', 'Select and extract a prepared variant', 'coreboot settings and build guidance', 'Fetch the pinned upstream source'])
+            action = self.menu('Preparation — outputs remain unqualified for flashing', ['Install build dependencies', 'Prepare authenticated Libreboot archive', 'Select and extract a prepared variant', 'Configure and build coreboot', 'Fetch the pinned upstream source'])
         if action is None:
             return
         if action == 4:

@@ -89,7 +89,7 @@ def fetch_source(project, directory):
 
 def checked_source(project, source):
     if project not in REPOS:
-        raise Refusal('coreboot configuration/build execution needs a reviewed board baseline; see the manual guide.')
+        raise Refusal('Use the separate coreboot workspace workflow. This preparation executor only accepts Libreboot and RBoot sources.')
     source = Path(source).resolve(strict=True)
     expected = json.loads((DATA / 'revisions.json').read_text())[REPOS[project]]
     current = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
