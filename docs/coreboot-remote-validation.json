@@ -1,0 +1,17 @@
+{
+  "repository": "Saneezore/LibreFren",
+  "run_id": "44238863124",
+  "run_url": "https://github.com/Saneezore/LibreFren/actions/runs/44238863124",
+  "head_sha": "a69427e39e5d097120881690bb5d3a353b1dba33",
+  "request_id": "8bf847e66c8e41d7857dafaba4491532",
+  "target": "BOARD_EMULATION_QEMU_X86_I440FX",
+  "revision": "f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9",
+  "config_sha256": "4ea2002884afbea63afad691fd502d09442ac87c971292d2c8c7f42e6a1da0d0",
+  "allow_blobs": false,
+  "sha256": "5acec22e329f4c3eb35651d53952e4dc2d775ccde3c65827ad15e1956348d904",
+  "size": 4194304,
+  "artifact_sha256": "944dd02a7795673e2d027ea7e73621c7198e8caaa0e715ad0c7921f030eaad1b",
+  "flash_approved": false,
+  "scope": "One emulated target; actual dispatch, toolchain/ROM build, GitHub CLI artifact download and local provenance/configuration verification. No physical qualification.",
+  "status": "remote-build-and-download-verified"
+}

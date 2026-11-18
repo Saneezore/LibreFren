@@ -32,6 +32,8 @@ Choose the exact target and whether to permit upstream binary repositories. Revi
 
 Only target/build choices and a random request identifier are sent to GitHub. Backups, device identities and local firmware data stay on the device. Build logs and artifacts follow repository access rules and expire after seven days. Actions executes the reviewed repository code and downloads upstream dependencies: use a trusted repository. A successful run and matching hashes are provenance evidence, not hardware qualification or reproducibility certification.
 
+The [recorded emulation build](coreboot-remote-validation.json) exercised dispatch, toolchain/ROM compilation, download through GitHub CLI and local artifact/configuration verification successfully. This covers one emulated target, not physical board qualification.
+
 Requests are saved before dispatch. **Resume / inspect a saved request** works after restarting the app and filters requests by selected target. Refresh shows status and the GitHub run link. Closing the TUI leaves remote work running; explicit cancellation requires confirmation of the run ID. After a network failure, inspect the saved request before starting another build: GitHub might already have accepted the dispatch.
 
 Download checks bind the run to the reviewed commit, workflow, repository and unique request. The archive must match GitHub's SHA-256 digest and contain exactly the receipt, configuration and candidate ROM. The receipt must match the target, source revision and binary-dependency choice; configuration/image hashes, board selectors and ROM capacity are checked again. Files become session candidates only after these checks pass, and flashing stays blocked. No release is published by this workflow.

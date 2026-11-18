@@ -61,12 +61,13 @@ class RemoteTests(unittest.TestCase):
         self.assertFalse((self.root / 'UNQUALIFIED-coreboot.rom').exists())
 
     def test_preflight_checks_write_access_workflow_and_pinned_source(self):
-        info = {'permissions': {'push': True}, 'default_branch': 'main'}
+        info = {'full_name': 'example/LibreFren', 'permissions': {'push': True}, 'default_branch': 'main'}
         workflow = {'id': 123, 'state': 'active', 'path': '.github/workflows/' + remote.WORKFLOW}
         pins = {'encoding': 'base64', 'type': 'file', 'content': base64.b64encode(
             json.dumps({'coreboot': self.request['coreboot_revision']}).encode()).decode()}
         with patch.object(remote.GitHub, 'api', side_effect=[info, {'sha': 'a' * 40}, workflow, pins]) as api:
-            result = remote.plan('example/LibreFren', TARGET, False)
+            result = remote.plan('example/librefren', TARGET, False)
+            self.assertEqual(result['repository'], 'example/LibreFren')
             self.assertEqual(result['coreboot_revision'], self.request['coreboot_revision'])
             self.assertEqual(result['head_sha'], 'a' * 40)
             self.assertIn('ref=' + 'a' * 40, api.call_args.args[0])

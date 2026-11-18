@@ -30,3 +30,9 @@ The dependency and preparation runner is opt-in and invokes pinned upstream code
 Obtain independent firmware-engineer review, reproducible signed fixtures and tests for wrong-model/suffix/PCB/architecture substitutions. Validate descriptor/FMAP overlap handling, vendor-file presence/content, region preservation, multi-chip layouts, corrupted downloads, signature/key rollover, source mutation, interrupted preparation, cancellation, stale sessions and disk exhaustion. Test successful boot, repeated cold/warm boot, RAM, display, storage, network, thermals, charging and sleep/resume on actual recoverable hardware. Test recovery too.
 
 Do not infer support for all models from a sample that boots. Record test coverage separately for every qualified board/release/configuration. No amount of unit testing can establish electrical correctness for an unexamined physical target.
+
+## Remote build boundary
+
+GitHub Actions is an optional build backend. A request identifies the repository, reviewed application commit, pinned coreboot revision, exact target and binary-dependency policy. The TUI presents these before dispatch. It saves a unique request ID before the network mutation so an uncertain response can be inspected without silently starting duplicate work. The remote workflow accepts no uploaded configuration, firmware backup or vendor file.
+
+Downloaded candidates require a successful matching workflow run, GitHub artifact digest, exact archive contents, matching receipt fields, configuration and image hashes, and a fresh board-selector/policy/capacity audit. Repository code and upstream build inputs remain part of the trust boundary; these checks are not independent attestation or proof of bootability. A verified cloud artifact remains unqualified and does not satisfy the physical flashing gate.

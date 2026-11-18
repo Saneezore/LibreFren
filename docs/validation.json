@@ -28,5 +28,7 @@
   "vpd_records_compared": 224,
   "gbb_validation": "Synthetic GBB 1.2 header, HWID checksum, component-boundary and comparison tests; no real-device migration",
   "coreboot_emulation_check": "coreboot-emulation-validation.json",
-  "coreboot_full_rom_builds_compiled": 1
+  "coreboot_full_rom_builds_compiled": 2,
+  "coreboot_remote_check": "coreboot-remote-validation.json",
+  "coreboot_remote_build_and_download_verified": true
 }

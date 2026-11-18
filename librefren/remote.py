@@ -109,6 +109,10 @@ def plan(repo, target, allow_blobs):
     info = client.api('')
     if info.get('archived') or not info.get('permissions', {}).get('push'):
         raise Refusal('This repository is archived or you lack write access. Use your own LibreFren fork with Actions enabled.')
+    canonical = repository(info.get('full_name'))
+    if canonical.lower() != client.repo.lower():
+        raise Refusal('This repository was renamed or redirected. Review and enter its current owner/name: ' + canonical)
+    client.repo = canonical
     branch = info.get('default_branch', '')
     # A fixed branch route avoids arbitrary URL and ref interpretation.
     if not re.fullmatch(r'[A-Za-z0-9_.-]+', branch):
