@@ -1,0 +1,17 @@
+{
+  "run_url": "https://github.com/Saneezore/LibreFren/actions/runs/44234928621",
+  "application_commit": "6f54d04e3b1403a3d16098feb8682fa88074ce02",
+  "target": "BOARD_EMULATION_QEMU_X86_I440FX",
+  "coreboot_revision": "f13a6c7a61a761559d719f2b2e2a0ae1f43ddeb9",
+  "toolchain_completed": true,
+  "rom_compiled": true,
+  "image_sha256": "5acec22e329f4c3eb35651d53952e4dc2d775ccde3c65827ad15e1956348d904",
+  "image_size": 4194304,
+  "coreboot_ramstage": true,
+  "seabios_started": true,
+  "no_boot_device": false,
+  "boot_check_passed": false,
+  "hardware_qualified": false,
+  "flash_approved": false,
+  "limitation": "The emulator stopped progressing at the boot menu; compilation and payload entry are not a completed boot test."
+}

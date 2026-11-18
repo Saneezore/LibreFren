@@ -19,7 +19,7 @@ from .releases import RELEASES, archive_name, fetch
 from .prepare import dependencies, fetch_source, inject, stage_variant
 from .layouts import compare_images, format_report
 from .session import Session
-from . import coreboot
+from . import coreboot, remote
 from .safety import Refusal, check_backups, detect, exact_candidates, flash_gate, inspect_variants
 
 DATA = Path(__file__).parent / "data"
@@ -417,6 +417,90 @@ class TUI:
         result = self.terminal_job(lambda: coreboot.install_dependencies(profile, confirmation, log))
         self.view('Dependency installer completed', 'Command receipt: ' + result['log'])
 
+    def remote_build(self):
+        target = self.selected['id']
+        directory = state_directory() / 'remote-requests'
+        while True:
+            action = self.menu('GitHub Actions · ' + target, [
+                'Start a remote build', 'Resume / inspect a saved request',
+                'Setup, privacy and usage instructions', 'Back'])
+            if action is None or action == 3:
+                return
+            try:
+                if action == 2:
+                    self.view('GitHub Actions setup', remote.HELP)
+                    continue
+                if action == 0:
+                    self.view('Build on GitHub Actions', remote.HELP)
+                    repo = self.prompt('Repository owner/name (your LibreFren repository or fork)')
+                    if not repo:
+                        continue
+                    choice = self.menu('Permit upstream binary repositories?',
+                                       ['No', 'Yes — review upstream licenses and board requirements'])
+                    if choice is None:
+                        continue
+                    request = self.background_job('Check repository and workflow', lambda: remote.plan(repo.strip(), target, choice == 1))
+                    self.view('Review remote build request',
+                              json.dumps(request, indent=2) + '\n\nThis runs upstream default settings on GitHub and consumes Actions resources. Hardware options remain locked. The artifact is for inspection only. Repository code at the displayed commit is trusted to run the build; inspect your fork before proceeding. Closing LibreFren leaves the remote job running.')
+                    confirmation = self.prompt('Type BUILD ON GITHUB ' + target)
+                    if confirmation != 'BUILD ON GITHUB ' + target:
+                        continue
+                    path = self.background_job('Dispatch remote build', lambda: remote.dispatch(request, confirmation, directory))
+                else:
+                    saved = []
+                    for path in sorted(directory.glob('*.json'), key=lambda p: p.stat().st_mtime, reverse=True)[:100]:
+                        try:
+                            request = remote.load_request(path)
+                            if request['target'] == target:
+                                saved.append((path, request))
+                        except (Refusal, OSError, ValueError, KeyError, TypeError):
+                            continue
+                    if not saved:
+                        self.view('No saved requests for this target', 'Start a remote build first. Requests remain available after restarting LibreFren.')
+                        continue
+                    selected = self.menu('Choose a saved remote request',
+                                         [r['repository'] + ' · ' + r['request_id'][:12] + ' · ' + r['status'] for _, r in saved])
+                    if selected is None:
+                        continue
+                    path, request = saved[selected]
+                self.remote_request(request, path)
+            except (Refusal, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
+                self.view('Remote build stopped', str(error) + '\n\nCheck saved requests and GitHub Actions before retrying a dispatch. A network failure can occur after GitHub has accepted it.')
+
+    def remote_request(self, request, path):
+        while True:
+            action = self.menu('Remote build · ' + request['status'], [
+                'Refresh run status', 'Review request and GitHub link',
+                'Download and inspect completed candidate', 'Cancel remote build',
+                'Back (leave remote build running)'])
+            if action is None or action == 4:
+                return
+            if action == 0:
+                self.background_job('Refresh GitHub run', lambda: remote.refresh(request, path))
+                self.view('Remote build status', json.dumps(request, indent=2))
+            elif action == 1:
+                self.view('Remote request · flashing remains blocked', json.dumps(request, indent=2)
+                          + '\n\nWorkflow and logs: https://github.com/' + request['repository'] + '/actions/workflows/' + remote.WORKFLOW
+                          + '\n\nSaved request: ' + str(path))
+            elif action == 2:
+                if request['target'] != self.selected['id']:
+                    raise Refusal('This remote build belongs to another selected target.')
+                self.selected_variant = self.layout_report = None
+                result = self.background_job('Download and validate remote artifact',
+                    lambda: remote.download(request, path, state_directory() / 'coreboot-remote'))
+                self.selected_variant = result
+                if self.session is None:
+                    self.session = Session(state_directory() / 'sessions')
+                self.session.record('coreboot-remote-candidate', result)
+                self.view('Candidate downloaded · flashing remains blocked', json.dumps(result, indent=2))
+            elif action == 3:
+                self.background_job('Identify remote run to cancel', lambda: remote.refresh(request, path))
+                confirmation = self.prompt('Type CANCEL ' + str(request['run_id']))
+                if confirmation != 'CANCEL ' + str(request['run_id']):
+                    continue
+                self.background_job('Request remote cancellation', lambda: remote.cancel(request, path, confirmation))
+                self.view('Cancellation requested', 'Refresh to confirm GitHub has stopped the run. Closing this window alone does not cancel it.')
+
     def coreboot_build(self):
         if self.selected['project'] != 'coreboot':
             raise Refusal('Select an exact coreboot target to use the source build workflow.')
@@ -431,11 +515,13 @@ class TUI:
                 'Review locked configuration' + (' [available]' if workspace else ''),
                 f'Choose build parallelism [{jobs} job(s)]',
                 'Build pinned upstream cross-toolchain',
-                'Compile an unqualified image', 'Back'])
-            if action is None or action == 7:
+                'Compile an unqualified image', 'Build on GitHub Actions / resume remote build', 'Back'])
+            if action is None or action == 8:
                 return
             try:
-                if action == 0:
+                if action == 7:
+                    self.remote_build()
+                elif action == 0:
                     self.view('coreboot build requirements', '\n\n'.join(coreboot.LIMITATIONS)
                               + '\n\nFetch the pinned source, install host dependencies, create a fresh configuration, review it, build its cross-toolchain, then compile. Expect substantial disk use and long builds. Esc cancels a running operation. Hardware settings are locked. Changing the binary-dependency choice requires a new workspace.\n\nFor missing vendor files or unsupported defaults, follow the exact board documentation; LibreFren will retain logs and stop.\n\n' + coreboot.DOCUMENTATION)
                 elif action == 1:

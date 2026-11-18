@@ -36,6 +36,7 @@ python3 -m librefren
 - Google VPD 2.0 record comparisons inside the layout report, identifying missing/changed/added keys without displaying raw values. Unknown or malformed formats remain unresolved; records are never copied into a ROM.
 - GBB 1.2 component-boundary and HWID checksum checks, plus comparisons of identity hashes, key blobs and flags. Raw HWID/key values stay out of reports; checksum agreement does not authenticate hardware or a migration.
 - Detailed manual instructions for Chromebook preparation, CR50/Ti50, target identity, protected regions, recovery and custom-firmware handoffs. Other boards receive general steps and exact-identifier documentation references when available.
+- Local coreboot build controls and optional GitHub Actions builds from the TUI, with saved requests, status/cancellation, and verified candidate downloads. See [build instructions](docs/coreboot-builds.md). Outputs remain unqualified.
 - AppImage packaging and a GitHub Actions workflow which creates **draft prereleases** on version tags.
 
 ## Deliberately unresolved

@@ -105,6 +105,33 @@ class TuiTests(unittest.TestCase):
         self.assertIsNone(app.selected_variant)
         self.assertIsNone(app.layout_report)
 
+    def test_remote_build_is_reachable_without_local_configuration(self):
+        app = interface()
+        app.selected = {'project': 'coreboot', 'id': 'BOARD_EMULATION_QEMU_X86_I440FX'}
+        app.menu = Mock(side_effect=[7, None])
+        app.remote_build = Mock()
+        app.coreboot_job = Mock()
+        app.coreboot_build()
+        app.remote_build.assert_called_once_with()
+        app.coreboot_job.assert_not_called()
+
+    def test_remote_download_failure_discards_stale_candidate(self):
+        app = interface()
+        app.selected = {'project': 'coreboot', 'id': 'BOARD_EMULATION_QEMU_X86_I440FX'}
+        app.menu = Mock(return_value=2)
+        app.background_job = Mock(side_effect=Refusal('Artifact hash mismatch'))
+        with self.assertRaises(Refusal):
+            app.remote_request({'target': app.selected['id'], 'status': 'completed'}, Path('/request'))
+        self.assertIsNone(app.selected_variant)
+        self.assertIsNone(app.layout_report)
+
+    def test_leaving_remote_request_does_not_cancel_it(self):
+        app = interface()
+        app.menu = Mock(return_value=None)
+        app.background_job = Mock()
+        app.remote_request({'status': 'in_progress'}, Path('/request'))
+        app.background_job.assert_not_called()
+
     def test_changed_staged_variant_cannot_be_recorded_as_session_candidate(self):
         app = interface()
         app.selected_variant = {'path': '/candidate', 'sha256': 'a' * 64}
